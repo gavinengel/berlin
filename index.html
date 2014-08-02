@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>PHP API accessed with JavaScript</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> 
+
+  </head>
+  <body>
+
+    <script>
+var req = new XMLHttpRequest();
+req.open('GET', document.location, false);
+req.send(null);
+var headers = req.getAllResponseHeaders().toLowerCase();
+console.log(headers);
+</script>
+
+
+    <h1>Calendar Manager</h1>
+    <form action="req_calman.php" method="post">
+      <p>Event name: <input type="text" name="eventname" /></p>
+      <p>Event description: <input type="text" name="eventdesc" /></p>
+      <p>Event date (MM/DD/YYYY): <input type="text" name="eventdate"></p>
+      <input type="submit" name="submit" value="Submit" />
+    </form>
+  </body>
+</html>
