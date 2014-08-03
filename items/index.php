@@ -19,16 +19,53 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
        
        //get request method
       $method = $_SERVER['REQUEST_METHOD'];
-      echo ('method: '. $method);
+      echo ('<p>method: '. $method.'</p>');
+
+      // IF METHOD IS GET SHOW ALL ITEMS
+      if ($method=="GET"){
+        echo("get all items");
 
 
-      
+        //connect to items db
+         try {
+              $dbh = new PDO('mysql:host=localhost;port=3306;dbname=inventory', 'root', '', array( PDO::ATTR_PERSISTENT => false));
+          } catch (PDOException $e) {
+              print "Error!: " . $e->getMessage() . "<br/>";
+              die();
+          }    
+        
+          $sql = "select i.item_name, i.item_desc from items i, item_properties ip where i.item_id = ip.fk_item_id";
+          foreach ($dbh->query($sql) as $results){
+                     echo $results["item_name"];
+            }
 
+        }//end GET
+/*
+          // prepare and insert item
+          $sqlget = "select i.item_name, i.item_desc from items i, item_properties ip where i.item_id = ip.fk_item_id";
+          echo $sqlget;
+          $stmt = $dbh->prepare($sqlget);
+          $stmt->execute();
+            echo "<B>retrieving...</B><BR>";
+             while ($rs = $stmt->fetch($sqlget)) {
+                  echo "output: ".$rs->i.item_name."<BR>";
+              }
+              echo "<BR><B>".date("r")."</B>";
+
+
+          while ($rs = mysql_fetch_array($result, MYSQL_NUM)) {
+          printf("ID: %s  Name: %s", $row[0], $row[1]);  
+          }
+      }
+
+  */   
+
+        
 
 
        // IF METHOD IS POST ADD ITEM TO DB
-       if ($method = "POST")
-       echo('seup the insert');
+       if ($method == "POST") {
+        echo('seup the insert');
 
 
         //get values
@@ -86,7 +123,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
               die();
           }
 
-
+        } // end POST
 
     ?>
 
