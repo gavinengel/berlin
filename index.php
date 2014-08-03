@@ -34,7 +34,7 @@
     <h1 class="calign">Inventory Admin</h1>
 
 
-      <form action="req_calman.php" method="post">
+      <form action="items/" method="post">
 
         <table class="table" id="additem" width="400px;">
 
@@ -51,19 +51,19 @@
           <tbody>
             <tr>
               <td>Item Name:  </td>
-              <td> <input type="text" id="name" placeholder="Item Name"></td>
+              <td> <input type="text" name="name" placeholder="Item Name"></td>
             </tr>
             <tr>
               <td>Description: </td>
-              <td> <input type="text" id="description" placeholder="Description"></td>
+              <td> <input type="text" name="description" placeholder="Description"></td>
             </tr>
             <tr>
               <td>Quantity: </td>
-              <td> <input type="text" id="quantity" placeholder="Quantity"></td>
+              <td> <input type="text" name="quantity" placeholder="Quantity"></td>
             </tr>
             <tr>
               <td>Price: </td>
-              <td> <input type="text" id="price" placeholder="Price"></td>
+              <td> <input type="text" name="price" placeholder="Price"></td>
             </tr>                        
             <tr>
               <td colspan=2 class="calign"><button type="submit" class="btn btn-success btn-lg">Add</span> 
@@ -71,6 +71,7 @@
               </tr>
           </tbody>
         </table>
+      </form>
        </div> 
     </div>
   </body>

@@ -19,12 +19,41 @@ console.log(headers);
 
 <?php
   
-   $postdata = file_get_contents("php://input");
-   echo('<h1>postdata</h1><p>'.$postdata.'</p>');
-   print_r($_SERVER);
-   echo("First name: " . $_POST['eventname'] . "<br />\n");
-   echo("Last name: " . $_POST['eventdesc'] . "<br />\n");
-   echo("Event date: " . $_POST['eventdate'] . "<br />\n");
+  
+   echo('<h1>postdata</h1><p>');
+   //print_r($_SERVER);
+    if (isset($_POST['eventname']))   
+      echo("event name: " . $_POST['eventname'] . "<br />\n");
+    if (isset($_POST['eventdesc']))   
+      echo("event date: " . $_POST['eventdesc'] . "<br />\n");
+    if (isset($_POST['eventdate']))   
+      echo("Event date: " . $_POST['eventdate'] . "<br />\n");
+    if (isset($_POST['firstname']))   
+      echo("last name: " . $_POST['lastname'] . "<br />\n");
+   
+
+
+    try {
+        $dbh = new PDO('mysql:host=localhost;port=3306;dbname=inventory', 'root', '', array( PDO::ATTR_PERSISTENT => false));
+
+        $stmt = $dbh->prepare("CALL getname()");
+
+        // call the stored procedure
+        $stmt->execute();
+
+        echo "<B>outputting...</B><BR>";
+        while ($rs = $stmt->fetch(PDO::FETCH_OBJ)) {
+            echo "output: ".$rs->name."<BR>";
+        }
+        echo "<BR><B>".date("r")."</B>";
+    
+    } catch (PDOException $e) {
+        print "Error!: " . $e->getMessage() . "<br/>";
+        die();
+    }
+
+
+
 ?>
 
 
