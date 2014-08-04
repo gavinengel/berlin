@@ -26,23 +26,23 @@ if ($method=="GET"){
   $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
   $pathFragments = explode('/items/', $path);
   $end = end($pathFragments);
-  $suffix =" order by item_id";
-  if ($end <> ""){
-    $suffix=" where item_id=".$end . " " .$suffix;
- 
-  }
-   echo $suffix;
+  
 
   $dbh = connectDB();
+    $data = "";
 
-    $json = [];
-
-    $sql = "select item_id from items".$suffix;
+    $sql = "select item_id from items";
     foreach ($dbh->query($sql) as $results){
-               $json[$results["item_id"]] = 'http://localhost/items/'.$results["item_id"];
-              
+        
+        $data .= "'". $results["item_id"]."': {'itemid':'".$results["item_id"]."', 'url': 'href://localhost/jsphp/items/".$results["item_id"]."/'},";
+      
+
       }
-      echo (json_encode($json));
+    echo $data;
+
+               //$json[$results["item_id"]] = 'http://localhost/items/'.$results["item_id"];
+              
+    
       //html_entity_decode
 
   }
@@ -57,42 +57,35 @@ if ($method=="GET"){
 
        // IF METHOD IS POST ADD ITEM TO DB
        if ($method == "POST") {
-        echo('seup the insert');
 
 
         //get values
         if (isset($_POST['name'])) {  
          $name=$_POST['name'];
-          echo("name: " . $name . "<br />\n");
         }
 
         if (isset($_POST['description']))  { 
           $description =  $_POST['description'];      
-          echo("description: " . $description . "<br />\n");
         }
 
         if (isset($_POST['quantity'])) {
-          $quantity =  $_POST['quantity'];  
-          echo("quantity: " . $quantity . "<br />\n");  
+          $quantity =  $_POST['quantity'];            echo("quantity: " . $quantity . "<br />\n");  
         }
 
         if (isset($_POST['price'])){
           $price =  $_POST['price'];  
-          echo("price: " . $price . "<br />\n");  
         }
      
         //create db connection to localhost/items
               $dbh = connectDB();
               // prepare and insert item
               $sqlinserti = "INSERT into items (item_name, item_desc) values('".$name."','".$description."')";
-              echo $sqlinserti;
               $stmt = $dbh->prepare($sqlinserti);
               $stmt->execute();
 
 
               // prepare and insert item properties
               $sqlinsertip ="INSERT into item_properties (fk_item_id, quantity, price) values ((select max(item_id) from items), '".$quantity."',".$price.")";
-              echo $sqlinsertip;
               $stmt = $dbh->prepare($sqlinsertip);
               $stmt->execute();
 
@@ -100,7 +93,7 @@ if ($method=="GET"){
               
               //insert into items (item_name, item_desc) values ('novel', 'the sun also rises');
 
-              echo "<B>inserting...</B><BR>";
+              echo "{id: 80, href: 'http://localhost/jsphp/items/80'}";
             /* while ($rs = $stmt->fetch(PDO::FETCH_OBJ)) {
                   echo "output: ".$rs->name."<BR>";
               }

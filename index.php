@@ -5,40 +5,44 @@
     <title>Inventory Admin</title>
 
 
-     <script src="scripts/items.js"></script>
+    <script src="scripts/items.js"></script>
 
-<style>
- #main{
-  padding: 3em;
- }
- #additem{
-  width=50%;
-  background-color: #eeeeee;
- }
- 
- .calign{
-  text-align: center;
- }
+    <style>
+     #main{
+      padding: 3em;
+      }
+     
+     td { 
+          padding: 3px;
 
- .formadd{
-  width: 50%;
- }
+         }
+
+        table { 
+          border-spacing: 10px;
+          border-collapse: separate;
+          background-color: #eeeeee;
+          }
+     
+     .formtable{
+      width=50%;
+      
+      }
+     
 
 
- </style>
+    </style>
   </head>
   <body>
     <div id="main">
-
-    <div class="formadd">
-    <h1 class="calign">Inventory Admin</h1>
-
-      <h2>Add Item</h2>
-      <form action="items/" method="post">
-
-        <table class="table" id="additem" width="400px;">
-
-
+      <div >
+        <h1 class="calign">Inventory Admin</h1>
+        <div> <input type=button id=showinventory onclick="getItems();" value="Show Items"></div>
+        <div id=showcase>inventory will appear here</div> 
+         
+        <h2>Add Item</h2>
+        
+        <!-- add item -->
+        <table class="formtable table" id="additem" width="400px;">
           <thead>
             <tr>
               <th scope="col">Name</th>
@@ -47,28 +51,29 @@
           </thead>
             
 
-
           <tbody>
             <tr>
               <td>Item Name:  </td>
-              <td> <input type="text" name="name" placeholder="Item Name"></td>
+              <td> <input id="addname" name="addname" placeholder="Item Name"></td>
             </tr>
             <tr>
               <td>Description: </td>
-              <td> <input type="text" name="description" placeholder="Description"></td>
+              <td> <input id="adddescription" name="adddescription" placeholder="Description"></td>
             </tr>
             <tr>
               <td>Quantity: </td>
-              <td> <input type="text" name="quantity" placeholder="Quantity"></td>
+              <td> <input id="addquantity" name="addquantity" placeholder="Quantity"></td>
             </tr>
             <tr>
               <td>Price: </td>
-              <td> <input type="text" name="price" placeholder="Price"></td>
+              <td> <input id="addprice" name="addprice" placeholder="Price"></td>
             </tr>                        
             <tr>
-              <td colspan=2 class="calign"><button type="submit">Add</span> 
-</button> </td>
-              </tr>
+              <td colspan=2><input type="submit" value="Add Item" onClick="javascript:addItem();"></td>
+            </tr>
+            <tr>
+              <td colspan=2 id=addstatus></td>
+            </tr>
           </tbody>
         </table>
       </form>
