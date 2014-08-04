@@ -1,6 +1,7 @@
 <?php
 
 
+
 function connectDB(){
 
   try {
@@ -12,19 +13,31 @@ function connectDB(){
   return($dbh);
 } 
 
-
-
-
-
-// ************************************** GET ALL *******************************
+$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $method = $_SERVER['REQUEST_METHOD'];
 
+
+// ************************************** GET *******************************
+
+
 if ($method=="GET"){
-  connectDB();
+
+ 
+  $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+  $pathFragments = explode('/items/', $path);
+  $end = end($pathFragments);
+  $suffix =" order by item_id";
+  if ($end <> ""){
+    $suffix=" where item_id=".$end . " " .$suffix;
+ 
+  }
+   echo $suffix;
+
+  $dbh = connectDB();
 
     $json = [];
 
-    $sql = "select item_id from items order by item_id";
+    $sql = "select item_id from items".$suffix;
     foreach ($dbh->query($sql) as $results){
                $json[$results["item_id"]] = 'http://localhost/items/'.$results["item_id"];
               
