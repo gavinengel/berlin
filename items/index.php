@@ -1,66 +1,45 @@
 <?php
-header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
-header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
-?>
-<html>
-  <head>
-    <meta charset="utf-8">
-
-    <title>Item Processor</title>
-
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> 
-  
-  </head>
-  <body>
-
-    <h1>Item Processor</h1>
-
-      <?php
-       
-       //get request method
-      $method = $_SERVER['REQUEST_METHOD'];
-      echo ('<p>method: '. $method.'</p>');
-
-      // IF METHOD IS GET SHOW ALL ITEMS
-      if ($method=="GET"){
-        echo("get all items");
 
 
-        //connect to items db
-         try {
-              $dbh = new PDO('mysql:host=localhost;port=3306;dbname=inventory', 'root', '', array( PDO::ATTR_PERSISTENT => false));
-          } catch (PDOException $e) {
-              print "Error!: " . $e->getMessage() . "<br/>";
-              die();
-          }    
-        
-          $sql = "select i.item_name, i.item_desc from items i, item_properties ip where i.item_id = ip.fk_item_id";
-          foreach ($dbh->query($sql) as $results){
-                     echo $results["item_name"];
-            }
+function connectDB(){
 
-        }//end GET
-/*
-          // prepare and insert item
-          $sqlget = "select i.item_name, i.item_desc from items i, item_properties ip where i.item_id = ip.fk_item_id";
-          echo $sqlget;
-          $stmt = $dbh->prepare($sqlget);
-          $stmt->execute();
-            echo "<B>retrieving...</B><BR>";
-             while ($rs = $stmt->fetch($sqlget)) {
-                  echo "output: ".$rs->i.item_name."<BR>";
-              }
-              echo "<BR><B>".date("r")."</B>";
+  try {
+    $dbh = new PDO('mysql:host=localhost;port=3306;dbname=inventory', 'root', '', array( PDO::ATTR_PERSISTENT => true));
+  } catch (PDOException $e) {
+    echo "Error!: " . $e->getMessage() . "<br/>";
+    die();
+  }
+  return($dbh);
+} 
 
 
-          while ($rs = mysql_fetch_array($result, MYSQL_NUM)) {
-          printf("ID: %s  Name: %s", $row[0], $row[1]);  
-          }
+
+
+
+// ************************************** GET ALL *******************************
+$method = $_SERVER['REQUEST_METHOD'];
+
+if ($method=="GET"){
+  connectDB();
+
+    $json = [];
+
+    $sql = "select item_id from items order by item_id";
+    foreach ($dbh->query($sql) as $results){
+               $json[$results["item_id"]] = 'http://localhost/items/'.$results["item_id"];
+              
       }
+      echo (json_encode($json));
+      //html_entity_decode
 
-  */   
+  }
 
+
+  //end GET ALL ***************************************
+
+      
         
+// ********************CREATE NEw (POST)  ******************** 
 
 
        // IF METHOD IS POST ADD ITEM TO DB
@@ -90,11 +69,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
         }
      
         //create db connection to localhost/items
-
-          try {
-              $dbh = new PDO('mysql:host=localhost;port=3306;dbname=inventory', 'root', '', array( PDO::ATTR_PERSISTENT => false));
-
-              
+              $dbh = connectDB();
               // prepare and insert item
               $sqlinserti = "INSERT into items (item_name, item_desc) values('".$name."','".$description."')";
               echo $sqlinserti;
@@ -118,12 +93,69 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
               }
               echo "<BR><B>".date("r")."</B>";
           */
-          } catch (PDOException $e) {
-              print "Error!: " . $e->getMessage() . "<br/>";
-              die();
-          }
+  }     // ************END CREATE (POST)  
 
-        } // end POST
+// UPDATE (PUT) ****************************************************************
+if ($method = "PUT"){
+  parse_str(file_get_contents("php://input"), $put_vars);
+  //echo("data:". $put_vars["itemid"]);
+
+  $dbh = connectDB();
+
+  $sql = "UPDATE items set item_name='".$put_vars["name"]."', item_desc='".$put_vars["description"]."' where item_id=".$put_vars["itemid"];
+  $stmt = $dbh->prepare($sql);
+  $stmt -> execute();
+
+  $sql = "UPDATE item_properties set quantity=".$put_vars["quantity"].", price=".$put_vars["price"]." where fk_item_id = ".$put_vars["itemid"];
+  //echo($sql);
+  $stmt = $dbh->prepare($sql);
+  $stmt -> execute();
+
+
+/*
+
+//read values
+  
+  if (isset($put_vars['itemid'])) {  
+    $item_id=$put_vars['itemid'];
+    
+    }
+
+
+  if (isset($put_vars['name'])) {  
+    $name=$put_vars['name'];
+    }
+
+  if (isset($put_vars['description']))  { 
+    $description =  $put_vars['description'];      
+  }
+
+  if (isset($put_vars['quantity'])) {
+    $quantity =  $put_vars['quantity'];  
+    }
+
+
+  if (isset($put_vars['price'])){
+    $price =  $put_vars['price'];  
+   }     
+
+
+  $dbh = connectDB();
+ // prepare and insert item
+  $sqlinserti = "UPDATE items set item_name='".$name."', item_desc='".$description."' where item_id='".$item_id."'";
+  $stmt = $dbh->prepare($sqlinserti);
+   $stmt->execute();
+
+  // prepare and insert item properties
+  $sqlinsertip = "UPDATE item_properties set quantity='".$quantity."', price=".$price." where fk_item_id="+$item_id;
+  $stmt = $dbh->prepare($sqlinsertip);
+  $stmt->execute();
+
+  echo ("{item".$item_id.":'href=http://localhost/jsphp/items/".$item_id."'}");
+
+*/
+}  // end PUT/UPDATE
+
 
     ?>
 
