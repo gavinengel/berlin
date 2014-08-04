@@ -96,7 +96,8 @@ if ($method=="GET"){
   }     // ************END CREATE (POST)  
 
 // UPDATE (PUT) ****************************************************************
-if ($method = "PUT"){
+if ($method == "PUT"){
+  echo ($method);
   parse_str(file_get_contents("php://input"), $put_vars);
   //echo("data:". $put_vars["itemid"]);
 
@@ -111,8 +112,48 @@ if ($method = "PUT"){
   $stmt = $dbh->prepare($sql);
   $stmt -> execute();
 
+  echo ("put get by id return here");
 
+}  // end PUT/UPDATE
+
+
+/* ******************** DELETE *********************/
+if ($method == "DELETE"){
+  echo $method;
+  parse_str(file_get_contents("php://input"), $put_vars);
+  //echo("data:". $put_vars["itemid"]);
+  echo("id " .$put_vars["del_itemid"]);
+  $dbh = connectDB();
+
+  $sql = "DELETE from items where item_id=".$put_vars["del_itemid"]; //  set item_name='".$put_vars["name"]."', item_desc='".$put_vars["description"]."' where item_id=".$put_vars["itemid"];
+  echo ($sql);
+  $stmt = $dbh->prepare($sql);
+  $stmt -> execute();
+
+} // END DELETE
 /*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //read values
   
@@ -154,7 +195,7 @@ if ($method = "PUT"){
   echo ("{item".$item_id.":'href=http://localhost/jsphp/items/".$item_id."'}");
 
 */
-}  // end PUT/UPDATE
+
 
 
     ?>

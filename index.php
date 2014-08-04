@@ -124,6 +124,55 @@
         </table>
       </div>
 
+<hr>
+    <!--  ***************************************DELETE ITEM ****************************** -->
+    <div class="formadd">
+     <h2>Delete Item</h2>
+
+       <div id="formdelete">
+
+        <table class="table" id="deleteitem">
+
+
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Value</th>
+            </tr>
+          </thead>
+            
+
+
+          <tbody>
+            <tr>
+              <td>Item ID:  </td>
+              <td> <input id="del_itemid" name="del_itemid" placeholder="Item ID"></td>
+            </tr>
+            <tr>
+              <td>Item Name:  </td>
+              <td> <input id="del_name" name="del_name" placeholder="Item Name" readonly></td>
+            </tr>
+            <tr>
+              <td>Description: </td>
+              <td> <input id="del_description" name="del_description" placeholder="Description" readonly></td>
+            </tr>
+            <tr>
+              <td>Quantity: </td>
+              <td> <input id="del_quantity" name="del_quantity" placeholder="Quantity" readonly></td>
+            </tr>
+            <tr>
+              <td>Price: </td>
+              <td> <input id="del_price" name="del_price" placeholder="Price" readonly></td>
+            </tr>                        
+            <tr>
+              <td colspan=2><input name="deleteitem" type="button" value="Delete" onClick="deleteItem(); return false;" > </td>
+            </tr>
+              <tr>
+                <td colspan=2 id="del_status">asdf</td>
+          </tbody>
+        </table>
+      </div>
+<hr><hr>
       <?php
        
        // ************************************** GET *******************************
