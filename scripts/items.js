@@ -2,7 +2,8 @@
 
 function addItem(){
   console.log('inupdateItem()');
-    
+  
+  var itemlink = '';  
   //create the request
   var hr = new XMLHttpRequest();
   var url = 'items/'
@@ -16,8 +17,12 @@ function addItem(){
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
-      var return_data = hr.responseText + '';
-      document.getElementById("addstatus").innerHTML = hr.responseText;
+      var r = JSON.parse(hr.responseText);
+      for (o in r){
+        itemlink += "<div>" + r[o].item_id + ": <a href='http://"+r[o].url+"'>http://"+r[o].url+"</a></div>";
+      }
+      //document.getElementById("addstatus").innerHTML = hr.responseText;
+      document.getElementById("addstatus").innerHTML = itemlink;
     }
   }    
 

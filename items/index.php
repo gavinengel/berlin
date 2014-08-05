@@ -93,7 +93,8 @@ $results["item_id"]."': {'item_name': '". $results["item_name"]."',
         }
 
         if (isset($_POST['quantity'])) {
-          $quantity =  $_POST['quantity'];            echo("quantity: " . $quantity . "<br />\n");  
+          $quantity =  $_POST['quantity'];            
+
         }
 
         if (isset($_POST['price'])){
@@ -106,7 +107,7 @@ $results["item_id"]."': {'item_name': '". $results["item_name"]."',
               $sqlinserti = "INSERT into items (item_name, item_desc) values('".$name."','".$description."')";
               $stmt = $dbh->prepare($sqlinserti);
               $stmt->execute();
-
+              $last_id = $dbh->lastInsertId("item_id");
 
               // prepare and insert item properties
               $sqlinsertip ="INSERT into item_properties (fk_item_id, quantity, price) values ((select max(item_id) from items), '".$quantity."',".$price.")";
@@ -115,9 +116,8 @@ $results["item_id"]."': {'item_name': '". $results["item_name"]."',
 
               
               
-              //insert into items (item_name, item_desc) values ('novel', 'the sun also rises');
-
-              echo "{id: 80, href: 'http://localhost/jsphp/items/80'}";
+              echo '{"'.$last_id.'":{"item_id":"'.$last_id.'", "url": "' .$_SERVER['HTTP_HOST'].'/jsphp/items/'.$last_id.'/"}}';
+               //'http://localhost/jsphp/items/80'}";
             /* while ($rs = $stmt->fetch(PDO::FETCH_OBJ)) {
                   echo "output: ".$rs->name."<BR>";
               }
