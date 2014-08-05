@@ -27,12 +27,18 @@ if ($method=="GET"){
   $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
   $pathFragments = explode('/items/', $path);
   $end = end($pathFragments);
+  $end= preg_replace('#[^0-9]#', '', $end);
+  //var_dump($end);
+  
   
 
   $dbh = connectDB();
   $rows = array();
-  
-  $sql = "select item_id, item_name from items where item_name !='' ";
+  $sql = "select item_id, item_name from items";
+  if ($end != '') {  
+  $sql = "select item_id, item_name from items where item_id=".$end;
+  }
+
 foreach ($dbh->query($sql) as $results){     $json_data .= "'".
 $results["item_id"]."': {'item_name': '". $results["item_name"]."',
 'item_id':'".$results["item_id"]."', 'url':

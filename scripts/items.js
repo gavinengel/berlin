@@ -17,7 +17,7 @@ function addItem(){
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
       var return_data = hr.responseText + '';
-      document.getElementById("addstatus").innerHTML = JSON.parse(return_data);
+      document.getElementById("addstatus").innerHTML = hr.responseText;
     }
   }    
 
