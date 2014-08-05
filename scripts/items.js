@@ -37,8 +37,12 @@ function getItems(){
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
-      var return_data = hr.responseText + '';
-      document.getElementById("showcase").innerHTML = return_data;
+      console.log(hr.responseText)
+      var r = JSON.parse(hr.responseText);
+       for (o in r){
+        document.getElementById("showcase").innerHTML += r[o].item_id;     
+       }
+      //document.getElementById("showcase").innerHTML = return_data;
     }
   }    
 

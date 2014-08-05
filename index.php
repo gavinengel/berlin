@@ -179,43 +179,8 @@
           </tbody>
         </table>
       </div>
-<hr><hr>
-      <?php
-       
-       // ************************************** GET *******************************
-      $method = $_SERVER['REQUEST_METHOD'];
 
-
-      // IF METHOD IS GET SHOW ALL ITEMS
-      if ($method=="GET"){
-
-
-
-        //connect to items db
-         try {
-              $dbh = new PDO('mysql:host=localhost;port=3306;dbname=inventory', 'root', '', array( PDO::ATTR_PERSISTENT => false));
-          } catch (PDOException $e) {
-              print "Error!: " . $e->getMessage() . "<br/>";
-              die();
-          }    
-        
-          $json = [];
-
-          $sql = "select item_id from items order by item_id";
-          foreach ($dbh->query($sql) as $results){
-                     $json[$results["item_id"]] = 'http://localhost/items/'.$results["item_id"];
-                    
-            }
-            echo (json_encode($json));
-     
-        }
-
-
-      //end GET ***************************************
-
-
-        ?>
-
+      
 
 
     </div> <!-- end main -->

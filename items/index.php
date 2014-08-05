@@ -21,7 +21,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 
 if ($method=="GET"){
-
+  $json_data = "{";
  
   $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
   $pathFragments = explode('/items/', $path);
@@ -29,23 +29,28 @@ if ($method=="GET"){
   
 
   $dbh = connectDB();
-    $data = "";
+  $rows = array();
+  
+  $sql = "select item_id from items";
+  foreach ($dbh->query($sql) as $results){
+    $rows[$results["item_id"]]= $results;
+    }
+    header("Content-Type: application/json");
+   echo json_encode($rows);
 
-    $sql = "select item_id from items";
-    foreach ($dbh->query($sql) as $results){
+   //echo $json_data;  
         
-        $data .= "'". $results["item_id"]."': {'itemid':'".$results["item_id"]."', 'url': 'href://localhost/jsphp/items/".$results["item_id"]."/'},";
-      
+
+       
 
       }
-    echo $data;
-
-               //$json[$results["item_id"]] = 'http://localhost/items/'.$results["item_id"];
-              
     
-      //html_entity_decode
+    //$data .= "'". $results["item_id"]."': {'itemid':'".$results["item_id"]."', 'url': 'href://localhost/jsphp/items/".$results["item_id"]."/'},";
+    //echo $data;
+    //$json[$results["item_id"]] = 'http://localhost/items/'.$results["item_id"];
+    //html_entity_decode
 
-  }
+
 
 
   //end GET ALL ***************************************
@@ -207,14 +212,3 @@ if ($method == "DELETE"){
     ?>
 
 
- <script>
-var req = new XMLHttpRequest();
-req.open('POST', document.location, false);
-req.send(null);
-var headers = req.getAllResponseHeaders().toLowerCase();
-console.log(headers);
-</script> 
-
-</body>
-
-</html>
