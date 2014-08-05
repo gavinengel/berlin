@@ -14,6 +14,7 @@ function connectDB(){
 } 
 
 $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$actual_host = '';
 $method = $_SERVER['REQUEST_METHOD'];
 
 
@@ -31,12 +32,24 @@ if ($method=="GET"){
   $dbh = connectDB();
   $rows = array();
   
-  $sql = "select item_id from items";
-  foreach ($dbh->query($sql) as $results){
-    $rows[$results["item_id"]]= $results;
+  $sql = "select item_id, item_name from items where item_name !='' ";
+foreach ($dbh->query($sql) as $results){     $json_data .= "'".
+$results["item_id"]."': {'item_name': '". $results["item_name"]."',
+'item_id':'".$results["item_id"]."', 'url':
+'".$_SERVER['HTTP_HOST']."/jsphp/items/".$results["item_id"]."/'},";
+    
+    //$rows[$results["item_id"]]= $results;
     }
+    $json_data = chop($json_data, ",");
+    $json_data = str_replace("'",'"',$json_data);
+    $json_data = html_entity_decode($json_data);
+    $json_data .= "}";
+
     header("Content-Type: application/json");
-   echo json_encode($rows);
+   
+   echo $json_data;
+
+   //echo json_encode($rows);
 
    //echo $json_data;  
         

@@ -27,7 +27,10 @@
       width=50%;
       
       }
-     
+
+      #getJSON{
+        font-size: 4px;
+      }
 
 
     </style>
@@ -39,6 +42,7 @@
         <div> <input type=button id=showinventory onclick="getItems();" value="Show Items"> &nbsp; 
         <input type=button id=hidinventory onclick="javascript:document.getElementById('showcase').innerHTML = '';" value="Hide Items">
       </div>
+        <div id="getJSON"></div>
         <div id=showcase>inventory will appear here</div> 
          
         <h2>Add Item</h2>

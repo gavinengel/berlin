@@ -26,6 +26,13 @@ function addItem(){
 }
 
 
+  var inventory = "";
+ function makeInventory(myname, myhref){
+  inventory += "<div>"+myname+": <a href='http://"+myhref+"'>http://"+myhref+"</a></div>";
+ //console.log(inventory);
+ }
+
+
 function getItems(){
   console.log('in getItems()');
   //create the request
@@ -37,12 +44,15 @@ function getItems(){
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
-      console.log(hr.responseText)
+      console.log(hr.responseText);
+      document.getElementById("getJSON").innerHTML = "<pre>"+hr.responseText.substr(0, 100) +"...</pre>";
       var r = JSON.parse(hr.responseText);
        for (o in r){
-        document.getElementById("showcase").innerHTML += r[o].item_id;     
+        makeInventory(r[o].item_name, r[o].url);
+        document.getElementById("showcase").innerHTML += r[o].item_name + r[o].item_id +"<br>";     
        }
-      //document.getElementById("showcase").innerHTML = return_data;
+      document.getElementById("showcase").innerHTML = inventory;
+    //document.getElementById("showcase").innerHTML = r; // hr.responseText;
     }
   }    
 
