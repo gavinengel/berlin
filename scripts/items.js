@@ -19,7 +19,7 @@ function addItem(){
     if (hr.readyState == 4 && hr.status == 200){
       var r = JSON.parse(hr.responseText);
       for (o in r){
-        itemlink += "<div>" + r[o].item_id + ": <a href='http://"+r[o].url+"'>http://"+r[o].url+"</a></div>";
+        itemlink += r[o].item_id + ": <a href='http://"+r[o].url+"'>http://"+r[o].url+"</a><br />";
       }
       document.getElementById("addstatus").innerHTML = hr.responseText;
       document.getElementById("addstatus").innerHTML += itemlink;
@@ -33,7 +33,7 @@ function addItem(){
 
   var inventory = "";
  function makeInventory(myname, myhref){
-  inventory += "<div>"+myname+": <a href='http://"+myhref+"'>http://"+myhref+"</a></div>";
+  inventory += ""+myname+": <a href='http://"+myhref+"'>http://"+myhref+"</a><br />";
  //console.log(inventory);
  }
 

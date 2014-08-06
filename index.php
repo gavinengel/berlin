@@ -14,14 +14,17 @@
      
      td { 
           padding: 3px;
+          font-weight: bold;
 
          }
 
         table { 
           border-spacing: 10px;
           border-collapse: separate;
-          background-color: #eceff1;
+          background-color: #b3e5fc;
           color: #000;
+          border-radius: 8px;
+          border: 3px;
           }
      
      .formtable{
@@ -102,6 +105,7 @@ h6
   padding: .75em;
   border-radius: 8px;
   border: 3px;
+
 }
 
 .button-orange{
@@ -122,33 +126,61 @@ h6
   border: 3px;
 }
   .title{
-    font-size: 3.5em;
-    color: #fff;
+    font-size: 4em;
+    color: #e1f5fe;
   }
+
+  .button-gray{
+      background: #607d8b;
+    color: #fff;
+    font-weight: 500em;
+    padding: .75em;
+    border-radius: 8px;
+    border: 3px;
+
+  }
+
+  #additem{
+    display:none;
+  }
+
+#showcase{
+  width: 400px;
+  color: #000;
+  background: #e7e9fd;
+  padding: 0px;
+  border-radius: 8px;
+  border:3px;
+}
     </style>
   </head>
   <body>
     <div id="main">
+
+      <script>
+      function showCreate(noneblock){
+        
+        document.getElementById("additem").style.display="block";
       
-        <h1 class=title>inventory</h1>
-        <div> 
-          <input type=button class="button-brown" id="showinventory" onclick="getItems();" value="Show"> &nbsp; 
-          <input type=button class="button-orange" id="showinventory" onclick="getItems();" value="Create">&nbsp; 
-          <input type=button class="button-green"  onclick="javascript:document.getElementById('showcase').innerHTML = '';" value="Search"></div>
+      if (noneblock == "none") {
+        document.getElementById("additem").style.display="none";
+      }
+
+      }
+      </script>
+        <div class=title>inventory</div>
+        <br /><div> 
+          <input type=button class="button-gray" id="createinventory" onclick="showCreate();" value="Create">
+          <input type=button class="button-gray" id="showinventory" onclick="getItems();" value="Show"> 
+          <input type=button class="button-gray"  onclick="javascript:document.getElementById('showcase').innerHTML = '';" value="Search"></div>
       
         <div id="getJSON"></div>
-        <div id=showcase>inventory will appear here</div> 
+        <div id="showcase"></div> 
          
-        <h2>Add Item</h2>
-        
+        <br>
         <!-- add item -->
         <table class="formtable table" id="additem" width="400px;">
-          <thead>
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Value</th>
-            </tr>
-          </thead>
+         
             
 
           <tbody>
@@ -169,7 +201,8 @@ h6
               <td> <input id="addprice" name="addprice" placeholder="Price"></td>
             </tr>                        
             <tr>
-              <td colspan=2><input type="submit" value="Add Item" onClick="javascript:addItem();"></td>
+              <td colspan=2><input type="submit" class="button-green" value="Add Item" onClick="javascript:addItem();">
+                <input type="submit" class="button-brown" value="Cancel" onClick="showCreate("none")></td>
             </tr>
             <tr>
               <td colspan=2 id=addstatus></td>
@@ -187,7 +220,7 @@ h6
 
        <div id="formupdate">
 
-        <table class="table" id="additem" width="400px;">
+        <table class="table" id="updateitem" width="400px;">
 
 
           <thead>
