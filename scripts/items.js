@@ -21,8 +21,8 @@ function addItem(){
       for (o in r){
         itemlink += "<div>" + r[o].item_id + ": <a href='http://"+r[o].url+"'>http://"+r[o].url+"</a></div>";
       }
-      //document.getElementById("addstatus").innerHTML = hr.responseText;
-      document.getElementById("addstatus").innerHTML = itemlink;
+      document.getElementById("addstatus").innerHTML = hr.responseText;
+      document.getElementById("addstatus").innerHTML += itemlink;
     }
   }    
 

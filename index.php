@@ -20,28 +20,122 @@
         table { 
           border-spacing: 10px;
           border-collapse: separate;
-          background-color: #eeeeee;
+          background-color: #eceff1;
+          color: #000;
           }
      
      .formtable{
       width=50%;
       
       }
+    html
+    {
+      font-family: source-sans-pro, helvetica, arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
 
-      #getJSON{
-        font-size: 4px;
+      body
+      {
+        line-height: 1.231;
+        text-rendering: optimizeLegibility;
+        font-size: 100%;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+
+        body {
+        background: #03a9f4;
+        color: #fff;
+
       }
 
 
+
+/**
+ * Set individual heading styles
+ */
+h1, h2, h3, h4, h5, h6
+{
+    font-weight: 600;
+    margin-top: 0.5em;
+    margin-bottom: 0.8em;
+    line-height: 1.2em;
+}
+
+h1
+{
+  font-size: 225%;
+}
+
+h2
+{
+  font-size: 200%;
+}
+
+h3
+{
+  font-size: 175%;
+}
+
+h4
+{
+  font-size: 110%;
+    margin-top: 25px;
+}
+
+h5
+{
+  font-size: 125%;
+}
+
+h6
+{
+  font-size: 100%;
+}
+
+
+
+.button-green{
+  background: #259b24;
+  color: #fff;
+  font-weight: 500em;
+  padding: .75em;
+  border-radius: 8px;
+  border: 3px;
+}
+
+.button-orange{
+  background: #3f51b5;
+  color: #fff;
+  font-weight: 500em;
+  padding: .75em;
+  border-radius: 8px;
+  border: 3px;
+}
+
+.button-brown{
+  background: #ff5722;
+  color: #fff;
+  font-weight: 500em;
+  padding: .75em;
+  border-radius: 8px;
+  border: 3px;
+}
+  .title{
+    font-size: 3.5em;
+    color: #fff;
+  }
     </style>
   </head>
   <body>
     <div id="main">
-      <div >
-        <h1 class="calign">Inventory Admin</h1>
-        <div> <input type=button id=showinventory onclick="getItems();" value="Show Items"> &nbsp; 
-        <input type=button id=hidinventory onclick="javascript:document.getElementById('showcase').innerHTML = '';" value="Hide Items">
-      </div>
+      
+        <h1 class=title>inventory</h1>
+        <div> 
+          <input type=button class="button-brown" id="showinventory" onclick="getItems();" value="Show"> &nbsp; 
+          <input type=button class="button-orange" id="showinventory" onclick="getItems();" value="Create">&nbsp; 
+          <input type=button class="button-green"  onclick="javascript:document.getElementById('showcase').innerHTML = '';" value="Search"></div>
+      
         <div id="getJSON"></div>
         <div id=showcase>inventory will appear here</div> 
          
