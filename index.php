@@ -53,7 +53,10 @@
       }
 
 
-
+      a, a:visited{
+        color: #00796b;
+        text-decoration: none;
+      }
 /**
  * Set individual heading styles
  */
@@ -109,7 +112,7 @@ h6
 }
 
 .button-orange{
-  background: #3f51b5;
+  background: #f36c60;
   color: #fff;
   font-weight: 500em;
   padding: .75em;
@@ -141,7 +144,7 @@ h6
   }
 
   #additem{
-    display:none;
+    display:block;
   }
 
 #showcase{
@@ -161,6 +164,7 @@ h6
       function showCreate(noneblock){
         
         document.getElementById("additem").style.display="block";
+        document.getElementById("showcase").style.display="none";        
       
       if (noneblock == "none") {
         document.getElementById("additem").style.display="none";
@@ -199,10 +203,14 @@ h6
             <tr>
               <td>Price: </td>
               <td> <input id="addprice" name="addprice" placeholder="Price"></td>
-            </tr>                        
+            </tr>  
             <tr>
-              <td colspan=2><input type="submit" class="button-green" value="Add Item" onClick="javascript:addItem();">
-                <input type="submit" class="button-brown" value="Cancel" onClick="showCreate("none")></td>
+              <td>Image: </td>
+              <td> <input type="file" id="addimage" name="addimage" placeholder="Price"></td>
+            </tr>                                   
+            <tr>
+              <td colspan=2><input type="submit" class="button-green" value="Create Item" onClick="javascript:addItem();">
+                <input type="submit" class="button-brown" value="Hide" onClick="showCreate('none')"></td>
             </tr>
             <tr>
               <td colspan=2 id=addstatus></td>
@@ -211,7 +219,7 @@ h6
         </table>
       </form>
     
-    </div> <!-- end formadd -->
+     <!-- end formadd -->
 
 
     <!--  ***************************************UPDATE ITEM ****************************** -->

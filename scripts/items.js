@@ -31,10 +31,10 @@ function addItem(){
 }
 
 
-  var inventory = "";
+  var inventory = "<table class=table>";
  function makeInventory(myname, myhref){
-  inventory += ""+myname+": <a href='http://"+myhref+"'>http://"+myhref+"</a><br />";
- //console.log(inventory);
+  inventory += "<tr><td>"+myname+":</td><td> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><a href='#deleteitem'>Delete</a>&nbsp;<a href='#updateitem'>Update</a></td></tr>";
+ console.log(inventory);
  }
 
 
@@ -54,9 +54,10 @@ function getItems(){
       var r = JSON.parse(hr.responseText);
        for (o in r){
         makeInventory(r[o].item_name, r[o].url);
-        document.getElementById("showcase").innerHTML += r[o].item_name + r[o].item_id +"<br>";     
+        //document.getElementById("showcase").innerHTML += r[o].item_name + r[o].item_id +"<br>";     
        }
-      document.getElementById("showcase").innerHTML = inventory;
+      document.getElementById("showcase").innerHTML = inventory + "</table>";
+        document.getElementById("showcase").style.display="block";      
     //document.getElementById("showcase").innerHTML = r; // hr.responseText;
     }
   }    
