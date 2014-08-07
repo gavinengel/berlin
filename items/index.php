@@ -38,6 +38,7 @@ if ($method=="GET"){
   if ($end != '') {  
   $sql = "select item_id, item_name from items where item_id=".$end;
   }
+  $sql = $sql . " order by item_id desc";
 
 foreach ($dbh->query($sql) as $results){     $json_data .= "'".
 $results["item_id"]."': {'item_name': '". $results["item_name"]."',

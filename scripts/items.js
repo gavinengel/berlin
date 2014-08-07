@@ -32,8 +32,8 @@ function addItem(){
 
 
   var inventory = "<table class=table>";
- function makeInventory(myname, myhref){
-  inventory += "<tr><td>"+myname+":</td><td> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><a href='#deleteitem'>Delete</a>&nbsp;<a href='#updateitem'>Update</a></td></tr>";
+ function makeInventory(myname, myhref, id){
+  inventory += "<tr><td>"+myname+":</td><td> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><a href='#' onclick='deleteItem("+id+");'>Delete</a>&nbsp;<a href='#updateitem'>Update</a></td></tr>";
  console.log(inventory);
  }
 
@@ -50,10 +50,10 @@ function getItems(){
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
       console.log(hr.responseText);
-      document.getElementById("getJSON").innerHTML = "<pre>"+hr.responseText.substr(0, 100) +"...</pre>";
+      document.getElementById("jsonpanel").innerHTML = "<pre>"+hr.responseText.substr(0, 100) +"...</pre>";
       var r = JSON.parse(hr.responseText);
        for (o in r){
-        makeInventory(r[o].item_name, r[o].url);
+        makeInventory(r[o].item_name, r[o].url, r[o].item_id);
         //document.getElementById("showcase").innerHTML += r[o].item_name + r[o].item_id +"<br>";     
        }
       document.getElementById("showcase").innerHTML = inventory + "</table>";
@@ -96,28 +96,41 @@ function updateItem(){
 }
 
 
-function deleteItem(){
+function deleteItem(id){
 
     console.log("in deleteItem");
   //create the request
   var hr = new XMLHttpRequest();
   var url = 'items/'
-  var del_itemid = document.getElementById("del_itemid").value;
+  //var del_itemid = document.getElementById("del_itemid").value;
   //var name = document.getElementById("name").value;
   //var description = document.getElementById("description").value;
   //var price = document.getElementById("price").value;
   //var quantity = document.getElementById("quantity").value;
-  var vars = "del_itemid="+del_itemid; //+"&name="+name+"&description="+description+"&quantity="+quantity+"&price="+price;  
+  var vars = "del_itemid="+id; //+"&name="+name+"&description="+description+"&quantity="+quantity+"&price="+price;  
 
   hr.open("DELETE", url, false);
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
       var return_data = hr.responseText + '';
-      document.getElementById("del_status").innerHTML = return_data;
+      document.getElementById("jsonpanel").innerHTML = return_data;
     }
   }    
 
   hr.send(vars);
   document.getElementById("status").innerHTML="waiting ...";
+}
+
+
+
+function showCreate(noneblock){
+  
+  document.getElementById("additem").style.display="block";
+  document.getElementById("showcase").style.display="none";        
+
+if (noneblock == "none") {
+  document.getElementById("additem").style.display="none";
+}
+
 }

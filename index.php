@@ -4,178 +4,26 @@
     <meta charset="utf-8">
     <title>Inventory Admin</title>
 
-
+    <LINK href="css/items.css" rel="stylesheet" type="text/css">
     <script src="scripts/items.js"></script>
-
+    <style type=""></style>
     <style>
-     #main{
-      padding: 3em;
-      }
-     
-     td { 
-          padding: 3px;
-          font-weight: bold;
-
-         }
-
-        table { 
-          border-spacing: 10px;
-          border-collapse: separate;
-          background-color: #b3e5fc;
-          color: #000;
-          border-radius: 8px;
-          border: 3px;
-          }
-     
-     .formtable{
-      width=50%;
-      
-      }
-    html
-    {
-      font-family: source-sans-pro, helvetica, arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
+    #jsonpanel{
+      color: #000;
+      float: right;
+      font-size: .33em;
     }
-
-      body
-      {
-        line-height: 1.231;
-        text-rendering: optimizeLegibility;
-        font-size: 100%;
-        -webkit-text-size-adjust: 100%;
-        -ms-text-size-adjust: 100%;
-      }
-
-        body {
-        background: #03a9f4;
-        color: #fff;
-
-      }
-
-
-      a, a:visited{
-        color: #00796b;
-        text-decoration: none;
-      }
-/**
- * Set individual heading styles
- */
-h1, h2, h3, h4, h5, h6
-{
-    font-weight: 600;
-    margin-top: 0.5em;
-    margin-bottom: 0.8em;
-    line-height: 1.2em;
-}
-
-h1
-{
-  font-size: 225%;
-}
-
-h2
-{
-  font-size: 200%;
-}
-
-h3
-{
-  font-size: 175%;
-}
-
-h4
-{
-  font-size: 110%;
-    margin-top: 25px;
-}
-
-h5
-{
-  font-size: 125%;
-}
-
-h6
-{
-  font-size: 100%;
-}
-
-
-
-.button-green{
-  background: #259b24;
-  color: #fff;
-  font-weight: 500em;
-  padding: .75em;
-  border-radius: 8px;
-  border: 3px;
-
-}
-
-.button-orange{
-  background: #f36c60;
-  color: #fff;
-  font-weight: 500em;
-  padding: .75em;
-  border-radius: 8px;
-  border: 3px;
-}
-
-.button-brown{
-  background: #ff5722;
-  color: #fff;
-  font-weight: 500em;
-  padding: .75em;
-  border-radius: 8px;
-  border: 3px;
-}
-  .title{
-    font-size: 4em;
-    color: #e1f5fe;
-  }
-
-  .button-gray{
-      background: #607d8b;
-    color: #fff;
-    font-weight: 500em;
-    padding: .75em;
-    border-radius: 8px;
-    border: 3px;
-
-  }
-
-  #additem{
-    display:block;
-  }
-
-#showcase{
-  width: 400px;
-  color: #000;
-  background: #e7e9fd;
-  padding: 0px;
-  border-radius: 8px;
-  border:3px;
-}
     </style>
   </head>
   <body>
     <div id="main">
 
-      <script>
-      function showCreate(noneblock){
-        
-        document.getElementById("additem").style.display="block";
-        document.getElementById("showcase").style.display="none";        
-      
-      if (noneblock == "none") {
-        document.getElementById("additem").style.display="none";
-      }
+      <div id="jsonpanel"></div>
 
-      }
-      </script>
         <div class=title>inventory</div>
         <br /><div> 
-          <input type=button class="button-gray" id="createinventory" onclick="showCreate();" value="Create">
-          <input type=button class="button-gray" id="showinventory" onclick="getItems();" value="Show"> 
+          <input type=button class="button-gray" id="createinventory" onclick="javascript:showCreate();return false;" value="Create"></a>
+          <input type=button class="button-gray" id="showinventory" onclick="javascript:getItems();" value="Show"> </a>
           <input type=button class="button-gray"  onclick="javascript:document.getElementById('showcase').innerHTML = '';" value="Search"></div>
       
         <div id="getJSON"></div>
