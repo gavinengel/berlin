@@ -38,7 +38,7 @@ if ($method=="GET"){
   if ($end != '') {  
   $sql = "select item_id, item_name from items where item_id=".$end;
   }
-  $sql = $sql . " order by item_id desc";
+
 
 foreach ($dbh->query($sql) as $results){     $json_data .= "'".
 $results["item_id"]."': {'item_name': '". $results["item_name"]."',
@@ -150,17 +150,18 @@ if ($method == "PUT"){
 
 /* ******************** DELETE *********************/
 if ($method == "DELETE"){
-  echo $method;
+
   parse_str(file_get_contents("php://input"), $put_vars);
   //echo("data:". $put_vars["itemid"]);
-  echo("id " .$put_vars["del_itemid"]);
+  //echo("id " .$put_vars["del_itemid"]);
   $dbh = connectDB();
 
   $sql = "DELETE from items where item_id=".$put_vars["del_itemid"]; //  set item_name='".$put_vars["name"]."', item_desc='".$put_vars["description"]."' where item_id=".$put_vars["itemid"];
-  echo ($sql);
-  $stmt = $dbh->prepare($sql);
-  $stmt -> execute();
 
+  $stmt = $dbh->prepare($sql);
+  $delresp = $stmt -> execute();
+  echo '{"msg":{"response":"'.$delresp.'"}"';
+  
 } // END DELETE
 /*
 

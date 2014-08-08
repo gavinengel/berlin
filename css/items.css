@@ -4,7 +4,7 @@
      
      td { 
           padding: 3px;
-          font-weight: bold;
+   
 
          }
 
@@ -15,10 +15,11 @@
           color: #000;
           border-radius: 8px;
           border: 3px;
+          padding: 3px;
           }
      
      .formtable{
-      width=50%;
+      width=75%;
       
       }
     html
@@ -31,7 +32,6 @@
       {
         line-height: 1.231;
         text-rendering: optimizeLegibility;
-        font-size: 100%;
         -webkit-text-size-adjust: 100%;
         -ms-text-size-adjust: 100%;
       }
@@ -44,7 +44,7 @@
 
 
       a, a:visited{
-        color: #00796b;
+        color: #e65100;
         text-decoration: none;
       }
 /**

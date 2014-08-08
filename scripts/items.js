@@ -1,7 +1,49 @@
 
 
+
+// *********************** AJAX GET/POST/PUT/DELETE FUNCTIONS ****************************
+
+
+// ***************** GET ALL ********************************
+
+function getItems(){
+  inventory = '<table>';
+  console.log('in getItems()');
+
+  var hr = new XMLHttpRequest();
+  var url = 'items/';
+  hr.open("GET", url, true);
+  
+
+  hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  hr.onreadystatechange = function(){
+    if (hr.readyState == 4 && hr.status == 200){
+      //console.log(hr.responseText);
+      //document.getElementById("jsonpanel").innerHTML = "<pre>"+hr.responseText.substr(0, 100) +"...</pre>";
+      
+
+      var r = JSON.parse(hr.responseText);
+       for (o in r){
+        makeInventory(r[o].item_name, r[o].url, r[o].item_id);
+        //document.getElementById("showcase").innerHTML += r[o].item_name + r[o].item_id +"<br>";     
+       }
+      document.getElementById("parsedinventory").innerHTML = inventory + "</table>";
+       // document.getElementById("showcase").style.display="block";      
+    document.getElementById("jsoncell").innerHTML = hr.responseText;
+    return hr.responseText;
+    }
+  }    
+  
+  hr.send();
+  //document.getElementById("status").innerHTML="waiting ...";
+} 
+
+
+
+
+
 function addItem(){
-  console.log('inupdateItem()');
+  console.log('inaddItem()');
   
   var itemlink = '';  
   //create the request
@@ -19,11 +61,10 @@ function addItem(){
     if (hr.readyState == 4 && hr.status == 200){
       var r = JSON.parse(hr.responseText);
       for (o in r){
-        itemlink += r[o].item_id + ": <a href='http://"+r[o].url+"'>http://"+r[o].url+"</a><br />";
+        itemlink += r[o].item_id + ": <a href='http://"+r[o].url+"'>http://"+r[o].url+"</a>";
       }
-      document.getElementById("addstatus").innerHTML = hr.responseText;
-      document.getElementById("addstatus").innerHTML += itemlink;
-    }
+
+      document.getElementById("jsoncell").innerHTML = itemlink + " " +  hr.responseText;    }
   }    
 
   hr.send(vars);
@@ -31,51 +72,55 @@ function addItem(){
 }
 
 
+
+function makeUpdate (id) {
+  document.getElementById("update").style.display = "table-row";
+
+   console.log('in makeUpdate, id = ' +id);
+   
+  var hr = new XMLHttpRequest();
+  var url = 'items/'+id;
+  hr.open("GET", url, true);
+  hr.onreadystatechange = function(){
+    if (hr.readyState == 4 && hr.status == 200){
+      console.log("response text:" + hr.responseText)
+
+      var r = JSON.parse(hr.responseText);
+       for (o in r){
+        document.getElementById("itemid").value = r[o].item_id;
+        document.getElementById("name").value = r[o].item_name;
+      };
+
+  }
+  }    
+  
+  hr.send();
+
+  }
+
   var inventory = "<table class=table>";
  function makeInventory(myname, myhref, id){
-  inventory += "<tr><td>"+myname+":</td><td> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><a href='#' onclick='deleteItem("+id+");'>Delete</a>&nbsp;<a href='#updateitem'>Update</a></td></tr>";
+  inventory += "<tr><td>"+myname+":</td><td> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><a href='#' onclick='deleteItem("+id+");return false;'>Delete</a>&nbsp;<a href='#' onClick='makeUpdate("+id+");'>Update</a></td></tr>";
  console.log(inventory);
  }
 
 
-function getItems(){
-  console.log('in getItems()');
-  //create the request
-  var hr = new XMLHttpRequest();
-  var url = 'items/';
-  console.log("url " + url);
-  //var vars = "itemid="+itemid;
-  hr.open("GET", url, true);
-  hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  hr.onreadystatechange = function(){
-    if (hr.readyState == 4 && hr.status == 200){
-      console.log(hr.responseText);
-      document.getElementById("jsonpanel").innerHTML = "<pre>"+hr.responseText.substr(0, 100) +"...</pre>";
-      var r = JSON.parse(hr.responseText);
-       for (o in r){
-        makeInventory(r[o].item_name, r[o].url, r[o].item_id);
-        //document.getElementById("showcase").innerHTML += r[o].item_name + r[o].item_id +"<br>";     
-       }
-      document.getElementById("showcase").innerHTML = inventory + "</table>";
-        document.getElementById("showcase").style.display="block";      
-    //document.getElementById("showcase").innerHTML = r; // hr.responseText;
-    }
-  }    
-
-  hr.send();
-  document.getElementById("status").innerHTML="waiting ...";
-} 
 
 
+
+
+
+  
 
 
 function updateItem(){
-  console.log('inupdateItem()');
-    
+  console.log('inupdateItem');
+    console.log('still in updateItem');
   //create the request
   var hr = new XMLHttpRequest();
   var url = 'items/'
   var itemid = document.getElementById("itemid").value;
+  console.log("itemid"+itemid);
   var name = document.getElementById("name").value;
   var description = document.getElementById("description").value;
   var price = document.getElementById("price").value;
@@ -114,13 +159,16 @@ function deleteItem(id){
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
       var return_data = hr.responseText + '';
-      document.getElementById("jsonpanel").innerHTML = return_data;
+      document.getElementById("jsoncell").innerHTML = return_data;
+      //getItems();
     }
   }    
 
   hr.send(vars);
-  document.getElementById("status").innerHTML="waiting ...";
-}
+  //document.getElementById("status").innerHTML=";
+
+
+  }
 
 
 
