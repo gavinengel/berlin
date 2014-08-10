@@ -12,10 +12,23 @@ $dbh = new PDO($dsn, DB_USER, DB_PASS);
 */
 
 
+
+
+
 function connectDB(){
 
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
+  $dsn="mysql:host=localhost;dbname=inventory;port=3306;";
+  $dbuser="root";
+  $dbpass="";
+}else{
+    $dsn="mysql:host=127.4.142.130;port=3306;dbname=inventory";
+    $dbuser="adminAVtM3nG";
+    $dbpass="ARqlnjYKVh3B";
+}
+
   try {
-    $dbh = new PDO('mysql:host=127.4.142.130;port=3306;dbname=inventory', 'adminAVtM3nG', 'ARqlnjYKVh3B', array( PDO::ATTR_PERSISTENT => true));
+    $dbh = new PDO(''.$dsn.'',''.$dbuser.'', ''.$dbpass.'', array( PDO::ATTR_PERSISTENT => true));
   } catch (PDOException $e) {
     echo "Error!: " . $e->getMessage() . "<br/>";
     die();

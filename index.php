@@ -85,7 +85,12 @@
       </table>
 
        
-<?php /*
+<?php 
+
+echo $_SERVER['HTTP_HOST'];
+
+/*
+
 <!--
 
     <table>
