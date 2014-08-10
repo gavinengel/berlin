@@ -80,7 +80,7 @@ if ($method=="GET"){
       $currentname = $row["item_name"];
       //$currenturl = "$row->url";
       //$currentimage = "$row->image";
-      $array[$currentid] = array('item_id'=>$currentid,'item_name'=>$currentname, 'url'=> $_SERVER['HTTP_HOST']."/inventory/items/".$currentid."/");
+      $array[$currentid] = array('item_id'=>$currentid,'item_name'=>$currentname, 'url'=> $_SERVER['HTTP_HOST']."/items/".$currentid."/");
     }
 
     echo json_encode($array);
