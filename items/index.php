@@ -1,31 +1,19 @@
 <?php
 
-/*
-define('DB_HOST', getenv('OPENSHIFT_MYSQL_DB_HOST'));
-define('DB_PORT',getenv('OPENSHIFT_MYSQL_DB_PORT')); 
-define('DB_USER',getenv('OPENSHIFT_MYSQL_DB_USERNAME'));
-define('DB_PASS',getenv('OPENSHIFT_MYSQL_DB_PASSWORD'));
-define('DB_NAME',getenv('OPENSHIFT_GEAR_NAME'));
-
-$dsn = 'mysql:dbname='.DB_NAME.';host='.DB_HOST.';port='.DB_PORT;
-$dbh = new PDO($dsn, DB_USER, DB_PASS);
-*/
-
-
 
 
 
 function connectDB(){
 
-if ($_SERVER['HTTP_HOST'] == 'localhost') {
-  $dsn="mysql:host=localhost;dbname=inventory;port=3306;";
-  $dbuser="root";
-  $dbpass="";
-}else{
-    $dsn="mysql:host=127.4.142.130;port=3306;dbname=inventory";
-    $dbuser="adminAVtM3nG";
-    $dbpass="ARqlnjYKVh3B";
-}
+  if ($_SERVER['HTTP_HOST'] == 'localhost') {
+    $dsn="mysql:host=localhost;dbname=inventory;port=3306;";
+    $dbuser="root";
+    $dbpass="";
+  }else{
+      $dsn="mysql:host=127.4.142.130;port=3306;dbname=inventory";
+      $dbuser="adminAVtM3nG";
+      $dbpass="ARqlnjYKVh3B";
+  }
 
   try {
     $dbh = new PDO(''.$dsn.'',''.$dbuser.'', ''.$dbpass.'', array( PDO::ATTR_PERSISTENT => true));
@@ -35,6 +23,35 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
   }
   return($dbh);
 } 
+
+
+
+  function getAllItems()
+    {
+        $dbh = connectDB();
+        $stmt = $dbh->prepare('
+            SELECT item_id, item_name from items
+        ');
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    function getItemByID($id){
+      $dbh = connectDB();
+      $stmt = $dbh->prepare('
+        select i.item_id, i.item_name, i.item_desc,
+        p.quantity, p.price
+        FROM items i
+        LEFT JOIN item_properties p ON i.item_id = p.fk_item_id
+        WHERE i.item_id = :end; 
+        ');
+       
+      $stmt -> bindParam(':end', $id);
+      $stmt->execute();    
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
 
 $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -47,27 +64,123 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method=="GET"){
   $json_data = "{";
- 
+  $array = array(); 
   $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
   $pathFragments = explode('/items/', $path);
   $end = end($pathFragments);
   $end= preg_replace('#[^0-9]#', '', $end);
   //var_dump($end);
   
+  //Get ALl
+  if ($end == '') {  
+    $data = getAllItems();  
+
+    foreach ($data as $row){
+      $currentid = $row["item_id"];
+      $currentname = $row["item_name"];
+      //$currenturl = "$row->url";
+      //$currentimage = "$row->image";
+      $array[$currentid] = array('item_id'=>$currentid,'item_name'=>$currentname, 'url'=> $_SERVER['HTTP_HOST']."/inventory/items/".$currentid."/");
+    }
+
+    echo json_encode($array);
+  } elseif (ctype_digit($end)){
+    $data = getItemByID($end); 
+    echo json_encode($data);
+
+    }
+
+
+/*
+{
+$currentid = "$row->id";
+$currentname = "$row->name";
+$currenturl = "$row->url";
+$currentimage = "$row->image";
+$array = array('id'=>$currentid,'url'=>$currenturl, 'name'=>$currentname,'image'=>$currentimage);
+
+ echo json_encode($array);
+
+
+       while($row = mysql_fetch_object($result))
+        {
+            $currentid = "$row->id";
+            $currentname = "$row->name";
+            $currenturl = "$row->url";
+            $currentimage = "$row->image";
+            $array[]= array('id'=>$currentid,'url'=>$currenturl, 'name'=>$currentname,'image'=>$currentimage);
+        }
+        echo json_encode($array);
+    }else{
+        echo json_encode(Array("error": "No POST values"));
+    }
+
+
+}
+
+
+
+
+  echo json_encode($data);
+
+
+
+
+/*
+  function getItemProperties($end)
+  
+    if ($end != '') {  
+      $sql = "select item_id, item_name from items where item_id=".$end;
+      //create prepared stmt
+      $stmt = $dbh->prepare ('
+        select item_id, item_name from items where item_id=:end
+      ');
+      //bind the query value to the sql 
+      $stmt -> bindParam(':end', $end);
+      $stmt->execute();
+
+    } else {
+      $sql = "select item_id, item_name from items";
+      $stmt = $conn->prepare ('
+      select item_id, item_name from items where item_id=:end
+    ');
+
+    }
+
+    return $stmt->fetch();
+  }
+
+
+
+/* -- * /
+
+
+$stmt = $conn->prepare ('
+    select item_id, item_name from items where item_id=:end
+');
+ 
+$stmt -> bindParam(':end', $end);
+$stmt -> bindParam(':surname', 'Smith');
+ 
+$stmt -> execute();
+
+/* -- */
   
 
-  $dbh = connectDB();
+
+/*
   $rows = array();
+  
   $sql = "select item_id, item_name from items";
   if ($end != '') {  
   $sql = "select item_id, item_name from items where item_id=".$end;
   }
 
 
-foreach ($dbh->query($sql) as $results){     $json_data .= "'".
-$results["item_id"]."': {'item_name': '". $results["item_name"]."',
-'item_id':'".$results["item_id"]."', 'url':
-'".$_SERVER['HTTP_HOST']."/jsphp/items/".$results["item_id"]."/'},";
+
+foreach ($dbh->query($sql) as $results){     
+  $json_data .= "'".
+  $results["item_id"]."': {'item_name': '". $results["item_name"]."','item_id':'".$results["item_id"]."', 'url':'".$_SERVER['HTTP_HOST']."/jsphp/items/".$results["item_id"]."/'},";
     
     //$rows[$results["item_id"]]= $results;
     }
@@ -85,10 +198,9 @@ $results["item_id"]."': {'item_name': '". $results["item_name"]."',
    //echo $json_data;  
         
 
-       
+*/       
 
-      }
-    
+      
     //$data .= "'". $results["item_id"]."': {'itemid':'".$results["item_id"]."', 'url': 'href://localhost/jsphp/items/".$results["item_id"]."/'},";
     //echo $data;
     //$json[$results["item_id"]] = 'http://localhost/items/'.$results["item_id"];
@@ -96,6 +208,7 @@ $results["item_id"]."': {'item_name': '". $results["item_name"]."',
 
 
 
+    }
 
   //end GET ALL ***************************************
 
