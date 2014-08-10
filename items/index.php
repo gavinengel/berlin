@@ -23,7 +23,7 @@ function connectDB(){
   return($dbh);
 } 
 
-*/
+
 $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $actual_host = '';
 $method = $_SERVER['REQUEST_METHOD'];
