@@ -13,7 +13,7 @@ define('DB_NAME',getenv('OPENSHIFT_GEAR_NAME'));
 function connectDB(){
 
   try {
-    $dbh = new PDO('mysql:host='.DB_HOST.';port='.DB_PORT.';dbname='.DB_NAME.', '.DB_USER.', '', array( PDO::ATTR_PERSISTENT => true));
+    $dbh = new PDO('mysql:host='.DB_HOST.';port='.DB_PORT.';dbname='.DB_NAME.', '.DB_USER.', '.DB_PASS', array( PDO::ATTR_PERSISTENT => true));
   } catch (PDOException $e) {
     echo "Error!: " . $e->getMessage() . "<br/>";
     die();
