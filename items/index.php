@@ -85,8 +85,20 @@ if ($method=="GET"){
 
     echo json_encode($array);
   } elseif (ctype_digit($end)){
+    $array = '';
     $data = getItemByID($end); 
-    echo json_encode($data);
+    foreach ($data as $row){
+      $currentid = $row["item_id"];
+      $currentname = $row["item_name"];
+      $item_desc = $row["item_desc"];
+      $quantity = $row["quantity"];
+      $price = $row["price"];
+      $array[$currentid] = array('item_id'=>$currentid,'item_name'=>$currentname, 'item_desc'=> 
+        $item_desc, 'price'=> $price, 'quantity'=> $quantity);
+    }
+
+    echo json_encode($array);
+
 
     }
 
