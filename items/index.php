@@ -2,7 +2,7 @@
 
 
 
-
+// database connect -- need to substitute with environment variables
 function connectDB(){
 
   if ($_SERVER['HTTP_HOST'] == 'localhost') {
@@ -25,7 +25,7 @@ function connectDB(){
 } 
 
 
-
+  // All Items in inventory -- specification only wants id, url (I gave name too, if want all, copy the getItemsByID code)
   function getAllItems()
     {
         $dbh = connectDB();
@@ -37,192 +37,77 @@ function connectDB(){
     }
 
 
-    function getItemByID($id){
-      $dbh = connectDB();
-      $stmt = $dbh->prepare('
-        select i.item_id, i.item_name, i.item_desc,
-        p.quantity, p.price
-        FROM items i
-        LEFT JOIN item_properties p ON i.item_id = p.fk_item_id
-        WHERE i.item_id = :end; 
-        ');
-       
-      $stmt -> bindParam(':end', $id);
-      $stmt->execute();    
-      return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-
-
-$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-$actual_host = '';
-$method = $_SERVER['REQUEST_METHOD'];
-
-
-// ************************************** GET/UPDATE *******************************
-
-
-if ($method=="GET"){
-  $json_data = "{";
-  $array = array(); 
-  $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-  $pathFragments = explode('/items/', $path);
-  $end = end($pathFragments);
-  $end= preg_replace('#[^0-9]#', '', $end);
-  //var_dump($end);
-  
-  //Get ALl
-  if ($end == '') {  
-    $data = getAllItems();  
-
-    foreach ($data as $row){
-      $currentid = $row["item_id"];
-      $currentname = $row["item_name"];
-      //$currenturl = "$row->url";
-      //$currentimage = "$row->image";
-      $array[$currentid] = array('item_id'=>$currentid,'item_name'=>$currentname, 'url'=> $_SERVER['HTTP_HOST']."/items/".$currentid."/");
-    }
-
-    echo json_encode($array);
-  } elseif (ctype_digit($end)){
-    $array = '';
-    $data = getItemByID($end); 
-    foreach ($data as $row){
-      $currentid = $row["item_id"];
-      $currentname = $row["item_name"];
-      $item_desc = $row["item_desc"];
-      $quantity = $row["quantity"];
-      $price = $row["price"];
-      $array[$currentid] = array('item_id'=>$currentid,'item_name'=>$currentname, 'item_desc'=> 
-        $item_desc, 'price'=> $price, 'quantity'=> $quantity);
-    }
-
-    echo json_encode($array);
-
-
-    }
-
-
-/*
-{
-$currentid = "$row->id";
-$currentname = "$row->name";
-$currenturl = "$row->url";
-$currentimage = "$row->image";
-$array = array('id'=>$currentid,'url'=>$currenturl, 'name'=>$currentname,'image'=>$currentimage);
-
- echo json_encode($array);
-
-
-       while($row = mysql_fetch_object($result))
-        {
-            $currentid = "$row->id";
-            $currentname = "$row->name";
-            $currenturl = "$row->url";
-            $currentimage = "$row->image";
-            $array[]= array('id'=>$currentid,'url'=>$currenturl, 'name'=>$currentname,'image'=>$currentimage);
-        }
-        echo json_encode($array);
-    }else{
-        echo json_encode(Array("error": "No POST values"));
-    }
-
-
-}
-
-
-
-
-  echo json_encode($data);
-
-
-
-
-/*
-  function getItemProperties($end)
-  
-    if ($end != '') {  
-      $sql = "select item_id, item_name from items where item_id=".$end;
-      //create prepared stmt
-      $stmt = $dbh->prepare ('
-        select item_id, item_name from items where item_id=:end
+    //item by ID -- probably need to look closer at number/string typing
+  function getItemByID($id){
+    $dbh = connectDB();
+    $stmt = $dbh->prepare('
+      select i.item_id, i.item_name, i.item_desc,
+      p.quantity, p.price
+      FROM items i
+      LEFT JOIN item_properties p ON i.item_id = p.fk_item_id
+      WHERE i.item_id = :end; 
       ');
-      //bind the query value to the sql 
-      $stmt -> bindParam(':end', $end);
-      $stmt->execute();
-
-    } else {
-      $sql = "select item_id, item_name from items";
-      $stmt = $conn->prepare ('
-      select item_id, item_name from items where item_id=:end
-    ');
-
-    }
-
-    return $stmt->fetch();
+     
+    $stmt -> bindParam(':end', $id);
+    $stmt->execute();    
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
 
-
-/* -- * /
-
-
-$stmt = $conn->prepare ('
-    select item_id, item_name from items where item_id=:end
-');
- 
-$stmt -> bindParam(':end', $end);
-$stmt -> bindParam(':surname', 'Smith');
- 
-$stmt -> execute();
-
-/* -- */
-  
+  // get information about the server & request
+  $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+  $actual_host = '';
+  $method = $_SERVER['REQUEST_METHOD'];
 
 
-/*
-  $rows = array();
-  
-  $sql = "select item_id, item_name from items";
-  if ($end != '') {  
-  $sql = "select item_id, item_name from items where item_id=".$end;
-  }
+// ************************************** REQUEST: GET *******************************
 
 
-
-foreach ($dbh->query($sql) as $results){     
-  $json_data .= "'".
-  $results["item_id"]."': {'item_name': '". $results["item_name"]."','item_id':'".$results["item_id"]."', 'url':'".$_SERVER['HTTP_HOST']."/jsphp/items/".$results["item_id"]."/'},";
+  if ($method=="GET"){
     
-    //$rows[$results["item_id"]]= $results;
+    $array = array(); 
+    //get end of url, just the numbers
+    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $pathFragments = explode('/items/', $path);
+    $end = end($pathFragments);
+    $end= preg_replace('#[^0-9]#', '', $end);
+    
+    //Get ALl
+    if ($end == '') {  
+      $data = getAllItems();  
+
+      //format response and add specified href
+      foreach ($data as $row){
+        $currentid = $row["item_id"];
+        $currentname = $row["item_name"];
+        //$currenturl = "$row->url";
+        //$currentimage = "$row->image";
+        $array[$currentid] = array('item_id'=>$currentid,'item_name'=>$currentname, 'url'=> $_SERVER['HTTP_HOST']."/items/".$currentid."/");
+      }
+      //send all results in json
+      echo json_encode($array);
+    } elseif (ctype_digit($end)){
+      //Get the specified item and return specified properties
+      $array = '';
+      $data = getItemByID($end); 
+      foreach ($data as $row){
+        $currentid = $row["item_id"];
+        $currentname = $row["item_name"];
+        $item_desc = $row["item_desc"];
+        $quantity = $row["quantity"];
+        $price = $row["price"];
+        $array[$currentid] = array('item_id'=>$currentid,'item_name'=>$currentname, 'item_desc'=> 
+          $item_desc, 'price'=> $price, 'quantity'=> $quantity);
+      }
+
+        //send selected json
+        echo json_encode($array);
+
+      }
+
     }
-    $json_data = chop($json_data, ",");
-    $json_data = str_replace("'",'"',$json_data);
-    $json_data = html_entity_decode($json_data);
-    $json_data .= "}";
 
-    header("Content-Type: application/json");
-   
-   echo $json_data;
-
-   //echo json_encode($rows);
-
-   //echo $json_data;  
-        
-
-*/       
-
-      
-    //$data .= "'". $results["item_id"]."': {'itemid':'".$results["item_id"]."', 'url': 'href://localhost/jsphp/items/".$results["item_id"]."/'},";
-    //echo $data;
-    //$json[$results["item_id"]] = 'http://localhost/items/'.$results["item_id"];
-    //html_entity_decode
-
-
-
-    }
-
-  //end GET ALL ***************************************
+  //end GET ITEM(S) ***************************************
 
       
         
@@ -266,7 +151,7 @@ foreach ($dbh->query($sql) as $results){
 
               
               
-              echo '{"'.$last_id.'":{"item_id":"'.$last_id.'", "url": "' .$_SERVER['HTTP_HOST'].'/jsphp/items/'.$last_id.'/"}}';
+              echo '{"'.$last_id.'":{"item_id":"'.$last_id.'", "url": "' .$_SERVER['HTTP_HOST'].'/items/'.$last_id.'/"}}';
                //'http://localhost/jsphp/items/80'}";
             /* while ($rs = $stmt->fetch(PDO::FETCH_OBJ)) {
                   echo "output: ".$rs->name."<BR>";
