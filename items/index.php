@@ -187,6 +187,10 @@ function connectDB(){
  
     $last_id = createItem($name, $description);
      //var_dump($last_id);
+    
+    //create initial item properties
+    createItemProperties($last_id, $description, $quantity, $price);
+
     echo '{"'.$last_id.'":{"item_id":"'.$last_id.'", "url": "' .$_SERVER['HTTP_HOST'].'/items/'.$last_id.'/"}}';
       
 
