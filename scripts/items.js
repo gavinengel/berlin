@@ -20,7 +20,8 @@ function getItems(){
     if (hr.readyState == 4 && hr.status == 200){
       //console.log(hr.responseText);
       //document.getElementById("jsonpanel").innerHTML = "<pre>"+hr.responseText.substr(0, 100) +"...</pre>";
-      
+     console.log(hr.responseText);
+
 
       var r = JSON.parse(hr.responseText);
        for (o in r){
@@ -59,6 +60,7 @@ function addItem(){
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
+      console.log(hr.responseText);
       var r = JSON.parse(hr.responseText);
       for (o in r){
         itemlink += r[o].item_id + ": <a href='http://"+r[o].url+"'>http://"+r[o].url+"</a>";

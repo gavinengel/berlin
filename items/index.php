@@ -54,6 +54,58 @@ function connectDB(){
   }
 
 
+  // create inventory item -- returns last_id
+  function createItem($name, $description){
+    $dbh = connectDB();
+   
+    // prepare and insert item into items table (before item props)
+    
+        $stmt = $dbh->prepare('
+            INSERT INTO items 
+                (item_name, item_desc) 
+            VALUES 
+                (:item_name, :item_desc)
+        ');
+        $stmt->bindParam(':item_name', $name);
+        $stmt->bindParam(':item_desc', $description);
+        $stmt->execute();
+        $last_id = $dbh->lastInsertId("item_id");
+ 
+        return $last_id;
+      }
+        
+
+  function createItemProperties($id, $description, $price, $quantity){
+
+      $dbh = connectDB(); 
+      $stmt = $dbh->prepare('
+      INSERT INTO item_properties 
+          (fk_item_id, description, price, quantity) 
+      VALUES 
+          (:id, :description, :price, :quantity)
+      ');
+
+      $stmt->bindParam(':id', $id);
+      $stmt->bindParam(':description', $description);
+      $stmt->bindParam(':price', $price);
+      $stmt->bindParam(':quantity', $quantity);
+      
+      return $stmt->execute();
+  }
+/*
+   //unbound 
+    $sqlinserti = "INSERT into items (item_name, item_desc) values('".$name."','".$description."')";
+    $stmt = $dbh->prepare($sqlinserti);
+    $stmt->execute();
+    $last_id = $dbh->lastInsertId("item_id");
+
+    // prepare and insert item properties
+    $sqlinsertip ="INSERT into item_properties (fk_item_id, quantity, price) values ((select max(item_id) from items), '".$quantity."',".$price.")";
+    $stmt = $dbh->prepare($sqlinsertip);
+    $stmt->execute();
+*/
+  
+
   // get information about the server & request
   $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
   $actual_host = '';
@@ -105,59 +157,45 @@ function connectDB(){
 
       }
 
-    }
+  }
 
   //end GET ITEM(S) ***************************************
 
+  // ********************CREATE NEw (POST)  ******************** 
+
+
+  // IF METHOD IS POST ADD ITEM TO DB
+  if ($method == "POST") {
+
+    //get values
+    if (isset($_POST['name'])) {  
+     $name=$_POST['name'];
+    }
+
+    if (isset($_POST['description']))  { 
+      $description =  $_POST['description'];      
+    }
+
+    if (isset($_POST['quantity'])) {
+      $quantity =  $_POST['quantity'];            
+
+    }
+
+    if (isset($_POST['price'])){
+      $price =  $_POST['price'];  
+    }
+ 
+    $last_id = createItem($name, $description);
+     //var_dump($last_id);
+    echo '{"'.$last_id.'":{"item_id":"'.$last_id.'", "url": "' .$_SERVER['HTTP_HOST'].'/items/'.$last_id.'/"}}';
       
-        
-// ********************CREATE NEw (POST)  ******************** 
 
-
-       // IF METHOD IS POST ADD ITEM TO DB
-       if ($method == "POST") {
-
-
-        //get values
-        if (isset($_POST['name'])) {  
-         $name=$_POST['name'];
-        }
-
-        if (isset($_POST['description']))  { 
-          $description =  $_POST['description'];      
-        }
-
-        if (isset($_POST['quantity'])) {
-          $quantity =  $_POST['quantity'];            
-
-        }
-
-        if (isset($_POST['price'])){
-          $price =  $_POST['price'];  
-        }
-     
-        //create db connection to localhost/items
-              $dbh = connectDB();
-              // prepare and insert item
-              $sqlinserti = "INSERT into items (item_name, item_desc) values('".$name."','".$description."')";
-              $stmt = $dbh->prepare($sqlinserti);
-              $stmt->execute();
-              $last_id = $dbh->lastInsertId("item_id");
-
-              // prepare and insert item properties
-              $sqlinsertip ="INSERT into item_properties (fk_item_id, quantity, price) values ((select max(item_id) from items), '".$quantity."',".$price.")";
-              $stmt = $dbh->prepare($sqlinsertip);
-              $stmt->execute();
-
-              
-              
-              echo '{"'.$last_id.'":{"item_id":"'.$last_id.'", "url": "' .$_SERVER['HTTP_HOST'].'/items/'.$last_id.'/"}}';
-               //'http://localhost/jsphp/items/80'}";
-            /* while ($rs = $stmt->fetch(PDO::FETCH_OBJ)) {
-                  echo "output: ".$rs->name."<BR>";
-              }
-              echo "<BR><B>".date("r")."</B>";
-          */
+       //'http://localhost/jsphp/items/80'}";
+        /* while ($rs = $stmt->fetch(PDO::FETCH_OBJ)) {
+          echo "output: ".$rs->name."<BR>";
+      }
+          echo "<BR><B>".date("r")."</B>";
+      */
   }     // ************END CREATE (POST)  
 
 // UPDATE (PUT) ****************************************************************
