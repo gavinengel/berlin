@@ -1,7 +1,5 @@
 <?php
 
-
-
 // database connect -- need to substitute with environment variables
 function connectDB(){
 
@@ -59,52 +57,85 @@ function connectDB(){
     $dbh = connectDB();
    
     // prepare and insert item into items table (before item props)
-    
-        $stmt = $dbh->prepare('
-            INSERT INTO items 
-                (item_name, item_desc) 
-            VALUES 
-                (:item_name, :item_desc)
-        ');
-        $stmt->bindParam(':item_name', $name);
-        $stmt->bindParam(':item_desc', $description);
-        $stmt->execute();
-        $last_id = $dbh->lastInsertId("item_id");
- 
-        return $last_id;
-      }
-        
 
-  function createItemProperties($id, $description, $price, $quantity){
-
-      $dbh = connectDB(); 
-      $stmt = $dbh->prepare('
-      INSERT INTO item_properties 
-          (fk_item_id, description, price, quantity) 
-      VALUES 
-          (:id, :description, :price, :quantity)
-      ');
-
-      $stmt->bindParam(':id', $id);
-      $stmt->bindParam(':description', $description);
-      $stmt->bindParam(':price', $price);
-      $stmt->bindParam(':quantity', $quantity);
-      
-      return $stmt->execute();
-  }
-/*
-   //unbound 
-    $sqlinserti = "INSERT into items (item_name, item_desc) values('".$name."','".$description."')";
-    $stmt = $dbh->prepare($sqlinserti);
+    $stmt = $dbh->prepare('
+        INSERT INTO items 
+            (item_name, item_desc) 
+        VALUES 
+            (:item_name, :item_desc)
+    ');
+    $stmt->bindParam(':item_name', $name);
+    $stmt->bindParam(':item_desc', $description);
     $stmt->execute();
     $last_id = $dbh->lastInsertId("item_id");
 
-    // prepare and insert item properties
-    $sqlinsertip ="INSERT into item_properties (fk_item_id, quantity, price) values ((select max(item_id) from items), '".$quantity."',".$price.")";
-    $stmt = $dbh->prepare($sqlinsertip);
+    return $last_id;
+    }
+      
+
+  function createItemProperties($id, $description, $price, $quantity){
+
+    $dbh = connectDB(); 
+    $stmt = $dbh->prepare('
+    INSERT INTO item_properties 
+        (fk_item_id, description, price, quantity) 
+    VALUES 
+        (:id, :description, :price, :quantity)
+    ');
+
+    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':description', $description);
+    $stmt->bindParam(':price', $price);
+    $stmt->bindParam(':quantity', $quantity);
+    
+    return $stmt->execute();
+  }
+
+
+
+
+
+  function updateItem($item_id, $item_name, $item_desc){
+    $dbh = connectDB();
+    echo ("in updateItem");
+    // prepare and insert item into items table (before item props)
+
+    $stmt = $dbh->prepare('
+        UPDATE items
+        SET item_name = :item_name,
+            item_desc = :item_desc
+        WHERE item_id = :item_id
+    ');
+    $stmt->bindParam(':item_id', $item_id);
+    $stmt->bindParam(':item_name', $item_name);
+    $stmt->bindParam(':item_desc', $item_desc);
     $stmt->execute();
-*/
-  
+    $last_id = $dbh->lastInsertId("item_id");
+
+    return $last_id;
+  } 
+
+  function updateItemProperties($fk_item_id, $description, $quantity, $price){
+    $dbh = connectDB();
+   
+    // prepare and insert item into items table (before item props)
+
+    $stmt = $dbh->prepare('
+        UPDATE items_properties
+        SET description = :description,
+            quantity = :quantity,
+            price = :price
+        WHERE $fk_item_id = :fk_item_id
+    ');
+    $stmt->bindParam(':fk_item_id', $fk_item_id);
+    $stmt->bindParam(':description', $description);
+    $stmt->bindParam(':price', $price);
+    $stmt->bindParam(':quantity', $quantity);   
+    return $stmt->execute();
+  } 
+
+
+
 
   // get information about the server & request
   $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -167,6 +198,9 @@ function connectDB(){
   // IF METHOD IS POST ADD ITEM TO DB
   if ($method == "POST") {
 
+
+    //isset($var) ?: $var = "";
+    
     //get values
     if (isset($_POST['name'])) {  
      $name=$_POST['name'];
@@ -193,33 +227,87 @@ function connectDB(){
 
     echo '{"'.$last_id.'":{"item_id":"'.$last_id.'", "url": "' .$_SERVER['HTTP_HOST'].'/items/'.$last_id.'/"}}';
       
-
-       //'http://localhost/jsphp/items/80'}";
-        /* while ($rs = $stmt->fetch(PDO::FETCH_OBJ)) {
-          echo "output: ".$rs->name."<BR>";
-      }
-          echo "<BR><B>".date("r")."</B>";
-      */
   }     // ************END CREATE (POST)  
 
-// UPDATE (PUT) ****************************************************************
-if ($method == "PUT"){
-  echo ($method);
-  parse_str(file_get_contents("php://input"), $put_vars);
-  //echo("data:". $put_vars["itemid"]);
 
-  $dbh = connectDB();
 
-  $sql = "UPDATE items set item_name='".$put_vars["name"]."', item_desc='".$put_vars["description"]."' where item_id=".$put_vars["itemid"];
-  $stmt = $dbh->prepare($sql);
+/*
+  // create inventory item -- returns last_id
+  function createItem($name, $description){
+    $dbh = connectDB();
+   
+    // prepare and insert item into items table (before item props)
+
+    $stmt = $dbh->prepare('
+        INSERT INTO items 
+            (item_name, item_desc) 
+        VALUES 
+            (:item_name, :item_desc)
+    ');
+    $stmt->bindParam(':item_name', $name);
+    $stmt->bindParam(':item_desc', $description);
+    $stmt->execute();
+    $last_id = $dbh->lastInsertId("item_id");
+
+    return $last_id;
+    }
+      
+
+  function createItemProperties($id, $description, $price, $quantity){
+
+    $dbh = connectDB(); 
+    $stmt = $dbh->prepare('
+    INSERT INTO item_properties 
+        (fk_item_id, description, price, quantity) 
+    VALUES 
+        (:id, :description, :price, :quantity)
+    ');
+
+    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':description', $description);
+    $stmt->bindParam(':price', $price);
+    $stmt->bindParam(':quantity', $quantity);
+    
+    return $stmt->execute();
+  }
+*/
+
+
+
+
+  // UPDATE (PUT) ****************************************************************
+  if ($method == "PUT"){
+    $dbh = connectDB();
+    echo ($method);
+    parse_str(file_get_contents("php://input"), $put_vars);
+    //  echo("data:". $put_vars["itemid"]);
+    
+    $item_id=$put_vars["itemid"];
+    $item_name =$put_vars["name"];
+    $description= $put_vars["description"];
+    $quantity=$put_vars["quantity"];
+    $price=$put_vars["price"];
+
+    echo ($item_id . $item_name . $description . $quantity . $price);
+
+    $last_id=updateItem($item_id,  $item_name,  $description);
+    updateItemProperties($item_id,  $description,  $quantity,  $price);
+    echo json_encode("http://".$_SERVER['HTTP_HOST']."/items/".$last_id);
+    
+    echo("id:". $put_vars["itemid"]);
+
+  //$sql = "UPDATE items set item_name='".
+
+  updateItem($put_vars["name"], $put_vars["description"], $put_vars["itemid"]);
+  
+  /* $stmt = $dbh->prepare($sql);
   $stmt -> execute();
 
   $sql = "UPDATE item_properties set quantity=".$put_vars["quantity"].", price=".$put_vars["price"]." where fk_item_id = ".$put_vars["itemid"];
-  //echo($sql);
+  echo($sql);
   $stmt = $dbh->prepare($sql);
   $stmt -> execute();
-
-  echo ("put get by id return here");
+*/
 
 }  // end PUT/UPDATE
 
@@ -239,71 +327,6 @@ if ($method == "DELETE"){
   echo '{"msg":{"response":"'.$delresp.'"}"';
   
 } // END DELETE
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//read values
-  
-  if (isset($put_vars['itemid'])) {  
-    $item_id=$put_vars['itemid'];
-    
-    }
-
-
-  if (isset($put_vars['name'])) {  
-    $name=$put_vars['name'];
-    }
-
-  if (isset($put_vars['description']))  { 
-    $description =  $put_vars['description'];      
-  }
-
-  if (isset($put_vars['quantity'])) {
-    $quantity =  $put_vars['quantity'];  
-    }
-
-
-  if (isset($put_vars['price'])){
-    $price =  $put_vars['price'];  
-   }     
-
-
-  $dbh = connectDB();
- // prepare and insert item
-  $sqlinserti = "UPDATE items set item_name='".$name."', item_desc='".$description."' where item_id='".$item_id."'";
-  $stmt = $dbh->prepare($sqlinserti);
-   $stmt->execute();
-
-  // prepare and insert item properties
-  $sqlinsertip = "UPDATE item_properties set quantity='".$quantity."', price=".$price." where fk_item_id="+$item_id;
-  $stmt = $dbh->prepare($sqlinsertip);
-  $stmt->execute();
-
-  echo ("{item".$item_id.":'href=http://localhost/jsphp/items/".$item_id."'}");
-
-*/
-
 
 
     ?>

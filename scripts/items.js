@@ -8,7 +8,7 @@
 
 function getItems(){
   inventory = '<table>';
-  console.log('in getItems()');
+
 
   var hr = new XMLHttpRequest();
   var url = 'items/';
@@ -128,7 +128,8 @@ function updateItem(){
   var price = document.getElementById("price").value;
   var quantity = document.getElementById("quantity").value;
   var vars = "itemid="+itemid+"&name="+name+"&description="+description+"&quantity="+quantity+"&price="+price;  
-
+  console.log(vars);
+  
   hr.open("PUT", url, true);
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){

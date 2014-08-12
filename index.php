@@ -53,9 +53,7 @@
   <body onload="getItems()" >
     <div id="main">
       <div class=title >inventory api</div>
-      <p>description</p>
-      <h2>test</h2>
-       
+&nbsp;
        <table>
         <tr>
           <td ><input type=button class="button-brown " id="showinventory" onclick="javascript:getItems();" value="Show All"> <input type="button" class="button-green" value= "Create New Item" onclick="createupdate();return false;"></td><td></td>
