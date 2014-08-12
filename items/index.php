@@ -200,7 +200,7 @@ function connectDB(){
 
 
     //isset($var) ?: $var = "";
-    
+
     //get values
     if (isset($_POST['name'])) {  
      $name=$_POST['name'];
@@ -228,49 +228,6 @@ function connectDB(){
     echo '{"'.$last_id.'":{"item_id":"'.$last_id.'", "url": "' .$_SERVER['HTTP_HOST'].'/items/'.$last_id.'/"}}';
       
   }     // ************END CREATE (POST)  
-
-
-
-/*
-  // create inventory item -- returns last_id
-  function createItem($name, $description){
-    $dbh = connectDB();
-   
-    // prepare and insert item into items table (before item props)
-
-    $stmt = $dbh->prepare('
-        INSERT INTO items 
-            (item_name, item_desc) 
-        VALUES 
-            (:item_name, :item_desc)
-    ');
-    $stmt->bindParam(':item_name', $name);
-    $stmt->bindParam(':item_desc', $description);
-    $stmt->execute();
-    $last_id = $dbh->lastInsertId("item_id");
-
-    return $last_id;
-    }
-      
-
-  function createItemProperties($id, $description, $price, $quantity){
-
-    $dbh = connectDB(); 
-    $stmt = $dbh->prepare('
-    INSERT INTO item_properties 
-        (fk_item_id, description, price, quantity) 
-    VALUES 
-        (:id, :description, :price, :quantity)
-    ');
-
-    $stmt->bindParam(':id', $id);
-    $stmt->bindParam(':description', $description);
-    $stmt->bindParam(':price', $price);
-    $stmt->bindParam(':quantity', $quantity);
-    
-    return $stmt->execute();
-  }
-*/
 
 
 
@@ -312,19 +269,31 @@ function connectDB(){
 }  // end PUT/UPDATE
 
 
+  function deleteItem($item_id){
+    $dbh = connectDB();
+    $stmt = $dbh->prepare('
+      DELETE from items where item_id=:item_id
+    ');
+    $stmt -> bindParam(':item_id', $item_id);
+    return $stmt -> execute();
+  }
+
+
 /* ******************** DELETE *********************/
 if ($method == "DELETE"){
 
   parse_str(file_get_contents("php://input"), $put_vars);
   //echo("data:". $put_vars["itemid"]);
   //echo("id " .$put_vars["del_itemid"]);
-  $dbh = connectDB();
 
-  $sql = "DELETE from items where item_id=".$put_vars["del_itemid"]; //  set item_name='".$put_vars["name"]."', item_desc='".$put_vars["description"]."' where item_id=".$put_vars["itemid"];
+  $item_id = $put_vars["del_itemid"];
 
-  $stmt = $dbh->prepare($sql);
-  $delresp = $stmt -> execute();
-  echo '{"msg":{"response":"'.$delresp.'"}"';
+ // $sql = "DELETE from items where item_id=".$put_vars["del_itemid"]; //  set item_name='".$put_vars["name"]."', item_desc='".$put_vars["description"]."' where item_id=".$put_vars["itemid"];
+
+  //$stmt = $dbh->prepare($sql);
+  //$delresp = $stmt -> execute();
+  $deletemsg = deleteItem($item_id); 
+  echo json_encode("response : " . $deletemsg);
   
 } // END DELETE
 
