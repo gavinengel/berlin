@@ -15,11 +15,12 @@
           color: #000;
           border-radius: 8px;
           border: 3px;
-          padding: 3px;
+          padding: 10px;
+
           }
      
      .formtable{
-      width=75%;
+      
       
       }
     html
@@ -120,7 +121,7 @@ h6
 }
   .title{
     font-size: 4em;
-    color: #e1f5fe;
+    color: #b3e5fa;
   }
 
   .button-gray{
@@ -133,8 +134,33 @@ h6
 
   }
 
+  .reddish {
+  color:  #b3e5fc; 
+}
+.orangish {
+  color:  #FFA500;
+}
+.blueish {
+  color: #13647f;
+}
+
+.greyish {
+  color: #656273;
+}
+
+.blued {
+  color: #06222e;
+}
+.yellowish{
+  color: #fffd9e;
+}
+.greenirish {
+  color:#698c2d;
+}
+
+
   #additem{
-    display:block;
+    
   }
 
 #showcase{
