@@ -63,10 +63,10 @@ function addItem(){
       console.log(hr.responseText);
       var r = JSON.parse(hr.responseText);
       for (o in r){
-        itemlink += r[o].item_id + ": <a href='http://"+r[o].url+"'>http://"+r[o].url+"</a>";
+        itemlink += "<a href='http://"+r[o].url+"'>http://"+r[o].url+"</a>";
       }
 
-      document.getElementById("jsoncell").innerHTML = itemlink + " " +  hr.responseText;    }
+      document.getElementById("addstatus").innerHTML = itemlink;    }
   }    
 
   hr.send(vars);
@@ -91,6 +91,9 @@ function makeUpdate (id) {
        for (o in r){
         document.getElementById("itemid").value = r[o].item_id;
         document.getElementById("name").value = r[o].item_name;
+        document.getElementById("description").value = r[o].item_desc;
+        document.getElementById("price").value = r[o].price;
+        document.getElementById("quantity").value = r[o].quantity;
       };
 
   }
@@ -102,7 +105,7 @@ function makeUpdate (id) {
 
   var inventory = "<table class=table>";
  function makeInventory(myname, myhref, id){
-  inventory += "<tr><td>"+myname+":</td><td> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><a href='#' onclick='deleteItem("+id+");return false;'>Delete</a>&nbsp;<a href='#' onClick='makeUpdate("+id+");'>Update</a></td></tr>";
+  inventory += "<tr><td>"+myname+":<br /> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><a href='#' onclick='deleteItem("+id+");return false;'>Delete</a>&nbsp;<a href='#' onClick='makeUpdate("+id+");'>Update</a></td></tr>";
  console.log(inventory);
  }
 
@@ -134,8 +137,10 @@ function updateItem(){
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
-      var return_data = hr.responseText + '';
-      document.getElementById("status").innerHTML = return_data;
+      console.log(hr.responseText);
+       
+
+      document.getElementById("status").innerHTML = null;
     }
   }    
 

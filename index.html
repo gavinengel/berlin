@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Inventory Admin</title>
+    <title>inventory api</title>
     <link rel="stylesheet" type="text/css" href="css/lemonade.css">
     <LINK href="css/items.css" rel="stylesheet" type="text/css">
     <script src="scripts/items.js"></script>
@@ -49,30 +49,28 @@
       </script>
   </head>
   <body onload="getItems()" >
-    <div id="main">
+    <div id="main" class="container" style="width:100%">
 
-      <div><span class="title">inventory</span></div>
-      <hr width=10%>
+      <div class="title">inventory</div>
+ 
       <br>
       
 
 
 
-  <div class="frame">
-    <div class="bit-1">
-    <input type=button class="button-gray " id="showinventory" onclick="javascript:getItems();" value="Refresh"> <input type="button" class="button-gray" value= "Create New Item" onclick="createupdate();return false;">&nbsp;<input type="button" class="button-gray" value= "Update Item" onclick="document.getElementById('update').style.display ='inline';return false;"></td>
-    </div>
+  <div>
+      <input type=button class="button-gray " id="showinventory" onclick="javascript:getItems();" value="Refresh"> <input type="button" class="button-gray" value= "Create New Item" onclick="createupdate();return false;">&nbsp;<input type="button" class="button-gray" value= "Update Item" onclick="document.getElementById('update').style.display ='inline';return false;"></td>
   </div>
 
 
-  <div class="frame">
-    <div class="bit-33"><h2>Add Item</h2>
-    <table class="table" id="create">
+  <div id="create" width="450px;">
+  <h4>Add Item</h4>
+    <table>
 
         
           <tr>
             <td>Item Name:  </td>
-            <td> <input id="addname" name="addname" placeholder="Item Name"></td>
+            <td> <input id="addname" name="addname" placeholder="Item Name" width="auto"></td>
           </tr>
           <tr>
             <td>Description: </td>
@@ -87,20 +85,21 @@
             <td> <input id="addprice" name="addprice" placeholder="Price"></td>
           </tr>                                    
           <tr>
-            <td colspan=2><input type="submit" class="button-gray" value="Create Item" onClick="javascript:addItem();"></td><td><input type="submit" class="button-orange" value="Hide" onClick="javascript:document.getElementById('create').style.display='none'; return false">
-            <span id="addstatus"></span></td>
+            <td colspan=2><input type="submit" class="button-green" value="Submit" onClick="javascript:addItem();">&nbsp;<input type="submit" class="button-orange" value="Cancel" onClick="javascript:document.getElementById('create').style.display='none'; return false">
+            <br /> <span id="addstatus"></span></td>
           </tr>
           <tr>
             <td colspan=2 id=addstatus></td>
           </tr>
         
     </table>
-
-    <h2>Update Item</h2>
-    <table class="table" id="update">
+    </div>
+    <div id="update">
+    <h4>Update Item</h4>
+    <table class="table">
         <tr>
               <td>Item ID:  </td>
-              <td> <input id="itemid" name="itemid" placeholder="Item ID"></td>
+              <td> <input id="itemid" name="itemid" placeholder="Item ID" readonly></td>
             </tr>
             <tr>
               <td>Item Name:  </td>
@@ -118,73 +117,29 @@
               <td>Price: </td>
               <td> <input id="price" name="price" placeholder="Price"></td>
             </tr>                        
-            <tr>
-              <td colspan=2><input name="updateitem" type="submit" value="Update" onClick="updateItem();"> </td>
-            </tr>
-              <tr>
-                <td colspan=2 id="status">asdf</td>
-              </tr>
+                      <tr>
+            <td colspan=2><input type="submit" class="button-green" value="Submit" onClick="javascript:updateItem();">&nbsp;<input type="submit" class="button-orange" value="Cancel" onClick="javascript:document.getElementById('update').style.display='none'; return false">
+            <br /> <span id="status"></span></td>
+          </tr>
+          <tr>
+            <td colspan=2 id=status></td>
+          </tr>
+
+
 
         </table>
 
-
-<h2>Delete Item</h2>
-
-  
-        <table class="table" id="deleteitem">
-
-
-          <thead>
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Value</th>
-            </tr>
-          </thead>
-            
-
-
-          <tbody>
-            <tr>
-              <td>Item ID:  </td>
-              <td> <input id="del_itemid" name="del_itemid" placeholder="Item ID"></td>
-            </tr>
-            <tr>
-              <td>Item Name:  </td>
-              <td> <input id="del_name" name="del_name" placeholder="Item Name" readonly></td>
-            </tr>
-            <tr>
-              <td>Description: </td>
-              <td> <input id="del_description" name="del_description" placeholder="Description" readonly></td>
-            </tr>
-            <tr>
-              <td>Quantity: </td>
-              <td> <input id="del_quantity" name="del_quantity" placeholder="Quantity" readonly></td>
-            </tr>
-            <tr>
-              <td>Price: </td>
-              <td> <input id="del_price" name="del_price" placeholder="Price" readonly></td>
-            </tr>                        
-            <tr>
-              <td colspan=2><input name="deleteitem" type="button" value="Delete" onClick="deleteItem(); return false;" > </td>
-            </tr>
-              <tr>
-                <td colspan=2 id="del_status">asdf</td>
-          </tbody>
-        </table>     
-
     </div>
-    
 
-
-    <div class="bit-66">  
-    <h2>All Inventory</h2>     
+    <div id="allinventory">
+    <h4>All Items</strong></h4>     
     <table>
             <tr>
               <td id="parsedinventory"></td>
             </tr>
           </tbody>
         </table></div>
-  </div>
+  <div id="jsoncellaaa"></div>
 
 
     </div> <!-- end main -->

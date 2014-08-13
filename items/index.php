@@ -251,7 +251,7 @@ function connectDB(){
   // UPDATE (PUT) ****************************************************************
   if ($method == "PUT"){
     $dbh = connectDB();
-    echo ($method);
+
     parse_str(file_get_contents("php://input"), $put_vars);
     //  echo("data:". $put_vars["itemid"]);
     
@@ -261,13 +261,13 @@ function connectDB(){
     $quantity=$put_vars["quantity"];
     $price=$put_vars["price"];
 
-    echo ($item_id . $item_name . $description . $quantity . $price);
+    //echo ($item_id . $item_name . $description . $quantity . $price);
 
     $last_id=updateItem($item_id,  $item_name,  $description);
     updateItemProperties($item_id,  $description,  $quantity,  $price);
     echo json_encode("http://".$_SERVER['HTTP_HOST']."/items/".$last_id);
     
-    echo("id:". $put_vars["itemid"]);
+    //echo("id:". $put_vars["itemid"]);
 
   //$sql = "UPDATE items set item_name='".
 

@@ -1,5 +1,5 @@
      #main{
-      padding: 3em;
+      padding: 1em;
       }
      
      td { 
@@ -9,13 +9,14 @@
          }
 
         table { 
-          border-spacing: 10px;
+          border-spacing: 5px;
           border-collapse: separate;
           background-color: #b3e5fc;
           color: #000;
-          border-radius: 8px;
-          border: 3px;
-          padding: 10px;
+          font-weight: bold;
+          border-radius: 3px;
+          border: 1px;
+          padding: 3px;
 
           }
      
@@ -45,7 +46,7 @@
 
 
       a, a:visited{
-        color: #e65100;
+        color: #698c2d;
         text-decoration: none;
       }
 /**
@@ -96,42 +97,44 @@ h6
   background: #259b24;
   color: #fff;
   font-weight: 500em;
-  padding: .75em;
+  padding: 5px;
   border-radius: 8px;
   border: 3px;
-
+  font-size: 16px;
 }
 
 .button-orange{
   background: #f36c60;
   color: #fff;
   font-weight: 500em;
-  padding: .75em;
+  padding: 5px;
   border-radius: 8px;
   border: 3px;
+  font-size: 16px;
 }
 
 .button-brown{
   background: #ff5722;
   color: #fff;
   font-weight: 500em;
-  padding: .75em;
+  padding: 5px;
   border-radius: 8px;
   border: 3px;
+  font-size: 16px;
 }
   .title{
-    font-size: 4em;
+    font-size: 3em;
     color: #b3e5fa;
   }
 
   .button-gray{
       background: #607d8b;
     color: #fff;
-    font-weight: 500em;
-    padding: .75em;
-    border-radius: 8px;
-    border: 3px;
-
+  font-weight: 500em;
+  padding: 5px;
+  border-radius: 8px;
+  border: 3px;
+  font-size: 16px;
   }
 
   .reddish {
