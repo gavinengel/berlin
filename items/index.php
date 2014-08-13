@@ -1,5 +1,5 @@
 <?php
-
+/*
 if (isset($_SERVER['HTTP_ORIGIN'])) {
     //header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
     header("Access-Control-Allow-Origin: *");
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
     exit(0);
 } 
-
+*/
 // database connect -- need to substitute with environment variables
 function connectDB(){
 
