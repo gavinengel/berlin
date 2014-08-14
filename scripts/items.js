@@ -120,7 +120,7 @@ function makeUpdate (id) {
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
       console.log("response text:" + hr.responseText)
-      document.getElementById('jsoncell').innerHTML=responseText.substr(0, 50);
+      document.getElementById('jsoncell').innerHTML=hr.responseText.substr(0, 50);
       var r = JSON.parse(hr.responseText);
        for (o in r){
         document.getElementById("itemid").value = r[o].item_id;
