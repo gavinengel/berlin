@@ -6,7 +6,11 @@
      td { 
           padding: 3px;
    
-
+   .jsoncell{
+    a, a:visited{
+      white;
+   }
+}
          }
 
         table { 

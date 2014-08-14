@@ -13,13 +13,13 @@ function getItems(){
   var hr = new XMLHttpRequest();
   var url = 'items/';
   hr.open("GET", url, true);
-  
+ 
 
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
       //console.log(hr.responseText);
-      //document.getElementById("jsonpanel").innerHTML = "<pre>"+hr.responseText.substr(0, 100) +"...</pre>";
+      document.getElementById("jsoncell").innerHTML = "<pre>"+hr.responseText.substr(0, 50) +"...</pre>";
      //console.log(hr.responseText);
 
      //console.log("rT:" + hr.responseText);
@@ -90,16 +90,17 @@ function addItem(){
   var vars = "name="+addname+"&description="+adddescription+"&quantity="+addquantity+"&price="+addprice;  
   console.log('vars: ' + vars);
   hr.open("POST", url, true);
+
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
-      console.log(hr.responseText);
+      document.getElementById("jsoncell").innerHTML = hr.responseText.substr(0, 50);
       var r = JSON.parse(hr.responseText);
       for (o in r){
         itemlink += "<a href='http://"+r[o].url+"'>http://"+r[o].url+"</a>";
       }
 
-      document.getElementById("addstatus").innerHTML = itemlink;    }
+    }
   }    
 
   hr.send(vars);
@@ -119,7 +120,7 @@ function makeUpdate (id) {
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
       console.log("response text:" + hr.responseText)
-
+      document.getElementById('jsoncell').innerHTML=responseText.substr(0, 50);
       var r = JSON.parse(hr.responseText);
        for (o in r){
         document.getElementById("itemid").value = r[o].item_id;
@@ -139,7 +140,7 @@ function makeUpdate (id) {
   var inventory = "<table>";
  function makeInventory(myname, myhref, id, item_desc, quantity, price, ts, count){
   if (count % 2 == 0){var row = "<tr>";}else{row = "";}
-  inventory += "<td class='itemcard'><span class='itemcard'><span class='itemname'>"+myname+"</span><br />Description: "+item_desc+"<br>quantity: "+quantity+"<br>Price: $"+price+"<br><small>updated:<i>"+ts+"</i><br> <a href='http://"+myhref+"'>http://"+myhref+"</a><br>&nbsp;<input type='button' value='Update'class='' value='update' onClick='makeUpdate("+id+");'>&nbsp;<input type='button' value='Delete' class='' onclick='deleteItem("+id+");return false;'></td>"+row;
+  inventory += "<td class='itemcard'><span class='itemcard'><span class='itemname'>"+myname+"</span><br />Description: "+item_desc+"<br>quantity: "+quantity+"<br>Price: $"+price+"<br><small>updated:<i>"+ts+"</i><br> <a href='http://"+myhref+"'>http://"+myhref+"</a><br>&nbsp;<input type='button' value='Update'class='button-gray' value='update' onClick='makeUpdate("+id+");'>&nbsp;<input type='button' value='Delete' class='button-gray' onclick='deleteItem("+id+");return false;'></td>"+row;
  //console.log(inventory);
  }
 
@@ -165,12 +166,12 @@ function updateItem(){
       console.log(hr.responseText);
        
 
-      document.getElementById("status").innerHTML = null;
+      document.getElementById("jsoncell").innerHTML = hr.responseText;
     }
   }    
 
   hr.send(vars);
-  document.getElementById("status").innerHTML="waiting ...";
+  document.getElementById("jsoncell").innerHTML="waiting ...";
 }
 
 
@@ -188,12 +189,14 @@ function deleteItem(id){
   var vars = "del_itemid="+id; //+"&name="+name+"&description="+description+"&quantity="+quantity+"&price="+price;  
 
   hr.open("DELETE", url, false);
+
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
       var return_data = hr.responseText + '';
-      //document.getElementById("jsoncell").innerHTML = return_data;
+      
       //getItems();
+      document.getElementById("jsoncell").innerHTML = return_data;
     }
   }    
 

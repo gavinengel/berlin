@@ -28,8 +28,9 @@
       font-family: courier;
       font-size: .75em;
       color: #000;
+      display: none
       }
-
+   
     #create{
       display:none;
       font-weight: normal;
@@ -59,9 +60,10 @@
       </script>
   </head>
   <body onload="getItems()" >
-    <div id="main" class="container" style="width:100%">
+    <div id="main" class="container">
 
       <div class="title">inventory</div>
+      <div>a REST api demo</div>
  
       <br>
       
@@ -69,9 +71,11 @@
 
 
   <div>
-      <input type=button class="button-gray " id="showinventory" onclick="javascript:getItems();" value="Refresh"> <input type="button" class="button-gray" value= "Create New Item" onclick="createupdate();return false;">&nbsp;<input type="button" class="button-gray" value= "Update Item" onclick="document.getElementById('update').style.display ='inline';return false;"></td>
+      <input type=button class="button-gray " id="showinventory" onclick="javascript:getItems();" value="Refresh"> <input type="button" class="button-gray" value= "Create New Item" onclick="createupdate();return false;">&nbsp;<input type="button" class="button-gray" value= "Update Item" onclick="document.getElementById('update').style.display ='inline';return false;">&nbsp;<input type="button" value='Show JSON' class="button-gray" onclick="document.getElementById('jsoncell').style.display ='inline';return false;">
   </div>
+<br>
 
+  <div id="jsoncell">awaiting JSON ...</div>
 
   <div id="create">
   <h4>Add Item</h4>
@@ -142,14 +146,15 @@
     </div>
 
     <div id="allinventory">
-    <h4>Recent Items</strong></h4>     
+    <h2>Recent Items</h2>     
     <table>
             <tr>
               <td id="parsedinventory"></td>
             </tr>
           </tbody>
         </table></div>
-  <div id="jsoncellaaa"></div>
+
+
 
 
     </div> <!-- end main -->

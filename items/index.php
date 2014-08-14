@@ -116,7 +116,7 @@ function connectDB(){
 
   function updateItem($item_id, $item_name, $item_desc){
     $dbh = connectDB();
-    echo ("in updateItem");
+
     // prepare and insert item into items table (before item props)
 
     $stmt = $dbh->prepare('
@@ -130,7 +130,6 @@ function connectDB(){
     $stmt->bindParam(':item_desc', $item_desc);
     $stmt->execute();
     $last_id = $dbh->lastInsertId("item_id");
-
     return $last_id;
   } 
 
@@ -151,7 +150,7 @@ function connectDB(){
     $stmt->bindParam(':price', $price);
     $stmt->bindParam(':quantity', $quantity);   
     $result =   $stmt->execute();
-    var_dump($result);
+    
   } 
 
 
@@ -283,7 +282,7 @@ function connectDB(){
     $last_id=updateItem($item_id,  $item_name,  $description);
     
     updateItemProperties($item_id,  $description,  $quantity,  $price);
-    echo json_encode("http://".$_SERVER['HTTP_HOST']."/items/".$last_id);
+    echo json_encode("http://".$_SERVER['HTTP_HOST']."/items/".$item_id);
     
     //echo("id:". $put_vars["itemid"]);
 
