@@ -49,7 +49,7 @@ function getItems(){
       for (i = 0; i < len; i++)
         {
           k = keys[i];
-         makeInventory(r[k].item_name, r[k].url, r[k].item_id, r[k].item_desc, r[k].quantity, r[k].price, r[k].ts);
+         makeInventory(r[k].item_name, r[k].url, r[k].item_id, r[k].item_desc, r[k].quantity, r[k].price, r[k].ts, i);
         }
 
 /*"item_id":"275","item_name":"wafer","quantity":"77","price":"86","item_desc":"choco","ts":"2014-08-13 09:47:47" */
@@ -137,8 +137,9 @@ function makeUpdate (id) {
   }
 
   var inventory = "<table>";
- function makeInventory(myname, myhref, id, item_desc, quantity, price, ts){
-  inventory += "<tr><td class='itemcard'><span class='itemname'>"+myname+"</span><br />Description: "+item_desc+"<br>quantity: "+quantity+"<br>Price: $"+price+"<br><small>updated:<i>"+ts+"</i><br> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><button value='Delete' class='button-orange' onclick='deleteItem("+id+");return false;'>Delete</a>&nbsp;<button value='Update'class='button-green' onClick='makeUpdate("+id+");'>Update</a></td></tr>";
+ function makeInventory(myname, myhref, id, item_desc, quantity, price, ts, count){
+  if (count % 2 == 0){var row = "<tr>";}else{row = "";}
+  inventory += "<td class='itemcard'><span class='itemcard'><span class='itemname'>"+myname+"</span><br />Description: "+item_desc+"<br>quantity: "+quantity+"<br>Price: $"+price+"<br><small>updated:<i>"+ts+"</i><br> <a href='http://"+myhref+"'>http://"+myhref+"</a><br>&nbsp;<input type='button' value='Update'class='button-green' value='update' onClick='makeUpdate("+id+");'>&nbsp;<input type='button' value='Delete' class='button-orange' onclick='deleteItem("+id+");return false;'></td>"+row;
  //console.log(inventory);
  }
 
