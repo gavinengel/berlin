@@ -22,7 +22,7 @@ function getItems(){
       //document.getElementById("jsonpanel").innerHTML = "<pre>"+hr.responseText.substr(0, 100) +"...</pre>";
      //console.log(hr.responseText);
 
-
+     //console.log("rT:" + hr.responseText);
       var r = JSON.parse(hr.responseText);
 
 
@@ -49,10 +49,10 @@ function getItems(){
       for (i = 0; i < len; i++)
         {
           k = keys[i];
-         makeInventory(r[k].item_name, r[k].url, r[k].item_id);
+         makeInventory(r[k].item_name, r[k].url, r[k].item_id, r[k].item_desc, r[k].quantity, r[k].price, r[k].ts);
         }
 
-
+/*"item_id":"275","item_name":"wafer","quantity":"77","price":"86","item_desc":"choco","ts":"2014-08-13 09:47:47" */
 
 
 
@@ -136,9 +136,9 @@ function makeUpdate (id) {
 
   }
 
-  var inventory = "<table class=table>";
- function makeInventory(myname, myhref, id, item_desc, quantity, price){
-  inventory += "<tr><td>"+myname+":<br /> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><a href='#' onclick='deleteItem("+id+");return false;'>Delete</a>&nbsp;<a href='#' onClick='makeUpdate("+id+");'>Update</a></td></tr>";
+  var inventory = "<table>";
+ function makeInventory(myname, myhref, id, item_desc, quantity, price, ts){
+  inventory += "<tr><td class='itemcard'><span class='itemname'>"+myname+"</span><br />Description: "+item_desc+"<br>quantity: "+quantity+"<br>Price: $"+price+"<br><small>updated:<i>"+ts+"</i><br> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><button value='Delete' class='button-orange' onclick='deleteItem("+id+");return false;'>Delete</a>&nbsp;<button value='Update'class='button-green' onClick='makeUpdate("+id+");'>Update</a></td></tr>";
  //console.log(inventory);
  }
 

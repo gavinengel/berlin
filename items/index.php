@@ -44,7 +44,7 @@ function connectDB(){
     {
         $dbh = connectDB();
         $stmt = $dbh->prepare('
-                  select i.item_id, i.item_name, i.item_desc, 
+          select i.item_id, i.item_name, i.item_desc, 
           p.quantity, p.price, i.ts
           FROM items i
           LEFT JOIN item_properties p ON i.item_id = p.fk_item_id
@@ -178,16 +178,29 @@ function connectDB(){
     if ($end == '') {  
       $data = getAllItems();  
 
+      /*
+      select i.item_id, i.item_name, i.item_desc, 
+          p.quantity, p.price, i.ts
+          FROM items i
+          LEFT JOIN item_properties p ON i.item_id = p.fk_item_id */
+
       //format response and add specified href
       foreach ($data as $row){
         $currentid = $row["item_id"];
         $currentname = $row["item_name"];
+        $price = $row["price"];
+        $quantity = $row["quantity"];
+        $ts = $row["ts"];
+        $item_desc = $row["item_desc"];
         //$currenturl = "$row->url";
         //$currentimage = "$row->image";
-        $array[$currentid] = array('item_id'=>$currentid,'item_name'=>$currentname, 'url'=> $_SERVER['HTTP_HOST']."/items/".$currentid."/");
+        $array[$currentid] = array('item_id'=>$currentid,'item_name'=>$currentname, 
+          'quantity'=>$quantity, 'price'=>$price, 'item_desc'=>$item_desc, 'ts'=>$ts,
+          'url'=> $_SERVER['HTTP_HOST']."/items/".$currentid."/");
       }
       //send all results in json
-      echo json_encode($array);
+   
+      echo  json_encode($array);
     } elseif (ctype_digit($end)){
       //Get the specified item and return specified properties
       $array = '';
