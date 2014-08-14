@@ -138,19 +138,20 @@ function connectDB(){
     $dbh = connectDB();
    
     // prepare and insert item into items table (before item props)
-
+    
     $stmt = $dbh->prepare('
-        UPDATE items_properties
+        UPDATE item_properties
         SET description = :description,
             quantity = :quantity,
             price = :price
-        WHERE $fk_item_id = :fk_item_id
+        WHERE fk_item_id = :fk_item_id
     ');
     $stmt->bindParam(':fk_item_id', $fk_item_id);
     $stmt->bindParam(':description', $description);
     $stmt->bindParam(':price', $price);
     $stmt->bindParam(':quantity', $quantity);   
-    return $stmt->execute();
+    $result =   $stmt->execute();
+    var_dump($result);
   } 
 
 
@@ -280,6 +281,7 @@ function connectDB(){
     //echo ($item_id . $item_name . $description . $quantity . $price);
 
     $last_id=updateItem($item_id,  $item_name,  $description);
+    
     updateItemProperties($item_id,  $description,  $quantity,  $price);
     echo json_encode("http://".$_SERVER['HTTP_HOST']."/items/".$last_id);
     
@@ -287,7 +289,7 @@ function connectDB(){
 
   //$sql = "UPDATE items set item_name='".
 
-  updateItem($put_vars["name"], $put_vars["description"], $put_vars["itemid"]);
+  //updateItem($put_vars["name"], $put_vars["description"], $put_vars["itemid"]);
   
   /* $stmt = $dbh->prepare($sql);
   $stmt -> execute();
