@@ -44,7 +44,10 @@ function connectDB(){
     {
         $dbh = connectDB();
         $stmt = $dbh->prepare('
-            SELECT item_id, item_name from items
+                  select i.item_id, i.item_name, i.item_desc, 
+          p.quantity, p.price, i.ts
+          FROM items i
+          LEFT JOIN item_properties p ON i.item_id = p.fk_item_id
         ');
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

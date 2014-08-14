@@ -137,12 +137,10 @@ function makeUpdate (id) {
   }
 
   var inventory = "<table class=table>";
- function makeInventory(myname, myhref, id){
+ function makeInventory(myname, myhref, id, item_desc, quantity, price){
   inventory += "<tr><td>"+myname+":<br /> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><a href='#' onclick='deleteItem("+id+");return false;'>Delete</a>&nbsp;<a href='#' onClick='makeUpdate("+id+");'>Update</a></td></tr>";
  //console.log(inventory);
  }
-
-
 
 function updateItem(){
   console.log('inupdateItem');
