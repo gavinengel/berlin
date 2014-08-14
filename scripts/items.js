@@ -20,17 +20,50 @@ function getItems(){
     if (hr.readyState == 4 && hr.status == 200){
       //console.log(hr.responseText);
       //document.getElementById("jsonpanel").innerHTML = "<pre>"+hr.responseText.substr(0, 100) +"...</pre>";
-     console.log(hr.responseText);
+     //console.log(hr.responseText);
 
 
       var r = JSON.parse(hr.responseText);
-       for (o in r){
-        makeInventory(r[o].item_name, r[o].url, r[o].item_id);
+
+
+      var keys = [];
+      var i;
+      var len;
+      var k;
+
+
+
+      for (k in r)
+      {
+          if (r.hasOwnProperty(k))
+          {
+              keys.push(k);
+          }
+      }
+
+      keys.sort();
+      keys.reverse();
+
+      len = keys.length;
+
+      for (i = 0; i < len; i++)
+        {
+          k = keys[i];
+         makeInventory(r[k].item_name, r[k].url, r[k].item_id);
+        }
+
+
+
+
+
+
+       //for (o in r){
+        //makeInventory(r[o].item_name, r[o].url, r[o].item_id);
         //document.getElementById("showcase").innerHTML += r[o].item_name + r[o].item_id +"<br>";     
-       }
+       //}
       document.getElementById("parsedinventory").innerHTML = inventory + "</table>";
        // document.getElementById("showcase").style.display="block";      
-    document.getElementById("jsoncell").innerHTML = hr.responseText;
+    //document.getElementById("jsoncell").innerHTML = hr.responseText;
     return hr.responseText;
     }
   }    
@@ -106,16 +139,9 @@ function makeUpdate (id) {
   var inventory = "<table class=table>";
  function makeInventory(myname, myhref, id){
   inventory += "<tr><td>"+myname+":<br /> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><a href='#' onclick='deleteItem("+id+");return false;'>Delete</a>&nbsp;<a href='#' onClick='makeUpdate("+id+");'>Update</a></td></tr>";
- console.log(inventory);
+ //console.log(inventory);
  }
 
-
-
-
-
-
-
-  
 
 
 function updateItem(){
@@ -167,7 +193,7 @@ function deleteItem(id){
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
       var return_data = hr.responseText + '';
-      document.getElementById("jsoncell").innerHTML = return_data;
+      //document.getElementById("jsoncell").innerHTML = return_data;
       //getItems();
     }
   }    
