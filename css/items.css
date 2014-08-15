@@ -22,7 +22,7 @@
           border-radius: 8px;
           border: 3px;
           padding: 1px;
-          width: auto;
+     
 
           }
      
@@ -34,14 +34,14 @@
     {
       font-family: source-sans-pro, helvetica, arial, sans-serif;
       -webkit-font-smoothing: antialiased;
-      width: auto;
+
     }
 
       
         body {
         background: #03a9f4;
         color: #fff;
-        width: auto;
+      
 
       }
 
@@ -69,6 +69,35 @@ h1, h2, h3, h4, h5, h6
 .itemname{
   color:#36343e;
   font-size: 2em;
+}
+
+.card {
+    background:#FFF;
+    border:1px solid #AAA;
+    border-bottom:3px solid #BBB;
+    padding:0px;
+    margin:15px;
+    overflow:hidden;
+    color: black;
+    float: left;
+}
+
+
+.card h1 {
+    margin:0px;
+    padding:10px;
+    padding-bottom:0px;
+}
+
+.card p {
+    margin:0px;
+    padding:10px;
+}
+
+.float-left .card {
+    float:left;
+    width:300px;  
+    height:270px;
 }
 
 

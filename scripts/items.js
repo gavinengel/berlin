@@ -137,6 +137,7 @@ function makeUpdate (id) {
 
   }
 
+  
   var inventory = "<table>";
  function makeInventory(myname, myhref, id, item_desc, quantity, price, ts, count){
   if ((count + 1) % 2 == 0){var row = "<tr>";}else{row = "";}
