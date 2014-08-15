@@ -138,9 +138,8 @@ function makeUpdate (id) {
   }
 
   var inventory = "<div class='content float-left'>";
- function makeInventory(myname, myhref, id, item_desc, quantity, price, ts, count){
-  if ((count + 1) % 2 == 0){var row = "<tr>";}else{row = "";}
-  inventory += "<div class='card'><h1>"+myname+"</h1><br />Description: "+item_desc+"<br>quantity: "+quantity+"<br>Price: $"+price+"<br><small>updated:<i>"+ts+"</i><br> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><br><input type='button' value='Update'class='button-gray' value='update' onClick='makeUpdate("+id+");'>&nbsp;<input type='button' value='Delete' class='button-gray' onclick='deleteItem("+id+");return false;'><br></div>";
+ function makeInventory(myname, myhref, id, item_desc, quantity, price, ts){
+  inventory += "<div class='card'><div class='cardtitle'>"+myname+"</div><div class='cardbody'>Description: "+item_desc+"<br>quantity: "+quantity+"<br>Price: $"+price+"<br><small>updated:<i>"+ts+"</i></small><br> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><br><input type='button' value='Update'class='button-gray' value='update' onClick='makeUpdate("+id+");'>&nbsp;<input type='button' value='Delete' class='button-gray' onclick='deleteItem("+id+");return false;'></div></div>";
  //console.log(inventory);
  }
 
