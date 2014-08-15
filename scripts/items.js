@@ -139,8 +139,8 @@ function makeUpdate (id) {
 
   var inventory = "<table>";
  function makeInventory(myname, myhref, id, item_desc, quantity, price, ts, count){
-  if (count % 2 == 0){var row = "<tr>";}else{row = "";}
-  inventory += "<td class='itemcard'><span class='itemcard'><span class='itemname'>"+myname+"</span><br />Description: "+item_desc+"<br>quantity: "+quantity+"<br>Price: $"+price+"<br><small>updated:<i>"+ts+"</i><br> <a href='http://"+myhref+"'>http://"+myhref+"</a><br>&nbsp;<input type='button' value='Update'class='button-gray' value='update' onClick='makeUpdate("+id+");'>&nbsp;<input type='button' value='Delete' class='button-gray' onclick='deleteItem("+id+");return false;'></td>"+row;
+  if ((count + 1) % 2 == 0){var row = "<tr>";}else{row = "";}
+  inventory += "<td class='itemcard'><span class='itemcard'><span class='itemname'>"+myname+"</span><br />Description: "+item_desc+"<br>quantity: "+quantity+"<br>Price: $"+price+"<br><small>updated:<i>"+ts+"</i><br> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><br><input type='button' value='Update'class='button-gray' value='update' onClick='makeUpdate("+id+");'>&nbsp;<input type='button' value='Delete' class='button-gray' onclick='deleteItem("+id+");return false;'><br></td>"+row;
  //console.log(inventory);
  }
 

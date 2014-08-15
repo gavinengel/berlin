@@ -34,12 +34,14 @@
     {
       font-family: source-sans-pro, helvetica, arial, sans-serif;
       -webkit-font-smoothing: antialiased;
+      width: auto;
     }
 
       
         body {
         background: #03a9f4;
         color: #fff;
+        width: auto;
 
       }
 
@@ -62,11 +64,16 @@ h1, h2, h3, h4, h5, h6
 .itemcard{
   background: #eeeeee;
   color: green;
+  padding: 3px;
 }
 .itemname{
   color:#36343e;
   font-size: 2em;
 }
+
+
+
+
 h1
 {
   font-size: 225%;
@@ -131,6 +138,10 @@ h6
 }
   .title{
     font-size: 3em;
+    color: #e1f5fe;
+  }
+
+  .subtitle{
     color: #b3e5fa;
   }
 
