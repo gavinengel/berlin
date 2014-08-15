@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="css/lemonade.css">
     <LINK href="css/items.css" rel="stylesheet" type="text/css">
     <script src="scripts/items.js"></script>
-    <style type=""></style>
+    
     <style>
     #jsonpanel{
       color: #000;
@@ -32,6 +32,13 @@
       font-size: .75em;
       color: #000;
       display: none
+      }
+
+      #statuscell {
+      font-weight: normal;
+      font-family: courier;
+      font-size: .75em;
+      color: green;
       }
    
     #create{
@@ -71,15 +78,31 @@
  
       <br>
       
-
-
+<script>
+var jsonflag = false;
+function showhidejson(){
+  
+  if (!jsonflag){
+     document.getElementById('jsoncell').style.display ='inline';
+        document.getElementById('showjson').value ='Hide JSON';
+     jsonflag=true;
+     return false; 
+  }else
+    document.getElementById('jsoncell').style.display ='none';
+    document.getElementById('showjson').value ='Show JSON';
+     jsonflag=false;
+     return false; 
+    }
+  
+</script>
 
   <div>
-      <input type=button class="button-gray " id="showinventory" onclick="javascript:getItems();" value="Refresh"> <input type="button" class="button-gray" value= "Create New Item" onclick="createupdate();return false;">&nbsp;<input type="button" value='Show JSON' class="button-gray" onclick="document.getElementById('jsoncell').style.display ='inline';return false;">
+      <input type=button class="button-gray " id="showinventory" onclick="javascript:getItems();" value="Refresh"> <input type="button" class="button-gray" value= "Create New Item" onclick="createupdate();return false;">&nbsp;<input type="button" value='Show JSON' onclick="showhidejson();" id="showjson" class="button-gray" >
   </div>
 <br>
 
   <div id="jsoncell">awaiting JSON ...</div>
+
 
   <div id="create">
   <h4>Add Item</h4>
@@ -102,8 +125,10 @@
             <td>Price: </td>
             <td> <input id="addprice" name="addprice" placeholder="Price"></td>
           </tr>                                    
+          
+
           <tr>
-            <td colspan=2><input type="submit" class="button-green" value="Submit" onClick="javascript:addItem();">&nbsp;<input type="submit" class="button-orange" value="Cancel" onClick="javascript:document.getElementById('create').style.display='none'; return false">
+            <td colspan=2><input type="submit" class="button-green" value="Submit" onClick="javascript:addItem();">&nbsp;<input type="submit" class="button-orange" value="Hide" onClick="javascript:document.getElementById('create').style.display='none'; return false">
             <br /> <span id="addstatus"></span></td>
           </tr>
           <tr>
@@ -148,9 +173,10 @@
         </table>
 
     </div>
-
+  <div id="statuscell"></div>
     <div id="allinventory">
-    <div>Recent Items</div>     
+    <br>
+    <h2>Recent Items</h2 >     
     
               <div id="parsedinventory"></td>
       </div>

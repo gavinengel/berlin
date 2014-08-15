@@ -84,6 +84,8 @@ function addItem(){
   var hr = new XMLHttpRequest();
   var url = 'items/'
   var addname = document.getElementById("addname").value;
+  console.log('addname: ' +addname);
+  if (addname == ''){document.getElementById("statuscell").innerHTML="<span class='error'><em>Name</em> must be completed.</span>";return;}
   var adddescription = document.getElementById("adddescription").value;
   var addprice = document.getElementById("addprice").value;
   var addquantity = document.getElementById("addquantity").value;
@@ -98,13 +100,19 @@ function addItem(){
       var r = JSON.parse(hr.responseText);
       for (o in r){
         itemlink += "<a href='http://"+r[o].url+"'>http://"+r[o].url+"</a>";
+          document.getElementById("statuscell").innerHTML='<span class="success">Successfully Added.</span>';
+          getItems();
+           document.getElementById("addname").value = null;
+        adddescription = document.getElementById("adddescription").value = null;
+        addprice = document.getElementById("addprice").value = null;
+        addquantity = document.getElementById("addquantity").value = null;
       }
 
     }
   }    
 
   hr.send(vars);
-  document.getElementById("addstatus").innerHTML="";
+
 }
 
 
@@ -128,6 +136,7 @@ function makeUpdate (id) {
         document.getElementById("description").value = r[o].item_desc;
         document.getElementById("price").value = r[o].price;
         document.getElementById("quantity").value = r[o].quantity;
+        document.location = "#update";
       };
 
   }
@@ -152,6 +161,7 @@ function updateItem(){
   var itemid = document.getElementById("itemid").value;
   console.log("itemid"+itemid);
   var name = document.getElementById("name").value;
+    if (name == ''){document.getElementById("statuscell").innerHTML="<span class='error'><em>Name</em> must be completed.</span>";return;}
   var description = document.getElementById("description").value;
   var price = document.getElementById("price").value;
   var quantity = document.getElementById("quantity").value;
@@ -166,6 +176,14 @@ function updateItem(){
        
 
       document.getElementById("jsoncell").innerHTML = hr.responseText;
+      getItems();
+      document.getElementById("itemid").value = null;
+      document.getElementById("name").value = null;
+      document.getElementById("description").value =null;
+      document.getElementById("price").value=null;
+      document.getElementById("quantity").value=null; 
+      document.getElementById("update").style.display="none";
+      document.getElementById("statuscell").innerHTML="<span class='success'>Successfully Updated item id: "+itemid+"<br>&nbsp;";
     }
   }    
 
@@ -195,7 +213,10 @@ function deleteItem(id){
       var return_data = hr.responseText + '';
       
       //getItems();
+      getItems();
       document.getElementById("jsoncell").innerHTML = return_data;
+      document.getElementById("statuscell").innerHTML = "<span class='success'>Successfully Deleted item: " + id + "</span>";
+
     }
   }    
 

@@ -16,13 +16,15 @@
         table { 
           border-spacing: 5px;
           border-collapse: separate;
-          background-color: #fff;
           color: #000;
           font-weight: normal;
-          border-radius: 8px;
+          border-radius: 0px;
           border: 3px;
+          background:#eeeeee;
+          border:1px solid #AAA;
+          border-bottom:3px solid #BBB;
           padding: 1px;
-       
+          margin: 8px;
      
 
           }
@@ -72,6 +74,21 @@ h1, h2, h3, h4, h5, h6
   font-size: 2em;
 }
 
+.success{
+  font-weight: bold;
+  font-style: italic;
+  color: #d0f8ce;
+  font-size: 2em;
+}
+
+.error{
+  font-weight: bold;
+  font-style: italic;
+  color: #e51c23;
+  font-size: 2em;
+}
+
+
 .card {
     background:#eeeeee;
     border:1px solid #AAA;
@@ -83,8 +100,14 @@ h1, h2, h3, h4, h5, h6
     float: left;
 }
 
+
+
 .cardtitle{
   font-weight: bold;
+  float: none;
+  width: 300px;
+  height: 25px;
+  overflow: hidden;
 }
 
 .float-left .card {
