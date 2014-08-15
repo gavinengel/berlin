@@ -72,10 +72,10 @@ h1, h2, h3, h4, h5, h6
 }
 
 .card {
-    background:#FFF;
+    background:#eeeeee;
     border:1px solid #AAA;
     border-bottom:3px solid #BBB;
-    padding:0px;
+    padding:3px;
     margin:15px;
     overflow:hidden;
     color: black;

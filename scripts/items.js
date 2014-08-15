@@ -61,7 +61,7 @@ function getItems(){
         //makeInventory(r[o].item_name, r[o].url, r[o].item_id);
         //document.getElementById("showcase").innerHTML += r[o].item_name + r[o].item_id +"<br>";     
        //}
-      document.getElementById("parsedinventory").innerHTML = inventory + "</table>";
+      document.getElementById("parsedinventory").innerHTML = inventory + "</div>";
        // document.getElementById("showcase").style.display="block";      
     //document.getElementById("jsoncell").innerHTML = hr.responseText;
     return hr.responseText;
@@ -137,11 +137,10 @@ function makeUpdate (id) {
 
   }
 
-  
-  var inventory = "<table>";
+  var inventory = "<div class='content float-left'>";
  function makeInventory(myname, myhref, id, item_desc, quantity, price, ts, count){
   if ((count + 1) % 2 == 0){var row = "<tr>";}else{row = "";}
-  inventory += "<td class='itemcard'><span class='itemcard'><span class='itemname'>"+myname+"</span><br />Description: "+item_desc+"<br>quantity: "+quantity+"<br>Price: $"+price+"<br><small>updated:<i>"+ts+"</i><br> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><br><input type='button' value='Update'class='button-gray' value='update' onClick='makeUpdate("+id+");'>&nbsp;<input type='button' value='Delete' class='button-gray' onclick='deleteItem("+id+");return false;'><br></td>"+row;
+  inventory += "<div class='card'><h1>"+myname+"</h1><br />Description: "+item_desc+"<br>quantity: "+quantity+"<br>Price: $"+price+"<br><small>updated:<i>"+ts+"</i><br> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><br><input type='button' value='Update'class='button-gray' value='update' onClick='makeUpdate("+id+");'>&nbsp;<input type='button' value='Delete' class='button-gray' onclick='deleteItem("+id+");return false;'><br></div>";
  //console.log(inventory);
  }
 
