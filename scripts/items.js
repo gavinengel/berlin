@@ -137,6 +137,7 @@ function makeUpdate (id) {
         document.getElementById("price").value = r[o].price;
         document.getElementById("quantity").value = r[o].quantity;
         document.location = "#update";
+        document.getElementById("statuscell").innerHTML= '';
       };
 
   }
