@@ -24,7 +24,7 @@ function getItems(){
 
      //console.log("rT:" + hr.responseText);
       var r = JSON.parse(hr.responseText);
-
+      //console.log(JSON.stringify(r));
 
       var keys = [];
       var i;
@@ -77,7 +77,7 @@ function getItems(){
 
 
 function addItem(){
-  console.log('inaddItem()');
+  //console.log('inaddItem()');
   
   var itemlink = '';  
   //create the request
@@ -97,6 +97,7 @@ function addItem(){
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
       document.getElementById("jsoncell").innerHTML = hr.responseText.substr(0, 50);
+      console.log(hr.responseText);
       var r = JSON.parse(hr.responseText);
       for (o in r){
         itemlink += "<a href='http://"+r[o].url+"'>http://"+r[o].url+"</a>";

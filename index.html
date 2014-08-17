@@ -104,14 +104,14 @@ function showhidejson(){
   <div id="jsoncell">awaiting JSON ...</div>
 
 
-  <div id="create">
+  <form id="create">
   <h4>Add Item</h4>
     <table>
 
         
           <tr>
             <td>Item Name:  </td>
-            <td> <input id="addname" name="addname" placeholder="Item:"></td>
+            <td> <input id="addname" name="addname" placeholder="Item:" ></td>
           </tr>
           <tr>
             <td>Description: </td>
@@ -128,7 +128,7 @@ function showhidejson(){
           
 
           <tr>
-            <td colspan=2><input type="submit" class="button-green" value="Submit" onClick="javascript:addItem();">&nbsp;<input type="submit" class="button-orange" value="Hide" onClick="javascript:document.getElementById('create').style.display='none'; return false">
+            <td colspan=2><input type="submit" class="button-green" value="Submit" onClick="javascript:addItem();return false;">&nbsp;<input type="submit" class="button-orange" value="Hide" onClick="javascript:document.getElementById('create').style.display='none'; return false;">
             <br /> <span id="addstatus"></span></td>
           </tr>
           <tr>
@@ -136,7 +136,7 @@ function showhidejson(){
           </tr>
         
     </table>
-    </div>
+    </form>
     <div id="update">
     <h4>Update Item</h4>
     <table>
