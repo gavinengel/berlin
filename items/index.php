@@ -283,7 +283,9 @@ function connectDB(){
     $last_id=updateItem($item_id,  $item_name,  $description);
     
     updateItemProperties($item_id,  $description,  $quantity,  $price);
-    //echo json_encode("http://".$_SERVER['HTTP_HOST']."/items/".$item_id);
+
+    header("Content-Type: application/json");
+    echo json_encode("http://".$_SERVER['HTTP_HOST']."/items/".$item_id);
     
     //echo("id:". $put_vars["itemid"]);
 
