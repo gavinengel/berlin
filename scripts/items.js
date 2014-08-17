@@ -178,7 +178,7 @@ function updateItem(){
        
 
       document.getElementById("jsoncell").innerHTML = hr.responseText;
-      getItems();
+ 
       document.getElementById("itemid").value = null;
       document.getElementById("name").value = null;
       document.getElementById("description").value =null;
@@ -186,6 +186,7 @@ function updateItem(){
       document.getElementById("quantity").value=null; 
       document.getElementById("update").style.display="none";
       document.getElementById("statuscell").innerHTML="<span class='success'>Successfully Updated item id: "+itemid+"<br>&nbsp;";
+         getItems();
     }
   }    
 

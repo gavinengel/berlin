@@ -1,17 +1,21 @@
 <?php
-/*
+
 if (isset($_SERVER['HTTP_ORIGIN'])) {
-    //header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+    //header("Access-Control-Allow-Origin: *");
     header('Access-Control-Allow-Credentials: true');    
-    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
     header('Access-Control-Allow-Headers: Content-Type'); 
-}   
+    header('Access-Control-Allow-Headers: X-Boarding-Pass');
+} /* 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
-        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");         
+        header("Access-Control-Allow-Methods: GET, OPTIONS");         
     if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
         header("Access-Control-Allow-Headers:{$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+      Access-Control-Allow-Origin: *
+      Access-Control-Allow-Methods: GET, POST
+      Access-Control-Allow-Headers: X-Boarding-Pass
 
     exit(0);
 } 
@@ -258,6 +262,7 @@ function connectDB(){
     //create initial item properties
     createItemProperties($last_id, $description, $quantity, $price);
 
+    http_response_code(201);
     echo '{"'.$last_id.'":{"item_id":"'.$last_id.'", "url": "' .$_SERVER['HTTP_HOST'].'/items/'.$last_id.'/"}}';
       
   }     // ************END CREATE (POST)  
@@ -286,6 +291,8 @@ function connectDB(){
 
     header("Content-Type: application/json");
     echo json_encode("http://".$_SERVER['HTTP_HOST']."/items/".$item_id);
+
+
     
     //echo("id:". $put_vars["itemid"]);
 
