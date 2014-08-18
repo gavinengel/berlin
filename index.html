@@ -16,16 +16,11 @@
 <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no; width=device-width" />
         
     <title>inventory api</title>
-    <link rel="stylesheet" type="text/css" href="css/lemonade.css">
     <LINK href="css/items.css" rel="stylesheet" type="text/css">
     <script src="scripts/items.js"></script>
     
     <style>
-    #jsonpanel{
-      color: #000;
-      float: right;
-      font-size: 6pt;
-    }
+
     #jsoncell {
       font-weight: normal;
       font-family: courier;
@@ -46,6 +41,7 @@
       font-weight: normal;
       border: 2px;
       border-color: white;
+
      
     }
     
@@ -58,7 +54,43 @@
      
     }
 
-
+fieldset {
+    border:1px solid #ccc;
+    padding:10px;
+}
+legend {
+    padding:0 5px;
+    text-align:right;
+}
+fieldset > div {
+    margin:10px 0;
+}
+fieldset > legend + div {
+    margin-top:0;
+}
+fieldset > div:last-child {
+    margin-bottom:0;
+}
+label {
+    display:inline-block;
+    width:170px;
+}
+input {
+    width:200px;
+}
+input[type="submit"] {
+    width:auto;
+}
+.help {
+    display:none;
+    font-size:90%;
+}
+input:focus + .help {
+    display:inline-block;
+}
+div.submit {
+    margin-left:170px;
+}
   .
     </style>
 
@@ -67,20 +99,9 @@
         document.getElementById("create").style.display = "table-row";
 
       }
-      </script>
-  </head>
-  <body onload="getItems()" >
-    <div id="main" class="container">
 
-
-      <div class="title">inventory</div>
-      <div class="subtitle">a REST api demo</div>
- 
-      <br>
-      
-<script>
-var jsonflag = false;
-function showhidejson(){
+      var jsonflag = false;
+    function showhidejson(){
   
   if (!jsonflag){
      document.getElementById('jsoncell').style.display ='inline';
@@ -89,54 +110,56 @@ function showhidejson(){
      return false; 
   }else
     document.getElementById('jsoncell').style.display ='none';
-    document.getElementById('showjson').value ='Show JSON';
+    document.getElementById('showjson').value ='JSON';
      jsonflag=false;
      return false; 
     }
-  
-</script>
+      </script>
+  </head>
 
-  <div>
-      <input type=button class="button-gray " id="showinventory" onclick="javascript:getItems();" value="Refresh"> <input type="button" class="button-gray" value= "Create New Item" onclick="createupdate();return false;">&nbsp;<input type="button" value='Show JSON' onclick="showhidejson();" id="showjson" class="button-gray" >
-  </div>
-<br>
+<body onload="getItems()" >
+  <div id="main" class="container">
+    <div class="title">inventory</div>
+      <div class="subtitle">a REST api demo</div>
+        <br>
+        <div>
+           <input type="button" class="button-gray" value= "Create New Item" onclick="createupdate();return false;">&nbsp;<input type="button" value='JSON' onclick="showhidejson();" id="showjson" class="button-gray" >
+        </div>
+        <br>
+        <div id="jsoncell">awaiting JSON ...</div>
+      <form id="create">
+    <fieldset>
+        <legend>Create Item</legend>
+        <div>
+            <label for="addname">Item Name (required):</label>
+            <input type="text" id="addname" name="addname" value="" aria-describedby="name-format">
+        </div>
+        <div>
+            <label for="adddescription">Description:</label>
+            <input type="text" id="adddescription" name="adddescription" value="">
+        </div>
+        <div>
+            <label>Quantity:</label>
+            <input type="text" id="addquantity" name="addquantity" value="">
+        </div>
+        <div>
+            <label for="addprice">Unit Price:</label>
+            <input type="text" id="addprice" name="addprice" value="">
+        </div>
+        <div class="submit">
+            <input type="submit" class="button-green" value="Submit" onClick="javascript:addItem();return false;">&nbsp;<input type="submit" class="button-orange" value="Hide" onClick="javascript:document.getElementById('create').style.display='none'; return false;">
+            
+        </div>
+    </fieldset>
+</form>
 
-  <div id="jsoncell">awaiting JSON ...</div>
 
 
-  <form id="create">
-  <h4>Add Item</h4>
-    <table>
 
-        
-          <tr>
-            <td>Item Name:  </td>
-            <td> <input id="addname" name="addname" placeholder="Item:" ></td>
-          </tr>
-          <tr>
-            <td>Description: </td>
-            <td> <input id="adddescription" name="adddescription" placeholder="Desc:"></td>
-          </tr>
-          <tr>
-            <td>Quantity: </td>
-            <td> <input id="addquantity" name="addquantity" placeholder="Quantity"></td>
-          </tr>
-          <tr>
-            <td>Price: </td>
-            <td> <input id="addprice" name="addprice" placeholder="Price"></td>
-          </tr>                                    
-          
 
-          <tr>
-            <td colspan=2><input type="submit" class="button-green" value="Submit" onClick="javascript:addItem();return false;">&nbsp;<input type="submit" class="button-orange" value="Hide" onClick="javascript:document.getElementById('create').style.display='none'; return false;">
-            <br /> <span id="addstatus"></span></td>
-          </tr>
-          <tr>
-            <td colspan=2 id=addstatus></td>
-          </tr>
-        
-    </table>
-    </form>
+
+
+
     <div id="update">
     <h4>Update Item</h4>
     <table>
