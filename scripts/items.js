@@ -7,7 +7,7 @@
 // ***************** GET ALL ********************************
 
 function getItems(){
-  inventory = '<table>';
+
 
 
   var hr = new XMLHttpRequest();
