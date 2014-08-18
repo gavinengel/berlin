@@ -61,6 +61,7 @@ fieldset {
 legend {
     padding:0 5px;
     text-align:right;
+    color: #fff;
 }
 fieldset > div {
     margin:10px 0;
@@ -89,7 +90,7 @@ input:focus + .help {
     display:inline-block;
 }
 div.submit {
-    margin-left:170px;
+
 }
   .
     </style>
@@ -148,62 +149,48 @@ div.submit {
         </div>
         <div class="submit">
             <input type="submit" class="button-green" value="Submit" onClick="javascript:addItem();return false;">&nbsp;<input type="submit" class="button-orange" value="Hide" onClick="javascript:document.getElementById('create').style.display='none'; return false;">
+            <br>
+        </div>
+    </fieldset>
+</form>
+
+      <form id="update">
+    <fieldset>
+        <legend>Update Item</legend>
+        <div>
+            <label for="itemid">Item Name (required):</label>
+            <input type="text" id="itemid" name="itemid" value="" readonly>
+        </div>
+        <div>
+            <label for="name">Item Name (required):</label>
+            <input type="text" id="name" name="name" value="">
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" value="">
+        </div>
+        <div>
+            <label>Quantity:</label>
+            <input type="text" id="quantity" name="quantity" value="">
+        </div>
+        <div>
+            <label for="price">Unit Price:</label>
+            <input type="text" id="price" name="addprice" value="">
+        </div>
+        <div class="submit">
+            <input type="submit" class="button-green" value="Submit" onClick="javascript:updateItem();">&nbsp;<input type="submit" class="button-orange" value="Cancel" onClick="javascript:document.getElementById('update').style.display='none'; return false">
             
         </div>
     </fieldset>
 </form>
 
-
-
-
-
-
-
-
-    <div id="update">
-    <h4>Update Item</h4>
-    <table>
-        <tr>
-              <td>Item ID:  </td>
-              <td> <input id="itemid" name="itemid" placeholder="Item ID" readonly></td>
-            </tr>
-            <tr>
-              <td>Item Name:  </td>
-              <td> <input id="name" name="name" placeholder="Item Name"></td>
-            </tr>
-            <tr>
-              <td>Description: </td>
-              <td> <input id="description" name="description" placeholder="Description"></td>
-            </tr>
-            <tr>
-              <td>Quantity: </td>
-              <td> <input id="quantity" name="quantity" placeholder="Quantity"></td>
-            </tr>
-            <tr>
-              <td>Price: </td>
-              <td> <input id="price" name="price" placeholder="Price"></td>
-            </tr>                        
-                      <tr>
-            <td colspan=2><input type="submit" class="button-green" value="Submit" onClick="javascript:updateItem();">&nbsp;<input type="submit" class="button-orange" value="Cancel" onClick="javascript:document.getElementById('update').style.display='none'; return false">
-            <br /> <span id="status"></span></td>
-          </tr>
-          <tr>
-            <td colspan=2 id=status></td>
-          </tr>
-
-
-
-        </table>
-
-    </div>
+  
   <div id="statuscell"></div>
-    <div id="allinventory">
-    <br>
-    <h2>Recent Items</h2 >     
+  
+    <h2>Recent Items</h2>     
     
               <div id="parsedinventory"></td>
-      </div>
-
+  
 
 
 
