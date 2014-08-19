@@ -101,12 +101,12 @@ input:focus + .help {
   
   if (!jsonflag){
      document.getElementById('jsoncell').style.display ='inline';
-        document.getElementById('showjson').value ='Hide JSON';
+        document.getElementById('showjson').value ='hide';
      jsonflag=true;
      return false; 
   }else
     document.getElementById('jsoncell').style.display ='none';
-    document.getElementById('showjson').value ='JSON';
+    document.getElementById('showjson').value ='json';
      jsonflag=false;
      return false; 
     }
@@ -143,17 +143,17 @@ input:focus + .help {
             <input type="text" id="addprice" name="addprice" value="">
         </div>
         <div>
-            <input type="button" class="button-green" value="Create" onClick="javascript:addItem();">&nbsp;<input type="button" class="button-orange" value="Hide" onClick="javascript:document.getElementById('create').style.display='none'; return false;">
+            <input type="button" class="button-teal" value="Create" onClick="javascript:addItem();">&nbsp;<input type="button" class="button-red" value="Cancel" onClick="javascript:document.getElementById('create').style.display='none'; return false;">
             <br>
         </div>
     </fieldset>
 </form>
 
-      <div id="update">
+      <form id="update">
     <fieldset>
         <legend>Update Item</legend>
         <div>
-            <label for="itemid">Item Name (required):</label>
+            <label for="itemid">Item ID:</label>
             <input type="text" id="itemid" name="itemid" value="" readonly>
         </div>
         <div>
@@ -172,12 +172,12 @@ input:focus + .help {
             <label for="price">Unit Price:</label>
             <input type="text" id="price" name="addprice" value="">
         </div>
-        <div class="submit">
-            <input type="button" class="button-green" value="Update" onClick="javascript:updateItem();">&nbsp;<input type="submit" class="button-orange" value="Cancel" onClick="javascript:document.getElementById('update').style.display='none'; return false">
+        <div>
+         <input type="button" class="button-teal" value="Update" onClick="javascript:updateItem();">&nbsp;<input type="button" class="button-red" value="Cancel" onClick="javascript:document.getElementById('update').style.display='none';">
             
         </div>
     </fieldset>
-</div>
+</form>
 
   
   <div id="statuscell"></div>

@@ -81,10 +81,11 @@ function addItem(){
   var hr = new XMLHttpRequest();
   var url = 'items/'
   var addname = document.getElementById("addname").value;
-  if (addname == ''){document.getElementById("statuscell").innerHTML="<span class='error'><em>Name</em> must be completed.</span>";return;}
+  if (addname == ''){document.getElementById("statuscell").innerHTML="<span class='error'>Name must be completed.</span>";return;}
   var adddescription = document.getElementById("adddescription").value;
   var addprice = document.getElementById("addprice").value;
   var addquantity = document.getElementById("addquantity").value;
+    if (quantity == ''){document.getElementById("statuscell").innerHTML="<span class='error'>Quantity must be completed.</span>";return;}
   var vars = "name="+addname+"&description="+adddescription+"&quantity="+addquantity+"&price="+addprice;  
   //console.log('vars: ' + vars);
   hr.open("POST", url, true);
@@ -139,7 +140,6 @@ function makeUpdate (id) {
         document.getElementById("description").value = r[o].item_desc;
         document.getElementById("price").value = r[o].price;
         document.getElementById("quantity").value = r[o].quantity;
-        document.location = "#update";
         document.getElementById("statuscell").innerHTML= '';
       };
 
@@ -156,7 +156,7 @@ function makeUpdate (id) {
  function makeInventory(myname, myhref, id, item_desc, quantity, price, ts){
 
 
-    inventory += "<div class='card'><div class='cardtitle'>"+myname+"</div><div class='cardbody'>Description: "+item_desc+"<br>quantity: "+quantity+"<br>Price: $"+price+"<br><small>updated:<i>"+ts+"</i></small><br> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><br><input type='button' value='Update'class='button-gray' value='update' onClick='makeUpdate("+id+");'>&nbsp;<input type='button' value='Delete' class='button-gray' onclick='deleteItem("+id+");return false;'></div></div>";
+    inventory += "<div class='card'><div class='cardtitle'>"+myname+"</div><div class='cardbody'>description: "+item_desc.substr(0, 75)+"<br>Quantity: "+quantity+"<br>Price: $"+price+"<br><small><i>updated:"+ts+"</i></small></div><div class=cardfooter'><input type='button' value='Update'class='button-blued' value='update' onClick='makeUpdate("+id+");'>&nbsp;&nbsp;<input type='button' value='Delete' class='button-red' onclick='deleteItem("+id+");return false;'></div></div>";
     console.log("still" + bob)
     //console.log(thisinventory);
 
@@ -175,10 +175,11 @@ function updateItem(){
   var itemid = document.getElementById("itemid").value;
   console.log("itemid"+itemid);
   var name = document.getElementById("name").value;
-    if (name == ''){document.getElementById("statuscell").innerHTML="<span class='error'><em>Name</em> must be completed.</span>";return;}
+    if (name == ''){document.getElementById("statuscell").innerHTML="<span class='error'>Name must be completed.</span>";return;}
   var description = document.getElementById("description").value;
   var price = document.getElementById("price").value;
   var quantity = document.getElementById("quantity").value;
+      if (quantity == ''){document.getElementById("statuscell").innerHTML="<span class='error'>Quantity must be completed.</span>";return;}
   var vars = "itemid="+itemid+"&name="+name+"&description="+description+"&quantity="+quantity+"&price="+price;  
   console.log(vars);
   
@@ -198,6 +199,7 @@ function updateItem(){
       document.getElementById("quantity").value=null; 
       document.getElementById("update").style.display="none";
       document.getElementById("statuscell").innerHTML="<span class='success'>Successfully Updated item id: "+itemid+"<br>&nbsp;";
+      if (inventory != '') { inventory = "<div class='content float-left'>";}
          getItems();
     }
   }    
@@ -231,7 +233,7 @@ function deleteItem(id){
       //getItems();
       document.getElementById("jsoncell").innerHTML = return_data;
       document.getElementById("statuscell").innerHTML = "<span class='success'>Successfully Deleted item: " + id + "</span>";
-      if (inventory != '') { inventory = "<div id=content name=content>";}
+      if (inventory != '') {inventory = "<div class='content float-left'>";;}
       getItems();
     }
   }    
