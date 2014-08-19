@@ -127,7 +127,7 @@ input:focus + .help {
     <fieldset>
         <legend>Create Item</legend>
         <div>
-            <label for="addname">Item Name (required):</label>
+            <label for="addname">Item Name*:</label>
             <input type="text" id="addname" name="addname" value="" aria-describedby="name-format">
         </div>
         <div>
@@ -135,8 +135,8 @@ input:focus + .help {
             <input type="text" id="adddescription" name="adddescription" value="">
         </div>
         <div>
-            <label>Quantity:</label>
-            <input type="text" id="addquantity" name="addquantity" value="">
+            <label>Quantity*:</label>
+            <input type="text" id="addquantity" name="addquantity" value="" required>
         </div>
         <div>
             <label for="addprice">Unit Price:</label>

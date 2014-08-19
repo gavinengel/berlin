@@ -1,4 +1,4 @@
-html, body, body div, h1, h2, p, pre, em, img, b, i, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, menu, nav, section, {
+html, body, body div, h1, h2, h3, h4, p, pre, em, img, b, i, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, menu, nav, section, {
   margin: 0;
   padding: 0;
   border: 0;
@@ -7,6 +7,7 @@ html, body, body div, h1, h2, p, pre, em, img, b, i, ul, li, fieldset, form, lab
   vertical-align: baseline;
   background: transparent;
   font-family: roboto, arial, helvetica, sans-serif;
+  font-size: 100%;
 }
 
 a, a:visited{

@@ -1,5 +1,5 @@
 
-// ***************** GET ALL ********************************
+// ***************** Get All ********************************
 
 function getItems(){
 
@@ -13,10 +13,10 @@ function getItems(){
       var r = JSON.parse(hr.responseText);
 
       //create array to sort return values
-      var keys = [];
-      var i;
-      var len;
-      var k;
+      var keys = [], 
+      i,
+      len,
+      k;
 
       for (k in r){
         if (r.hasOwnProperty(k)){
@@ -29,7 +29,6 @@ function getItems(){
 
       for (i = 0; i < len; i++){
         k = keys[i];
-        console.log("keysi" + keys[i]);
         makeInventory(r[k].item_name, r[k].url, keys[i], r[k].item_desc, r[k].quantity, r[k].price, r[k].ts, i);
         }
       
@@ -39,55 +38,48 @@ function getItems(){
   }    
   
   hr.send();
-  document.getElementById("status").innerHTML="processing data ...";
+  document.getElementById("parsedinventory").innerHTML="processing data ...";
 } 
 
-
-
-function myItems( param1, param2, callbackFunction ) {  
- var r = callbackFunction()
- alert( 'Started eating my dinner. \n\n It has: ' + param1 + ', ' + param2);  
-    console.log(r);  
-}
-
+//**************************** Add Item ******************************
 function addItem(){
+  var create = document.getElementById("create"),
+  name = create.addname,
+   description= create.adddescription, 
+   price=create.addprice, 
+   quantity = create.addquantity,
+   status =  document.getElementById("statuscell"),
+   vars, hr, url, itemlink;
   
-  var itemlink = '';  
-  //create the request
-  var hr = new XMLHttpRequest();
-  var url = 'items/'
-  var addname = document.getElementById("addname").value;
-  if (addname == ''){document.getElementById("statuscell").innerHTML="<span class='error'>Name must be completed.</span>";return;}
-  var adddescription = document.getElementById("adddescription").value;
-  var addprice = document.getElementById("addprice").value;
-  var addquantity = document.getElementById("addquantity").value;
-    if (quantity == ''){document.getElementById("statuscell").innerHTML="<span class='error'>Quantity must be completed.</span>";return;}
-  var vars = "name="+addname+"&description="+adddescription+"&quantity="+addquantity+"&price="+addprice;  
-  //console.log('vars: ' + vars);
+  //get inputs and perform any validations
+  //name = document.getElementById("addname").value;
+  if (name.value == ''){
+    status.innerHTML="<span class='error'>Name must be completed.</span>";
+    return;} 
+  if (quantity.value == ''){
+   status.innerHTML="<span class='error'>Quantity must be completed.</span>";
+   return;}
+  
+  vars = "name="+name.value+"&description="+description.value+"&quantity="+quantity.value+"&price="+price.value;  
+  
+  //create request
+  hr = new XMLHttpRequest();
+  url = 'items/'
   hr.open("POST", url, true);
 
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
-      document.getElementById("jsoncell").innerHTML = hr.responseText.substr(0, 50);
-      console.log(hr.responseText);
       var r = JSON.parse(hr.responseText);
       for (o in r){
-        itemlink += "<a href='http://"+r[o].url+"'>http://"+r[o].url+"</a>";
-          document.getElementById("statuscell").innerHTML='<span class="success">Successfully Added.'+itemlink+'</span>';   
-          document.getElementById("addname").value = null;
-        
-        adddescription = document.getElementById("adddescription").value = null;
-        addprice = document.getElementById("addprice").value = null;
-        addquantity = document.getElementById("addquantity").value = null;
-        document.getElementById("parsedinventory").value = null;
-        if (inventory != '') { inventory = "<div id=content name=content>";}
-        getItems();
-        
-
-        
-      }    
-     
+        itemlink += "<a href='http://"+r[o].url+"'>http://"+r[o].url+"</a>";         
+      }     
+    status.innerHTML='<span class=success>Successfully Added.'+itemlink+'</span>';
+    
+    if (inventory != '') { inventory = "<div id=content name=content>";} 
+    getItems();
+    document.getElementById("jsoncell").innerHTML = hr.responseText.substr(0, 50);
+    create.reset();        
     }
   }    
 
@@ -133,7 +125,7 @@ function makeUpdate (id) {
 
 
     inventory += "<div class='card'><div class='cardtitle'>"+myname+"</div><div class='cardbody'>description: "+item_desc.substr(0, 75)+"<br>Quantity: "+quantity+"<br>Price: $"+price+"<br><small><i>updated:"+ts+"</i></small></div><div class=cardfooter'><input type='button' value='Update'class='button-blued' value='update' onClick='makeUpdate("+id+");'>&nbsp;&nbsp;<input type='button' value='Delete' class='button-red' onclick='deleteItem("+id+");return false;'></div></div>";
-    console.log("still" + bob)
+
     //console.log(thisinventory);
 
     
