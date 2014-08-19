@@ -40,7 +40,7 @@ h1, h2, h3, h4, h5, h6 {padding: 0; }
 
 h1 { font-size: 2.5em; 
   font-weight: 600;
-  margin-bottom: 0px;
+  margin-bottom: 12px;
 }
 h2 { 
   font-size: 1.75em;
@@ -135,6 +135,10 @@ h4{
       float: left;
 }
 
+.altlinks { 
+  color:#01579b;
+  
+}
 .cardbody{
   overflow: hidden;
   height: 110px;
