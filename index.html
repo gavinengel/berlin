@@ -86,9 +86,7 @@ input[type="submit"] {
 input:focus + .help {
     display:inline-block;
 }
-div.submit {
 
-}
   .
     </style>
 
@@ -144,8 +142,8 @@ div.submit {
             <label for="addprice">Unit Price:</label>
             <input type="text" id="addprice" name="addprice" value="">
         </div>
-        <div class="submit">
-            <input type="submit" class="button-green" value="Submit" onClick="javascript:addItem();">&nbsp;<input type="submit" class="button-orange" value="Hide" onClick="javascript:document.getElementById('create').style.display='none'; return false;">
+        <div>
+            <input type="button" class="button-green" value="Create" onClick="javascript:addItem();">&nbsp;<input type="button" class="button-orange" value="Hide" onClick="javascript:document.getElementById('create').style.display='none'; return false;">
             <br>
         </div>
     </fieldset>
@@ -175,7 +173,7 @@ div.submit {
             <input type="text" id="price" name="addprice" value="">
         </div>
         <div class="submit">
-            <input type="submit" class="button-green" value="Submit" onClick="javascript:updateItem();">&nbsp;<input type="submit" class="button-orange" value="Cancel" onClick="javascript:document.getElementById('update').style.display='none'; return false">
+            <input type="button" class="button-green" value="Update" onClick="javascript:updateItem();">&nbsp;<input type="submit" class="button-orange" value="Cancel" onClick="javascript:document.getElementById('update').style.display='none'; return false">
             
         </div>
     </fieldset>

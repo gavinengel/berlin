@@ -8,8 +8,6 @@
 
 function getItems(){
 
-
-
   var hr = new XMLHttpRequest();
   var url = 'items/';
   hr.open("GET", url, true);
@@ -97,7 +95,7 @@ function addItem(){
   var vars = "name="+addname+"&description="+adddescription+"&quantity="+addquantity+"&price="+addprice;  
   console.log('vars: ' + vars);
   hr.open("POST", url, true);
-  getItems();
+
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
@@ -113,6 +111,7 @@ function addItem(){
         addprice = document.getElementById("addprice").value = null;
         addquantity = document.getElementById("addquantity").value = null;
         //myItems('bread', 'cheese', function(){getItems()});
+        location.reload();
 
         
       }
