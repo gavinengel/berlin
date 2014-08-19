@@ -1,9 +1,4 @@
 
-
-
-// *********************** AJAX GET/POST/PUT/DELETE FUNCTIONS ****************************
-
-
 // ***************** GET ALL ********************************
 
 function getItems(){
@@ -11,59 +6,40 @@ function getItems(){
   var hr = new XMLHttpRequest();
   var url = 'items/';
   hr.open("GET", url, true);
- 
-
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
-      document.getElementById("jsoncell").innerHTML = "<pre>"+hr.responseText.substr(0, 50) +"...</pre>";
+      
       var r = JSON.parse(hr.responseText);
 
-      //create array to sort return
+      //create array to sort return values
       var keys = [];
       var i;
       var len;
       var k;
 
-      for (k in r)
-      {
-          if (r.hasOwnProperty(k))
-          {
-              keys.push(k);
-          }
+      for (k in r){
+        if (r.hasOwnProperty(k)){
+        keys.push(k);}
       }
 
       keys.sort();
       keys.reverse();
-
       len = keys.length;
 
-      for (i = 0; i < len; i++)
-        {
-          k = keys[i];
-          console.log("keysi" + keys[i]);
-         makeInventory(r[k].item_name, r[k].url, keys[i], r[k].item_desc, r[k].quantity, r[k].price, r[k].ts, i);
+      for (i = 0; i < len; i++){
+        k = keys[i];
+        console.log("keysi" + keys[i]);
+        makeInventory(r[k].item_name, r[k].url, keys[i], r[k].item_desc, r[k].quantity, r[k].price, r[k].ts, i);
         }
-
-              document.getElementById("parsedinventory").innerHTML = inventory + "</div>";
-
-
-
-       //for (o in r){
-        //makeInventory(r[o].item_name, r[o].url, r[o].item_id);
-        //document.getElementById("showcase").innerHTML += r[o].item_name + r[o].item_id +"<br>";     
-       //}
-      //console.log('about to log inventory' + inventory);
-      //console.log("inventory: " +inventory);
-
-       // document.getElementById("showcase").style.display="block";      
-    //document.getElementById("jsoncell").innerHTML = hr.responseText;
-    //return hr.responseText;
+      
+      document.getElementById("parsedinventory").innerHTML = inventory + "</div>";
+      document.getElementById("jsoncell").innerHTML = "<pre>"+hr.responseText.substr(0, 50) +"...</pre>";
     }
   }    
   
   hr.send();
-  //document.getElementById("status").innerHTML="waiting ...";
+  document.getElementById("status").innerHTML="processing data ...";
 } 
 
 
