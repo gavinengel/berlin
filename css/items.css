@@ -1,72 +1,83 @@
-     #main{
-      padding: 1em;
-
-      }
-     
-     td { 
-          padding: 3px;
-   
-   .jsoncell{
-    a, a:visited{
-      white;
-   }
+html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, menu, nav, section, time, mark, audio, video, details, summary {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 14px;
+  font-weight: normal;
+  vertical-align: baseline;
+  background: transparent;
+  font-family: roboto, arial helvetica, sans-serif;
 }
-         }
 
-        table { 
-          border-spacing: 5px;
-          border-collapse: separate;
-          color: #000;
-          font-weight: normal;
-          border-radius: 0px;
-          border: 3px;
-          background:#eeeeee;
-          border:1px solid #AAA;
-          border-bottom:3px solid #BBB;
-          padding: 1px;
-          margin: 8px;
-     
-
-          }
-     
-     .formtable{
-      
-      
-      }
-    html
-    {
-      font-family: source-sans-pro, helvetica, arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-
-    }
-
-      
-        body {
-        background: #03a9f4;
-        color: #fff;
-      
-
-      }
+* anchor hover */
+a:hover { background-color: #DDDDFF; } /* or underline or whatever you like */
 
 
-      a, a:visited{
-        color: #698c2d;
-        text-decoration: none;
-      }
-/**
- * Set individual heading styles
- */
+
+body {
+ background: #03a9f4;
+ color: #fff;
+ margin: 12px;
+}
+
+header{
+   display: block;
+ margin-bottom: 8px; 
+}
+
+header a, a:visited{
+  color: #fff;
+  text-decoration: none;
+ } 
+
+}
+/* basic styles */
+h1, h2, h3, h4, h5, h6 {padding: 0; }
+
+h1 { font-size: 2.5em; 
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+h2 { 
+  font-size: 1.75em;
+ font-weight: 500;
+ margin-bottom: 8px;
+}
+
+h4{
+  font-size: 1em; 
+  margin-bottom: 1em;
+}
+
+.button-lightblue{
+      background: #0288d1;
+    color: #ddd;
+  font-weight: 100em;
+  padding: 5px;
+  border: 3px;
+  
+  width: auto;
+  }
+
+.button-teal{
+  background:   #009688;
+  color: #ddd;
+  font-weight: bold;
+  padding: 5px;
+  border: 3px;
+  width: auto;
+  }
+
+ .jsoncell{
+  margin-bottom: 20px;
+  color: #eceff1;
+}
+       
 
 .content{
-  background: #fff;
+  background: #eee;
 }
-h1, h2, h3, h4, h5, h6
-{
-    font-weight: 600;
-    margin-top: 0.5em;
-    margin-bottom: 0.8em;
-    line-height: 1.2em;
-}
+
 
 .itemcard{
   background: #eeeeee;
@@ -94,13 +105,13 @@ h1, h2, h3, h4, h5, h6
 
 
 .card {
-    background:#eeeeee;
+    background:#fafafa;
     border:1px solid #AAA;
     border-bottom:3px solid #BBB;
     padding:0px;
-    margin: 8px;
+    margin: 3px;
     overflow:hidden;
-    color: black;
+    color: #01579b;
     float: left;
 }
 
@@ -110,10 +121,13 @@ h1, h2, h3, h4, h5, h6
 
 .cardtitle{
   font-weight: bold;
+  font-size: 1em;
   float: none;
   width: 300px;
-  height: 25px;
   overflow: hidden;
+  color: #37474f;
+  border-bottom: 0px solid #ddd;
+  background: #eceff1;
 }
 
 .float-left .card {
@@ -134,7 +148,9 @@ h1, h2, h3, h4, h5, h6
 }
 
 
-
+.parsedinventory{
+  margin-top: 1em;
+}
 
 
 .button-green{
@@ -144,46 +160,9 @@ h1, h2, h3, h4, h5, h6
   padding: 5px;
   border-radius: 8px;
   border: 3px;
-  font-size: 16px;
+  font-size: 10px;
 }
 
-.button-orange{
-  background: #f36c60;
-  color: #fff;
-  font-weight: 500em;
-  padding: 5px;
-  border-radius: 8px;
-  border: 3px;
-  font-size: 16px;
-}
-
-.button-brown{
-  background: #ff5722;
-  color: #fff;
-  font-weight: 500em;
-  padding: 5px;
-  border-radius: 8px;
-  border: 3px;
-  font-size: 16px;
-}
-  .title{
-    font-size: 3em;
-    color: #e1f5fe;
-  }
-
-  .subtitle{
-    color: #b3e5fa;
-  }
-
-  .button-gray{
-      background: #607d8b;
-    color: #fff;
-  font-weight: 500em;
-  padding: 5px;
-  border-radius: 8px;
-  border: 3px;
-  font-size: 16px;
-  }
 
   .reddish {
   color:  #b3e5fc; 

@@ -61,6 +61,7 @@ function getItems(){
         //makeInventory(r[o].item_name, r[o].url, r[o].item_id);
         //document.getElementById("showcase").innerHTML += r[o].item_name + r[o].item_id +"<br>";     
        //}
+      console.log('about to log inventory' + inventory);
       document.getElementById("parsedinventory").innerHTML = inventory + "</div>";
        // document.getElementById("showcase").style.display="block";      
     //document.getElementById("jsoncell").innerHTML = hr.responseText;
@@ -74,7 +75,11 @@ function getItems(){
 
 
 
-
+function myItems( param1, param2, callbackFunction ) {  
+ var r = callbackFunction()
+ alert( 'Started eating my dinner. \n\n It has: ' + param1 + ', ' + param2);  
+    console.log(r);  
+}
 
 function addItem(){
   //console.log('inaddItem()');
@@ -92,7 +97,7 @@ function addItem(){
   var vars = "name="+addname+"&description="+adddescription+"&quantity="+addquantity+"&price="+addprice;  
   console.log('vars: ' + vars);
   hr.open("POST", url, true);
-
+  getItems();
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
@@ -107,13 +112,15 @@ function addItem(){
         adddescription = document.getElementById("adddescription").value = null;
         addprice = document.getElementById("addprice").value = null;
         addquantity = document.getElementById("addquantity").value = null;
+        //myItems('bread', 'cheese', function(){getItems()});
+
         
       }
      
          
      
     }
-    console.log("heres get items" + getItems());
+
   }    
 
   hr.send(vars);

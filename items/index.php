@@ -259,7 +259,7 @@ function connectDB(){
     //create initial item properties
     createItemProperties($last_id, $description, $quantity, $price);
 
-    
+      header("Content-Type: application/json");
     echo '{"'.$last_id.'":{"item_id":"'.$last_id.'", "url": "' .$_SERVER['HTTP_HOST'].'/items/'.$last_id.'/"}}';
       
   }     // ************END CREATE (POST)  
