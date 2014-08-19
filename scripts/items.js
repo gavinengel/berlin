@@ -16,20 +16,14 @@ function getItems(){
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   hr.onreadystatechange = function(){
     if (hr.readyState == 4 && hr.status == 200){
-      //console.log(hr.responseText);
       document.getElementById("jsoncell").innerHTML = "<pre>"+hr.responseText.substr(0, 50) +"...</pre>";
-     //console.log(hr.responseText);
-
-     //console.log("rT:" + hr.responseText);
       var r = JSON.parse(hr.responseText);
-      //console.log(JSON.stringify(r));
 
+      //create array to sort return
       var keys = [];
       var i;
       var len;
       var k;
-
-
 
       for (k in r)
       {
@@ -47,11 +41,11 @@ function getItems(){
       for (i = 0; i < len; i++)
         {
           k = keys[i];
-         makeInventory(r[k].item_name, r[k].url, r[k].item_id, r[k].item_desc, r[k].quantity, r[k].price, r[k].ts, i);
+          console.log("keysi" + keys[i]);
+         makeInventory(r[k].item_name, r[k].url, keys[i], r[k].item_desc, r[k].quantity, r[k].price, r[k].ts, i);
         }
 
-/*"item_id":"275","item_name":"wafer","quantity":"77","price":"86","item_desc":"choco","ts":"2014-08-13 09:47:47" */
-
+              document.getElementById("parsedinventory").innerHTML = inventory + "</div>";
 
 
 
@@ -59,8 +53,9 @@ function getItems(){
         //makeInventory(r[o].item_name, r[o].url, r[o].item_id);
         //document.getElementById("showcase").innerHTML += r[o].item_name + r[o].item_id +"<br>";     
        //}
-      console.log('about to log inventory' + inventory);
-      document.getElementById("parsedinventory").innerHTML = inventory + "</div>";
+      //console.log('about to log inventory' + inventory);
+      //console.log("inventory: " +inventory);
+
        // document.getElementById("showcase").style.display="block";      
     //document.getElementById("jsoncell").innerHTML = hr.responseText;
     //return hr.responseText;
@@ -80,20 +75,18 @@ function myItems( param1, param2, callbackFunction ) {
 }
 
 function addItem(){
-  //console.log('inaddItem()');
   
   var itemlink = '';  
   //create the request
   var hr = new XMLHttpRequest();
   var url = 'items/'
   var addname = document.getElementById("addname").value;
-  console.log('addname: ' +addname);
   if (addname == ''){document.getElementById("statuscell").innerHTML="<span class='error'><em>Name</em> must be completed.</span>";return;}
   var adddescription = document.getElementById("adddescription").value;
   var addprice = document.getElementById("addprice").value;
   var addquantity = document.getElementById("addquantity").value;
   var vars = "name="+addname+"&description="+adddescription+"&quantity="+addquantity+"&price="+addprice;  
-  console.log('vars: ' + vars);
+  //console.log('vars: ' + vars);
   hr.open("POST", url, true);
 
   hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -104,22 +97,21 @@ function addItem(){
       var r = JSON.parse(hr.responseText);
       for (o in r){
         itemlink += "<a href='http://"+r[o].url+"'>http://"+r[o].url+"</a>";
-          document.getElementById("statuscell").innerHTML='<span class="success">Successfully Added.'+itemlink+'</span>';
-         
-           document.getElementById("addname").value = null;
+          document.getElementById("statuscell").innerHTML='<span class="success">Successfully Added.'+itemlink+'</span>';   
+          document.getElementById("addname").value = null;
+        
         adddescription = document.getElementById("adddescription").value = null;
         addprice = document.getElementById("addprice").value = null;
         addquantity = document.getElementById("addquantity").value = null;
-        //myItems('bread', 'cheese', function(){getItems()});
-        location.reload();
+        document.getElementById("parsedinventory").value = null;
+        if (inventory != '') { inventory = "<div id=content name=content>";}
+        getItems();
+        
 
         
-      }
-     
-         
+      }    
      
     }
-
   }    
 
   hr.send(vars);
@@ -157,11 +149,21 @@ function makeUpdate (id) {
   hr.send();
 
   }
-
+  
+  var bob = "chicken";
+  var thisname = "";
   var inventory = "<div class='content float-left'>";
  function makeInventory(myname, myhref, id, item_desc, quantity, price, ts){
-  inventory += "<div class='card'><div class='cardtitle'>"+myname+"</div><div class='cardbody'>Description: "+item_desc+"<br>quantity: "+quantity+"<br>Price: $"+price+"<br><small>updated:<i>"+ts+"</i></small><br> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><br><input type='button' value='Update'class='button-gray' value='update' onClick='makeUpdate("+id+");'>&nbsp;<input type='button' value='Delete' class='button-gray' onclick='deleteItem("+id+");return false;'></div></div>";
- //console.log(inventory);
+
+
+    inventory += "<div class='card'><div class='cardtitle'>"+myname+"</div><div class='cardbody'>Description: "+item_desc+"<br>quantity: "+quantity+"<br>Price: $"+price+"<br><small>updated:<i>"+ts+"</i></small><br> <a href='http://"+myhref+"'>http://"+myhref+"</a><br><br><input type='button' value='Update'class='button-gray' value='update' onClick='makeUpdate("+id+");'>&nbsp;<input type='button' value='Delete' class='button-gray' onclick='deleteItem("+id+");return false;'></div></div>";
+    console.log("still" + bob)
+    //console.log(thisinventory);
+
+    
+
+
+  // console.log(inventory);
  }
 
 function updateItem(){
@@ -226,10 +228,11 @@ function deleteItem(id){
       var return_data = hr.responseText + '';
       
       //getItems();
-      getItems();
+      //getItems();
       document.getElementById("jsoncell").innerHTML = return_data;
       document.getElementById("statuscell").innerHTML = "<span class='success'>Successfully Deleted item: " + id + "</span>";
-
+      if (inventory != '') { inventory = "<div id=content name=content>";}
+      getItems();
     }
   }    
 

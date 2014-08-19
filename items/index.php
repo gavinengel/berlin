@@ -1,6 +1,6 @@
 <?php
 
-if (isset($_SERVER['HTTP_ORIGIN'])) {
+/*if (isset($_SERVER['HTTP_ORIGIN'])) {
     header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
     //header("Access-Control-Allow-Origin: *");
     header('Access-Control-Allow-Credentials: true');    
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
     exit(0);
 } 
-
+*/
 // database connect -- need to substitute with environment variables
 function connectDB(){
 
@@ -259,7 +259,7 @@ function connectDB(){
     //create initial item properties
     createItemProperties($last_id, $description, $quantity, $price);
 
-      header("Content-Type: application/json");
+      //header("Content-Type: application/json");
     echo '{"'.$last_id.'":{"item_id":"'.$last_id.'", "url": "' .$_SERVER['HTTP_HOST'].'/items/'.$last_id.'/"}}';
       
   }     // ************END CREATE (POST)  
