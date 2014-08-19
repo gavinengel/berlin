@@ -259,7 +259,7 @@ function connectDB(){
     //create initial item properties
     createItemProperties($last_id, $description, $quantity, $price);
 
-    http_response_code(200);
+    
     echo '{"'.$last_id.'":{"item_id":"'.$last_id.'", "url": "' .$_SERVER['HTTP_HOST'].'/items/'.$last_id.'/"}}';
       
   }     // ************END CREATE (POST)  

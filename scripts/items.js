@@ -64,7 +64,7 @@ function getItems(){
       document.getElementById("parsedinventory").innerHTML = inventory + "</div>";
        // document.getElementById("showcase").style.display="block";      
     //document.getElementById("jsoncell").innerHTML = hr.responseText;
-    return hr.responseText;
+    //return hr.responseText;
     }
   }    
   
@@ -101,15 +101,19 @@ function addItem(){
       var r = JSON.parse(hr.responseText);
       for (o in r){
         itemlink += "<a href='http://"+r[o].url+"'>http://"+r[o].url+"</a>";
-          document.getElementById("statuscell").innerHTML='<span class="success">Successfully Added.</span>';
-          getItems();
+          document.getElementById("statuscell").innerHTML='<span class="success">Successfully Added.'+itemlink+'</span>';
+         
            document.getElementById("addname").value = null;
         adddescription = document.getElementById("adddescription").value = null;
         addprice = document.getElementById("addprice").value = null;
         addquantity = document.getElementById("addquantity").value = null;
+        
       }
-
+     
+         
+     
     }
+    console.log("heres get items" + getItems());
   }    
 
   hr.send(vars);

@@ -21,7 +21,7 @@
       font-weight: normal;
       font-family: courier;
       font-size: .75em;
-      color: #000;
+      color: #eceff1;
       display: none
       }
 
@@ -37,7 +37,6 @@
       font-weight: normal;
       border: 2px;
       border-color: white;
-
      
     }
     
@@ -53,7 +52,9 @@
 fieldset {
     border:1px solid #ccc;
     padding:10px;
+    margin-top: 1em;
 }
+
 legend {
     padding:0 5px;
     text-align:right;
@@ -115,16 +116,16 @@ div.submit {
   </head>
 
 <body onload="getItems()" >
-  <div id="main" class="container">
-    <div class=title>inventory</div>
-      <div class="subtitle">a REST api demo</div>
-        <br>
-        <div>
-           <input type="button" class="button-gray" value= "Create New Item" onclick="createupdate();return false;">&nbsp;<input type="button" value='JSON' onclick="showhidejson();" id="showjson" class="button-gray" >
-        </div>
-        <br>
-        <div id="jsoncell">awaiting JSON ...</div>
-      <form id="create">
+
+    <header>
+      <h1><a href="./">inventory</a></h1>
+      <h4>a REST api demo</h4>
+  
+           <input type="button" class="button-teal" value= "Create New Item" onclick="createupdate();return false;">&nbsp;<input type="button" value='json' onclick="showhidejson();" id="showjson" class="button-lightblue" >
+    </header>
+    <main>
+        <div id="jsoncell" class="jsoncell">waiting ...</div>
+    <form id="create">
     <fieldset>
         <legend>Create Item</legend>
         <div>
@@ -150,7 +151,7 @@ div.submit {
     </fieldset>
 </form>
 
-      <form id="update">
+      <div id="update">
     <fieldset>
         <legend>Update Item</legend>
         <div>
@@ -178,18 +179,17 @@ div.submit {
             
         </div>
     </fieldset>
-</form>
+</div>
 
   
   <div id="statuscell"></div>
-  
-    <h2>Recent Items</h2>     
+     
     
-              <div id="parsedinventory"></td>
+              <div id="parsedinventory" class="parsedinventory"></td>
   
 
 
 
-    </div> <!-- end main -->
+    </main> <!-- end main -->
   </body>
 </html>
