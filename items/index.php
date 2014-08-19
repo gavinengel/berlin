@@ -1,24 +1,13 @@
 <?php
 
-/*if (isset($_SERVER['HTTP_ORIGIN'])) {
-    header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-    //header("Access-Control-Allow-Origin: *");
-    header('Access-Control-Allow-Credentials: true');    
-    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-    header('Access-Control-Allow-Headers: Content-Type'); 
-    header('Access-Control-Allow-Headers: X-f35e678261fde10f4ce97d1a91881c9f');
-} 
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
-        header("Access-Control-Allow-Methods: GET, OPTIONS");         
-    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
-        header("Access-Control-Allow-Headers:{$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
 
-    exit(0);
-} 
-*/
+
 // database connect -- need to substitute with environment variables
 function connectDB(){
+$dbhost = getenv("OPENSHIFT_MYSQL_DB_HOST");
+$dbport = getenv("OPENSHIFT_MYSQL_DB_PORT");
+$dbuser = getenv("OPENSHIFT_MYSQL_DB_USERNAME");
+$dbpwd = getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
 
   if ($_SERVER['HTTP_HOST'] == 'localhost') {
     $dsn="mysql:host=localhost;dbname=inventory;port=3306;";
@@ -26,8 +15,8 @@ function connectDB(){
     $dbpass="";
   }else{
       $dsn="mysql:host=127.4.142.130;port=3306;dbname=inventory";
-      $dbuser="adminAVtM3nG";
-      $dbpass="ARqlnjYKVh3B";
+      $dbuser=getenv("OPENSHIFT_MYSQL_DB_USERNAME");
+      $dbpass=getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
   }
 
   try {
@@ -179,12 +168,6 @@ function connectDB(){
     if ($end == '') {  
       $data = getAllItems();  
 
-      /*
-      select i.item_id, i.item_name, i.item_desc, 
-          p.quantity, p.price, i.ts
-          FROM items i
-          LEFT JOIN item_properties p ON i.item_id = p.fk_item_id */
-
       //format response and add specified href
       foreach ($data as $row){
         $currentid = $row["item_id"];
@@ -226,7 +209,7 @@ function connectDB(){
 
   //end GET ITEM(S) ***************************************
 
-  // ********************CREATE NEw (POST)  ******************** 
+  // ********************CREATE New (POST)  ******************** 
 
 
   // IF METHOD IS POST ADD ITEM TO DB
@@ -289,22 +272,6 @@ function connectDB(){
     header("Content-Type: application/json");
     echo json_encode("http://".$_SERVER['HTTP_HOST']."/items/".$item_id);
 
-
-    
-    //echo("id:". $put_vars["itemid"]);
-
-  //$sql = "UPDATE items set item_name='".
-
-  //updateItem($put_vars["name"], $put_vars["description"], $put_vars["itemid"]);
-  
-  /* $stmt = $dbh->prepare($sql);
-  $stmt -> execute();
-
-  $sql = "UPDATE item_properties set quantity=".$put_vars["quantity"].", price=".$put_vars["price"]." where fk_item_id = ".$put_vars["itemid"];
-  echo($sql);
-  $stmt = $dbh->prepare($sql);
-  $stmt -> execute();
-*/
 
 }  // end PUT/UPDATE
 
