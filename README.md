@@ -16,6 +16,8 @@ On the server side, PHP reads the request parameters and performs the requested 
 
  - The code is intentially raw. No librarys such as jQuery are employed.  A one page version with all JS and CSS is included as inventory.html and can be used as a stand-alone "inventory manager" with header pre-flights. 
  
+- The only security employed is at the datbase interface level using prepared statements and variable binding
+- 
  - Decision was made to use PUT and DELETE methods as references for future implementations.
  
  - The cards interface was used in the style of Google Keep -- the boxes are designed to easily include thumbnail images or other properties for whatever kinds of objects might be stored.
@@ -26,18 +28,18 @@ On the server side, PHP reads the request parameters and performs the requested 
  ## Client JavaScript/AJAX Request and Response
  
 
-  var hr = new XMLHttpRequest();
-  var url = 'items/';
-  hr.open("GET", url, true);
-  hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  hr.onreadystatechange = function(){
-    if (hr.readyState == 4 && hr.status == 200){
+    var hr = new XMLHttpRequest();  
+    var url = 'items/';
+    hr.open("GET", url, true);  
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");  
+    hr.onreadystatechange = function(){  
+    if (hr.readyState == 4 && hr.status == 200){  
       
-      var r = JSON.parse(hr.responseText);
+     var r = JSON.parse(hr.responseText);  
 ...
+    hr.send();  
+ 
 
- hr.send(); 
-  
  
  ### A sample JSON response could look like: 
   
@@ -49,8 +51,7 @@ On the server side, PHP reads the request parameters and performs the requested 
 
 ### Request
 
- if ($method == "POST") {
-
+    if ($method == "POST") {
     //get values
     if (isset($_POST['name'])) {  
      $name=$_POST['name'];
@@ -62,7 +63,7 @@ On the server side, PHP reads the request parameters and performs the requested 
 
 ### Database communications
 
-  function createItem($name, $description){
+    function createItem($name, $description){
     $dbh = connectDB();
    
     // prepare and insert item into items table (before item props)
@@ -104,7 +105,7 @@ On the server side, PHP reads the request parameters and performs the requested 
 
 ### HTML Form Card
 
-  <form id="create" class="content float-left">
+    <form id="create" class="content float-left">
     <fieldset>
       <div class='content float-left'>
         <div class='cardform'>
@@ -133,8 +134,8 @@ On the server side, PHP reads the request parameters and performs the requested 
           </div>
         </div>
       </div>
-    </fieldset>
-  </form>
+      </fieldset>
+      </form>
 
 
 # Conclusion 
