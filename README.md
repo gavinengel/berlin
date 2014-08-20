@@ -1,7 +1,8 @@
 inventory-api
 =============
 
-api blue
+A copy of the inventory api blueprint is included in inventoryblueprint.md  
+
 A groundwork one page REST app, using raw javascript/json/ajax exchanges with a thin LAMP stack on OpenShift.
 
 #Summary
@@ -14,13 +15,13 @@ On the server side, PHP reads the request parameters and performs the requested 
 
 ##Design Considerations
 
- - The code is intentially raw. No librarys such as jQuery are employed.  A one page version with all JS and CSS is included as inventory.html and can be used as a stand-alone "inventory manager" with header pre-flights. 
+* The code is intentially raw. No librarys such as jQuery are employed.  A one page version with all JS and CSS is included as inventory.html and can be used as a stand-alone "inventory manager" with header pre-flights. 
  
-- The only security employed is at the datbase interface level using prepared statements and variable binding
+* The only security employed is at the datbase interface level using prepared statements and variable binding.  
 - 
- - Decision was made to use PUT and DELETE methods as references for future implementations.
+* Decision was made to use PUT and DELETE methods as references for future implementations.  
  
- - The cards interface was used in the style of Google Keep -- the boxes are designed to easily include thumbnail images or other properties for whatever kinds of objects might be stored.
+* The cards interface was used in the style of Google Keep -- the boxes are designed to easily include thumbnail images or other properties for whatever kinds of objects might be stored.  
 
 * The interface is meant to be a request generator and response processor.  The rendering of JSON responses is a stub for future development.  
  #Samples
