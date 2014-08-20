@@ -82,8 +82,8 @@ h4{
 
 .button-teal{
   background:   #009688;
-  color: #fff;
-  font-weight: normal;
+  color: #ddd;
+  font-weight: bold;
   padding: 5px;
   border: 3px;
   width: auto;
@@ -94,7 +94,7 @@ h4{
   }  
 
   .button-blued{
-  background:   #0288d1;
+  background:   #b3e5fc;
   color: white;
   font-weight: bold;
   padding: 5px;
@@ -107,7 +107,7 @@ h4{
     background: #00796b;
   }
   .button-red{
-  background:   #f36c60;
+  background:   #f9bdbb;
   color: #fff;
   font-weight: bold;
   padding: 5px;
