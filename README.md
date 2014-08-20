@@ -1,9 +1,12 @@
 inventory-api
 =============
 
+A groundwork for one page REST app, using raw javascript/json/ajax exchanges with a thin LAMP stack on OpenShift.  The interface was created with mobile in mind.
+
 A copy of the inventory api blueprint is included in inventoryblueprint.md  
 
-A groundwork one page REST app, using raw javascript/json/ajax exchanges with a thin LAMP stack on OpenShift.
+As of this commit, a demo is available on [OpenShift](http://inventory-ktleary.rhcloud.com)
+
 
 #Summary
 
