@@ -16,9 +16,8 @@ On the server side, PHP reads the request parameters and performs the requested 
 ##Design Considerations
 
 * The code is intentially raw. No librarys such as jQuery are employed.  A one page version with all JS and CSS is included as inventory.html and can be used as a stand-alone "inventory manager" with header pre-flights. 
- 
-* The only security employed is at the datbase interface level using prepared statements and variable binding.  
-- 
+* The only security employed is at the datbase interface level using PDO prepared statements and variable binding.  
+
 * Decision was made to use PUT and DELETE methods as references for future implementations.  
  
 * The cards interface was used in the style of Google Keep -- the boxes are designed to easily include thumbnail images or other properties for whatever kinds of objects might be stored.  
@@ -86,26 +85,27 @@ On the server side, PHP reads the request parameters and performs the requested 
 
 ### Reponse
 
-  //format response and add specified href
-      foreach ($data as $row){
-        $currentid = $row["item_id"];
-        $currentname = $row["item_name"];
-        $price = $row["price"];
-        $quantity = $row["quantity"];
-        $ts = $row["ts"];
-        $item_desc = $row["item_desc"];
-        //$currenturl = "$row->url";
-        //$currentimage = "$row->image";
+'''
+      //format response and add specified href  
+      foreach ($data as $row){  
+        $currentid = $row["item_id"];  
+        $currentname = $row["item_name"];  
+        $price = $row["price"];  
+        $quantity = $row["quantity"];  
+        $ts = $row["ts"];  
+        $item_desc = $row["item_desc"];  
+        //$currenturl = "$row->url";  
+        //$currentimage = "$row->image";  
         $array[$currentid] = array('item_id'=>$currentid,'item_name'=>$currentname, 
           'quantity'=>$quantity, 'price'=>$price, 'item_desc'=>$item_desc, 'ts'=>$ts,
           'url'=> $_SERVER['HTTP_HOST']."/items/".$currentid."/");
-      }
-      //send all results in json
-      header("Content-Type: application/json");
-      echo  json_encode($array);
-
+      }  
+      //send all results in json  
+      header("Content-Type: application/json");  
+      echo  json_encode($array);  
+'''
 ### HTML Form Card
-
+'''
     <form id="create" class="content float-left">
     <fieldset>
       <div class='content float-left'>
@@ -137,7 +137,7 @@ On the server side, PHP reads the request parameters and performs the requested 
       </div>
       </fieldset>
       </form>
-
+'''
 
 # Conclusion 
 
