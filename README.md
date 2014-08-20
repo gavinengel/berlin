@@ -31,6 +31,7 @@ On the server side, PHP reads the request parameters and performs the requested 
  ## Client JavaScript/AJAX Request and Response
  
 
+ 
     var hr = new XMLHttpRequest();  
     var url = 'items/';
     hr.open("GET", url, true);  
@@ -41,12 +42,13 @@ On the server side, PHP reads the request parameters and performs the requested 
      var r = JSON.parse(hr.responseText);  
 ...
     hr.send();  
- 
+'''
 
  
  ### A sample JSON response could look like: 
   
-        {"311":{"item_id":"311","item_name":"coaster","quantity":"3","price":"1","item_desc":"picture of rhino","ts":"2014-08-15 09:55:45","url":"inventory-ktleary.rhcloud.com/items/311/"},{"312":{"item_id":"312","item_name":"chocolate bar","quantity":"10001","price":"333","item_desc":"dark 85%","ts":"2014-08-15 10:24:29","url":"inventory-ktleary.rhcloud.com/items/312/"},
+        {"311":{"item_id":"311","item_name":"coaster","quantity":"3","price":"1","item_desc":"picture of rhino","ts":"2014-08-15 09:55:45","url":"inventory-ktleary.rhcloud.com/items/311/"},
+        {"312":{"item_id":"312","item_name":"chocolate bar","quantity":"10001","price":"333","item_desc":"dark 85%","ts":"2014-08-15 10:24:29","url":"inventory-ktleary.rhcloud.com/items/312/"},
 
 
 
@@ -108,7 +110,7 @@ On the server side, PHP reads the request parameters and performs the requested 
       echo  json_encode($array);  
 '''
 ### HTML Form Card
-'''
+
     <form id="create" class="content float-left">
     <fieldset>
       <div class='content float-left'>
@@ -140,7 +142,7 @@ On the server side, PHP reads the request parameters and performs the requested 
       </div>
       </fieldset>
       </form>
-'''
+
 
 # Conclusion 
 
