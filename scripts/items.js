@@ -71,9 +71,9 @@ function addItem(){
     if (hr.readyState == 4 && hr.status == 200){
       var r = JSON.parse(hr.responseText);
       for (o in r){
-        itemlink += "<a href='http://"+r[o].url+"'>http://"+r[o].url+"</a>";         
+        itemlink = "<a href='http://"+r[o].url+"'>http://"+r[o].url+"</a>";         
       }     
-    status.innerHTML='<span class=success>Successfully Added.'+itemlink+'</span>';
+    status.innerHTML='<span class=success>Successfully added. Resource: '+itemlink+'</span>';
     
     if (inventory != '') { inventory = "<div id=content name=content>";} 
     getItems();
@@ -196,8 +196,8 @@ function makeUpdate (id) {
   var inventory = "<div class='content float-left'>";
   function makeInventory(myname, myhref, id, item_desc, quantity, price, ts){
     inventory += "<div class='card'><div class='cardtitle'>"+myname+"</div>"+
-    "<div class='cardbody'>description: "+item_desc.substr(0, 75)+"<br>"+
-    "Quantity: "+quantity+"<br>Price: $"+price+"<br><a href='"+document.location.href+"items/"+id+"/'><span class=altlinks>"+document.location.href+"items/"+id+"/</font></a><br><small><i>updated:"+ts+"</i></small></div>"+
+    "<div class='cardbody'>Description: "+item_desc.substr(0, 75)+"<br>"+
+    "Quantity: "+quantity+"<br>Price: $"+price+"<br>Resource Id: "+id+"<br><small><i>updated:"+ts+"</i></small></div>"+
     "<div class=cardfooter'><input type='button' value='Update'class='button-blued' value='update' onClick='makeUpdate("+id+");'>"+
     "&nbsp;&nbsp;<input type='button' value='Delete' class='button-red' onclick='deleteItem("+id+");return false;'></div></div>";
  }

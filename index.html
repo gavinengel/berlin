@@ -21,7 +21,7 @@
       font-weight: normal;
       font-family: courier;
       font-size: .75em;
-      color: #eceff1;
+      color: #01579b;
       display: none
       }
 
@@ -48,44 +48,6 @@
       border-color: white;
      
     }
-
-fieldset {
-    border:1px solid #ccc;
-    padding:10px;
-    margin-top: 1em;
-}
-
-legend {
-    padding:0 5px;
-    text-align:right;
-    color: #fff;
-}
-fieldset > div {
-    margin:10px 0;
-}
-fieldset > legend + div {
-    margin-top:0;
-}
-fieldset > div:last-child {
-    margin-bottom:0;
-}
-label {
-    display:inline-block;
-    width:170px;
-}
-input {
-    width:200px;
-}
-input[type="submit"] {
-    width:auto;
-}
-.help {
-    display:none;
-    font-size:90%;
-}
-input:focus + .help {
-    display:inline-block;
-}
 
   .
     </style>
@@ -114,80 +76,88 @@ input:focus + .help {
   </head>
 
 <body onload="getItems()" >
+<header role=banner>
+  <h1><a href="./">inventory</a></h1>
+  <div>a simple REST api</div>
 
-    <header>
-      <h1><a href="./">inventory</a></h1>
+</header> 
 
-  
-           <input type="button" class="button-teal" value= "Create New Item" onclick="createupdate();return false;">&nbsp;<input type="button" value='json' onclick="showhidejson();" id="showjson" class="button-lightblue" >
-    </header>
-    <main>
-        <div id="jsoncell" class="jsoncell">waiting ...</div>
-    <form id="create">
+  <div class=bar>
+    <input type="button" class="button-teal" value= "Create New Item" onclick="createupdate();return false;">&nbsp;
+    <input type="button" value='json' onclick="showhidejson();" id="showjson" class="button-lightblue" >
+  </div> 
+<div id="main" class="main">
+
+  <div id="jsoncell" class="jsoncell">waiting ...</div>
+  <form id="create" class="content float-left">
     <fieldset>
-        <legend>Create Item</legend>
-        <div>
+      <div class='content float-left'>
+        <div class='cardform'>
+          <div class='cardformtitle'>
+            Create Item
+          </div>
+          <div class='cardformbody'>
             <label for="addname">Item Name*:</label>
-            <input type="text" id="addname" name="addname" value="" aria-describedby="name-format">
-        </div>
-        <div>
-            <label for="adddescription">Description:</label>
+            <input type="text" id="addname" name="addname" value="">
+          </div>
+          <div class='cardformbody'>
+            <label for="adddescription">Description:</label> 
             <input type="text" id="adddescription" name="adddescription" value="">
-        </div>
-        <div>
+          </div>
+          <div class="cardformbody">
             <label>Quantity*:</label>
             <input type="text" id="addquantity" name="addquantity" value="" required>
-        </div>
-        <div>
+          </div>
+          <div class="cardformbody">
             <label for="addprice">Unit Price:</label>
             <input type="text" id="addprice" name="addprice" value="">
+          </div>
+          <div class='cardfooter'>
+            <input type="button" class="button-teal" value="Create" onClick="javascript:addItem();">&nbsp;
+            <input type="button" class="button-red" value="Cancel" onClick="javascript:document.getElementById('create').style.display='none'; return false;">
+          </div>
         </div>
-        <div>
-            <input type="button" class="button-teal" value="Create" onClick="javascript:addItem();">&nbsp;<input type="button" class="button-red" value="Cancel" onClick="javascript:document.getElementById('create').style.display='none'; return false;">
-            <br>
-        </div>
+      </div>
     </fieldset>
-</form>
-
-      <form id="update">
+  </form>
+  <form id="update">
     <fieldset>
-        <legend>Update Item</legend>
-        <div>
+
+       <div class='content float-left'>
+        <div class='cardform'>
+          <div class='cardformtitle'>
+              Create Item
+ 
+          </div>
+          <div class='cardformbody'>
             <label for="itemid">Item ID:</label>
             <input type="text" id="itemid" name="itemid" value="" readonly>
-        </div>
-        <div>
+          </div>
+          <div class="cardformbody">
             <label for="name">Item Name (required):</label>
             <input type="text" id="name" name="name" value="">
-        </div>
-        <div>
+          </div>
+          <div class="cardformbody">
             <label for="description">Description:</label>
             <input type="text" id="description" name="description" value="">
-        </div>
-        <div>
+          </div>
+          <div class="cardformbody">
             <label>Quantity:</label>
             <input type="text" id="quantity" name="quantity" value="">
-        </div>
-        <div>
+          </div>
+          <div class="cardformbody">
             <label for="price">Unit Price:</label>
             <input type="text" id="price" name="addprice" value="">
+          </div>
+          <div class="cardfooter">
+          <input type="button" class="button-teal" value="Update" onClick="javascript:updateItem();">&nbsp;<input type="button" class="button-red" value="Cancel" onClick="javascript:document.getElementById('update').style.display='none';">
+          </div>
         </div>
-        <div>
-         <input type="button" class="button-teal" value="Update" onClick="javascript:updateItem();">&nbsp;<input type="button" class="button-red" value="Cancel" onClick="javascript:document.getElementById('update').style.display='none';">
-            
-        </div>
-    </fieldset>
-</form>
-
-  
+      </div>
+      </fieldset>
+      </form> 
   <div id="statuscell"></div>
-     
-    
-              <div id="parsedinventory" class="parsedinventory"></td>
-  
-
-
-
-    </main> <!-- end main -->
-  </body>
+  <div id="parsedinventory" class="parsedinventory">
+</div> <!-- end main -->
+</body>
 </html>
