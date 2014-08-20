@@ -196,8 +196,8 @@ function makeUpdate (id) {
   var inventory = "<div class='content float-left'>";
   function makeInventory(myname, myhref, id, item_desc, quantity, price, ts){
     inventory += "<div class='card'><div class='cardtitle'>"+myname+"</div>"+
-    "<div class='cardbody'>Description: "+item_desc.substr(0, 75)+"<br>"+
-    "Quantity: "+quantity+"<br>Price: $"+price+"<br>Resource Id: "+id+"<br><small><i>updated:"+ts+"</i></small></div>"+
+    "<div class='cardbody'><div>Description: "+item_desc.substr(0, 75)+"</div><div>"+
+    "Quantity: "+quantity+"</div><div>Price: $"+price+"<br>Resource Id: "+id+"</div><div><small><i>updated:"+ts+"</i></small></div></div>"+
     "<div class=cardfooter'><input type='button' value='Update'class='button-blued' value='update' onClick='makeUpdate("+id+");'>"+
     "&nbsp;&nbsp;<input type='button' value='Delete' class='button-red' onclick='deleteItem("+id+");return false;'></div></div>";
  }
