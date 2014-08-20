@@ -5,7 +5,7 @@ A groundwork for one page REST app, using raw javascript/json/ajax exchanges wit
 
 A copy of the inventory api blueprint is included in inventoryblueprint.md  
 
-As of this commit, a demo is available on [OpenShift](http://inventory-ktleary.rhcloud.com)
+As 8/20/14, a demo is available on [OpenShift](http://inventory-ktleary.rhcloud.com)
 
 
 #Summary
@@ -18,7 +18,8 @@ On the server side, PHP reads the request parameters and performs the requested 
 
 ##Design Considerations
 
-* The code is intentially raw. No librarys such as jQuery are employed.  A one page version with all JS and CSS is included as inventory.html and can be used as a stand-alone "inventory manager" with header pre-flights. 
+* The code is intentially raw. No librarys such as jQuery are employed.  A one page version with all JS and CSS is included as inventory.html and can be used as a stand-alone "inventory manager" with header pre-flights (get and post only).
+
 * The only security employed is at the datbase interface level using PDO prepared statements and variable binding.  
 
 * Decision was made to use PUT and DELETE methods as references for future implementations.  
