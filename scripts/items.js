@@ -182,6 +182,7 @@ function makeUpdate (id) {
         document.getElementById("quantity").value = r[o].quantity;
         document.getElementById("statuscell").innerHTML= '';
 
+
     document.getElementById('jsoncell').innerHTML=hr.responseText.substr(0, 50);
       };
     }
@@ -198,7 +199,7 @@ function makeUpdate (id) {
     inventory += "<div class='card'><div class='cardtitle'>"+myname+"</div>"+
     "<div class='cardbody'><div>Description: "+item_desc.substr(0, 75)+"</div><div>"+
     "Quantity: "+quantity+"</div><div>Price: $"+price+"<br>Resource Id: "+id+"</div><div><small><i>updated:"+ts+"</i></small></div></div>"+
-    "<div class=cardfooter'><input type='button' value='Update'class='button-blued' value='update' onClick='makeUpdate("+id+");'>"+
+    "<div class=cardfooter'><a href='#update'><input type='button' value='Update'class='button-blued' value='update' onClick='makeUpdate("+id+");'></a>"+
     "&nbsp;&nbsp;<input type='button' value='Delete' class='button-red' onclick='deleteItem("+id+");return false;'></div></div>";
  }
 
