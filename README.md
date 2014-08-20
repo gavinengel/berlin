@@ -83,7 +83,7 @@ On the server side, PHP reads the request parameters and performs the requested 
     }
       
 
-### Reponse
+### Response
 
 '''
       //format response and add specified href  
