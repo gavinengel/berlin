@@ -31,8 +31,8 @@ On the server side, PHP reads the request parameters and performs the requested 
  
  ## Client JavaScript/AJAX Request and Response
  
+...
 
- 
     var hr = new XMLHttpRequest();  
     var url = 'items/';
     hr.open("GET", url, true);  
@@ -41,9 +41,10 @@ On the server side, PHP reads the request parameters and performs the requested 
     if (hr.readyState == 4 && hr.status == 200){  
       
      var r = JSON.parse(hr.responseText);  
-...
+
     hr.send();  
-'''
+...
+
 
  
  ### A sample JSON response could look like: 
@@ -92,24 +93,25 @@ On the server side, PHP reads the request parameters and performs the requested 
 ### Response
 
 '''
-      //format response and add specified href  
-      foreach ($data as $row){  
-        $currentid = $row["item_id"];  
-        $currentname = $row["item_name"];  
-        $price = $row["price"];  
-        $quantity = $row["quantity"];  
-        $ts = $row["ts"];  
-        $item_desc = $row["item_desc"];  
-        //$currenturl = "$row->url";  
-        //$currentimage = "$row->image";  
-        $array[$currentid] = array('item_id'=>$currentid,'item_name'=>$currentname, 
-          'quantity'=>$quantity, 'price'=>$price, 'item_desc'=>$item_desc, 'ts'=>$ts,
-          'url'=> $_SERVER['HTTP_HOST']."/items/".$currentid."/");
-      }  
-      //send all results in json  
-      header("Content-Type: application/json");  
-      echo  json_encode($array);  
-'''
+
+    //format response and add specified href  
+    foreach ($data as $row){  
+    $currentid = $row["item_id"];  
+    $currentname = $row["item_name"];  
+    $price = $row["price"];  
+    $quantity = $row["quantity"];  
+    $ts = $row["ts"];  
+    $item_desc = $row["item_desc"];  
+    //$currenturl = "$row->url";  
+    //$currentimage = "$row->image";  
+    $array[$currentid] = array('item_id'=>$currentid,'item_name'=>$currentname, 
+    'quantity'=>$quantity, 'price'=>$price, 'item_desc'=>$item_desc, 'ts'=>$ts,
+    'url'=> $_SERVER['HTTP_HOST']."/items/".$currentid."/");
+    }  
+    //send all results in json  
+    header("Content-Type: application/json");  
+    echo  json_encode($array);  
+    '''
 ### HTML Form Card
 
     <form id="create" class="content float-left">
