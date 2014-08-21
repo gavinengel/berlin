@@ -1,16 +1,16 @@
 inventory-api
 =============
 
-A groundwork for one page REST app, using raw javascript/json/ajax exchanges with a thin LAMP stack on OpenShift.  The interface was created with mobile in mind.
+A basic one page REST app, using raw javascript/json/ajax exchanges with a thin LAMP stack on OpenShift.  The interface was created with mobile in mind.
 
 A copy of the inventory api blueprint is included in inventoryblueprint.md  
 
-As 8/20/14, a demo is available on [OpenShift](http://inventory-ktleary.rhcloud.com)
+A demo is available on [OpenShift](http://inventory-ktleary.rhcloud.com)
 
 
 #Summary
 
-Inventory is intended  as a groundwork for a simple, one page REST application.  It relies primarily on client side JavaScript to send HTTP GET, POST, PUT, DELETE requests to a PHP/MySQL backend.  
+Inventory relies primarily on client side JavaScript to send HTTP GET, POST, PUT, DELETE requests to a PHP/MySQL backend.  
 
 Client to server communications are sent through AJAX via x-www-form-urlencoded requests which are returned with PHP-generated JSON representing items in the database.  JSON.parse handles the responses.
 
