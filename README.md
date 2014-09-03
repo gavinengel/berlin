@@ -5,7 +5,7 @@ A basic one page REST app, using raw javascript/json/ajax exchanges with a thin 
 
 A copy of the inventory api blueprint is included in inventoryblueprint.md  
 
-A demo is available on [OpenShift](http://inventory-ktleary.rhcloud.com)
+
 
 
 #Summary
