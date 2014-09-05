@@ -47,7 +47,7 @@ On the server side, PHP reads the request parameters and performs the requested 
 
 
  
- ### A sample JSON response could look like: 
+ ### A sample JSON response looks like the following: 
   
         {"311":{"item_id":"311","item_name":"coaster","quantity":"3","price":"1","item_desc":"picture of rhino","ts":"2014-08-15 09:55:45","url":"inventory-ktleary.rhcloud.com/items/311/"},
         {"312":{"item_id":"312","item_name":"chocolate bar","quantity":"10001","price":"333","item_desc":"dark 85%","ts":"2014-08-15 10:24:29","url":"inventory-ktleary.rhcloud.com/items/312/"},
