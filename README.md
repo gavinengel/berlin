@@ -146,8 +146,5 @@ On the server side, PHP reads the request parameters and performs the requested 
       </fieldset>
       </form>
 
-
-# Conclusion 
-
-The raw lightweight REST protrotype is a back to basics starting point for envisioning a full featured, lightweight small footprint application.  Some low hanging fruit would be adding authentication, and an MVC framework to formalize and expediete feature development.
-
+# Conclusion
+This is a bare bones api which can be adapted for various frameworks and design requirements.
